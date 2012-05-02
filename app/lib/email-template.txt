@@ -1,0 +1,16 @@
+Hello {{name}}! 
+
+You've been invited to Yunify.
+
+Please join us by completing following steps:
+
+1. Login with your facebook account
+   {{base_url}}/login
+
+2. Join your group by clicking on following link:
+   {{base_url}}/groups/{{group_id}}/join
+
+We hope to see you soon! ;)
+
+Regards,
+Yunify team

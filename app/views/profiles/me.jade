@@ -1,0 +1,72 @@
+
+extends ../layout
+
+block content
+	.page-header
+		h1
+			| My Account 
+			small this is you
+	.row
+		.span3
+			.well
+				img(src='https://graph.facebook.com/' + everyauth.user.fb.id + '/picture?type=large', alt='#{user.fullName}')
+			.well
+				strong name
+				p= me.fullName
+				strong email
+				p
+					a(href='mailto:#{me.email}') #{me.email}
+				strong gender
+				p= me.fb.gender
+				strong facebook
+				p
+					a(href='#{everyauth.facebook.user.link}', target='_blank') #{everyauth.facebook.user.username}
+				strong bio
+				p= me.bio
+
+			- if (!me.group)
+				a.btn.btn-primary.btn-large(data-toggle='modal', href='#create_group_modal') Create your own group
+				#create_group_modal.modal.hide.fade
+					.modal-header
+							button.close(data-dismiss='modal') ×
+							h3 New Group
+						.modal-body
+							form#new_group_form(method='post', action='/groups')
+								.control-group
+									label.control-label(for='group_name') Name
+										.controls
+											input#group_name.input-xlarge(type='text', name='name', placeholder='Your group's cool name goes here')
+								.control-group
+									label.control-label(for='group_description') Description
+										.controls
+											textarea#group_description.input-xlarge(rows='3', name='description', placeholder='Some awesome group description')
+						.modal-footer
+							button.btn.btn-primary(type='submit', form='new_group_form') Create
+			- else
+				.well
+					strong group name
+					p= me.group.name
+					strong group description
+					p= me.group.description
+					strong 
+						a(href='/groups/#{me.group._id}') link
+		.span8.offset1
+			form.form-horizontal(method='put', action='/profiles/' + user._id + '/update')
+				fieldset
+					legend Edit my profile
+					.control-group
+						label.control-label(for='name') Full name:
+						.controls
+							input(type='text', name='name', value=me.fullName)
+					.control-group
+						label.control-label(for='email') Email:
+						.controls
+							input(type='email', name='email', value=me.email)
+					.control-group
+						label.control-label(for='twitter') Twitter:
+						.controls
+							.input-prepend
+								span.add-on @
+								input#prependedInput(type='text', name='twitter', value=me.twitter)
+					.form-actions
+						btn#update_profile.btn.btn-primary.btn-large(type='submit') Update

@@ -1,0 +1,55 @@
+!!! 5
+html(lang='en')
+	head
+		meta(charset='utf-8')
+		title= title
+		meta(name='viewport', content='width=device-width, initial-scale=1.0')
+		meta(name='description', content='yunify')
+		meta(name='author', content='codability')
+		link(href='/css/lib/bootstrap.min.css', rel='stylesheet')
+		link(href='/css/desktop.css', rel='stylesheet')
+		link(rel='shortcut icon', href='ico/favicon.ico')
+		link(rel='apple-touch-icon-precomposed', sizes='144x144', href='/ico/apple-touch-icon-144-precomposed.png')
+		link(rel='apple-touch-icon-precomposed', sizes='114x114', href='/ico/apple-touch-icon-114-precomposed.png')
+		link(rel='apple-touch-icon-precomposed', sizes='72x72', href='/ico/apple-touch-icon-72-precomposed.png')
+		link(rel='apple-touch-icon-precomposed', href='/ico/apple-touch-icon-57-precomposed.png')
+	body
+		header#header
+			#header_container
+				.logo
+					h1
+						a(href='/') Yunify
+				nav
+					ul
+						- if (everyauth.loggedIn)
+							li.nav_item
+								a(href='/') Home
+							li.nav_item
+								a(href='/tasks') Tasks
+							li.nav_item
+								a(href='/roomies') Roomies 
+							li.codertag
+								a#codertag(href='/me')
+									img(alt='#{user.fullName}', src='https://graph.facebook.com/' + everyauth.user.fb.id + '/picture?type=square')
+									.account_info
+										h2 #{user.fullName}
+										.stats
+											span.score 500 points
+											span.exercises 15
+											span.achievements 22
+							li
+								a.sign_out(href='/logout') Sign Out 
+						- else
+							li
+								a.sign_in(href='/auth/facebook') Sign in
+		.container
+			block content
+			hr
+			footer
+				small.muted &copy; 2012 Codability
+		block scripts
+			script(src='/js/lib/json2.js')
+			script(src='/js/lib/jquery-1.7.2.min.js')
+			script(src='/js/lib/bootstrap.min.js')
+			script(src='/js/lib/underscore.min.js')
+			script(src='/js/lib/backbone.min.js')

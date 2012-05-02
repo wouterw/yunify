@@ -1,0 +1,197 @@
+#header {
+  position: relative;
+  margin-bottom: 20px;
+  border-bottom: 1px solid #E5E5E5;
+  height: 43px;
+  -moz-box-shadow: 0 0 20px #dddddd;
+  -webkit-box-shadow: 0 0 20px #dddddd;
+  box-shadow: 0 0 20px #dddddd;
+  font-size: 0.92em;
+  background: url('../img/header_noise.png') bottom left black;
+  height: 55px;
+  border-top: 1px solid #111;
+  border-bottom: 1px solid #fff;
+  text-shadow: 1px 2px 0px #111;
+}
+
+.container,
+#header_container {
+  position: relative;
+  clear: both;
+  width: 988px;
+  margin: 0 auto;
+}
+
+#header a {
+  color: #EEE;
+  text-decoration: none;
+}
+
+#header h1 {
+  margin: 0;
+  padding: 10px 0;
+  font-size: 1.55em;
+}
+
+#header h1 a {
+  font-weight: normal;
+}
+
+#header .logo {
+  float: left;
+}
+
+#header nav {
+  float: right;
+  margin-top: 11px;
+}
+
+#header nav li span {
+  color: #BBB;
+}
+
+#header nav li {
+  display: block;
+  float: left;
+}
+
+#header h1 a {
+  line-height: 30px;
+}
+
+#header h1 a:active {
+  line-height: 31px;
+}
+
+#header nav {
+  margin-top: 0;
+  border-left: 1px solid #111111;
+}
+
+#header nav li.nav_item a {
+  height: 54px;
+  border-left: 1px solid #444444;
+  border-right: 1px solid #111111;
+  display: block;
+  padding: 0 25px;
+  font-size: 16px;
+  line-height: 54px;
+}
+
+#header nav li.nav_item a:hover {
+  background: url('../img/lighten_hover.png');
+  color: #fff;
+  line-height: 52px;
+  transition: all 0.5s linear;
+}
+
+#header nav li.nav_item a:active {
+  background: url('../img/darken_hover.png');
+  line-height: 54px;
+}
+
+/* === Codertag === */
+
+li.codertag {
+  border-left: 1px solid #444444;
+  padding-left: 15px;
+  height: 54px;
+}
+
+li.codertag a#codertag:hover {
+  background: url('../img/lighten_hover.png');
+  color: #fff;
+}
+
+li.codertag a#codertag:active {
+  background: url('../img/darken_hover.png');
+  color: #fff;
+  margin-top: 5px;
+  -webkit-box-shadow: 0 1px 0 0 #444;
+  -moz-box-shadow: 0 1px 0 0 #444;
+  box-shadow: 0 1px 0 0 #444;
+}
+
+#codertag {
+  display: block;
+  margin-top: 4px;
+  border: 1px solid #111;
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  border-radius: 4px;
+  padding: 7px;
+  height: 29px;
+  /* 55 - 10 - 2 - 14*/
+  -webkit-box-shadow: 0 1px 0 0 #444, inset 0 1px 0 0 #444;
+  -moz-box-shadow: 0 1px 0 0 #444, inset 0 1px 0 0 #444;
+  box-shadow: 0 1px 0 0 #444, inset 0 1px 0 0 #444;
+  overflow: visible;
+}
+
+#codertag img {
+  width: 29px;
+  height: 29px;
+  float: left;
+  margin-right: 10px;
+  border: 1px solid #111;
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  border-radius: 3px;
+  -webkit-box-shadow: 0 1px 0 0 #444, inset 0 1px 0 0 #444;
+  -moz-box-shadow: 0 1px 0 0 #444, inset 0 1px 0 0 #444;
+  box-shadow: 0 1px 0 0 #444, inset 0 1px 0 0 #444;
+}
+
+#codertag h2 {
+  line-height: 0.92em;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  padding-bottom: 2px;
+  font-size: 100%;
+  color: white;
+  margin: 1px 0 0 0;
+}
+
+#codertag .account_info {
+  float: right;
+}
+
+#codertag span {
+  font-weight: normal;
+  font-size: 10px;
+}
+
+#codertag .score {
+  font-weight: bold;
+  margin-right: 4px;
+}
+
+#codertag .exercises {
+  background: url('../img/icn_book.png') 0 1px no-repeat;
+  padding-left: 12px;
+}
+
+#codertag .achievements {
+  background: url('../img/icn_trophy.png') 0 2px no-repeat;
+  margin-left: 3px;
+  padding-left: 14px;
+}
+
+/* === End Codertag */
+
+#header nav li .sign_out, #header nav li .sign_in, #header nav li .sign_up {
+  color: #aaa;
+  font-weight: normal;
+  font-size: 0.9em;
+  line-height: 55px;
+  padding-left: 20px;
+}
+
+#header nav li .sign_out:hover, #header nav li .sign_in:hover, #header nav li .sign_up:hover {
+  color: #ddd;
+}
+
+#header nav li .sign_out:active, #header nav li .sign_in:active, #header nav li .sign_up:active {
+  line-height: 56px;
+}

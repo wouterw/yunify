@@ -1,0 +1,9 @@
+
+extends ../layout
+
+block content
+	- if (groups.length !== 0)
+		each group in groups
+			li= group
+	- else
+		p No groups found

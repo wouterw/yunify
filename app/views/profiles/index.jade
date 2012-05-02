@@ -1,0 +1,9 @@
+
+extends ../layout
+
+block content
+	- if (users.length !== 0)
+		each user in users
+			li= user
+	- else
+		p No users found

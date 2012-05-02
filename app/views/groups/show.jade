@@ -1,0 +1,51 @@
+
+extends ../layout
+
+block content
+	em.muted group:
+	.page-header
+		h1
+			| #{group.name} 
+			small #{group.description}
+	.row
+		.span3
+			.well
+				h2 Info
+				strong name
+				p= group.name
+				strong description
+				p= group.description
+			.well
+				h2 Members
+				each u in group.users
+					a(href='/profiles/#{u._id}', title='#{u.fullName}')
+					img(src='https://graph.facebook.com/' + u.fb.id + '/picture?type=square', alt='#{u.fullName}')
+			.well
+				a.btn.btn-primary.btn-large(data-toggle='modal', href='#invite-modal') Invite your friends
+				#invite-modal.modal.hide.fade(style='display: none;')
+					.modal-header
+						button.close(data-dismiss='modal') ×
+						h3 Send a Invitation
+					.modal-body
+						.row-fluid
+							.span6
+								label(for='invite-user')
+								strong Search
+								input#invite-user.span3(type='text', placeholder='Start typing your friends name')
+								label(for='invite-user')
+								strong Result(s)
+								select#user-suggestion(multiple='multiple', data-bind='optionsText: \'name\', optionsValue: \'id\', options:items, selectedOptions:selectedItems')
+								label(for='invite-comment')
+								strong Comment
+								textarea#invite-comment.input-xlarge(rows='3', placeholder='Add a comment here')
+							.span4(style='margin-left: 80px; text-align: center;')
+								ul#invite-user-preview.thumbnails
+								p.muted An invitation will be send via e-mail
+					.modal-footer
+						a.btn(href='#', data-dismiss='modal') Close
+						a#user-invite-button.btn.btn-primary(href='#') Invite
+		.span8.offset1
+			p test
+
+append scripts
+	script(src='/js/invite.js')
