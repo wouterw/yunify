@@ -1,0 +1,13 @@
+{
+	"name": "Yunify",
+	"version": "0.0.1",
+	"engines": {
+		"node": ">=0.6.16",
+		"npm": ">=1.1"
+	},
+	"dependencies": {
+		"jade": "latest",
+		"express": "",
+		"connect": ""
+	}
+}

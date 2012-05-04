@@ -7,6 +7,7 @@ var User = mongoose.model('User');
 
 module.exports = function (app) {
 
+	// GET /groups
 	app.get('/groups', function (req, res) {
 		return Group.find(function (err, groups) { 
 			res.render('groups/index', {
@@ -16,6 +17,8 @@ module.exports = function (app) {
 		});
 	});
 
+
+	// GET /groups/5
 	app.get('/groups/:id', function (req, res) {
 		return Group.findById(req.params.id).populate('users').run(function (err, group) {
 			res.render('groups/show', {
@@ -25,6 +28,8 @@ module.exports = function (app) {
 		});
 	});
 
+
+	// POST /groups
 	app.post('/groups', function (req, res) {
 		if (!req.user.group) {
 
@@ -51,10 +56,24 @@ module.exports = function (app) {
 		}
 	});
 
-	app.put('/groups', function (req, res) {
 
+	// PUT /groups/5
+	app.put('/groups/:id', function (req, res) {
+		return Group.findById(req.params.id, function (err, group) {
+			group.name = req.body.name;
+			group.description = req.body.description;
+			task.done = res.body.done;
+			return group.save(function (err, savedGroup) {
+				if (!err) {
+					console.log('Group ' + req.params.id + 'updated');
+				}
+				res.redirect('/groups/' + savedGroup._id);
+			});
+		});
 	});
 
+
+	// GET /roomies
 	app.get('/roomies', function (req, res) {
 
 	});

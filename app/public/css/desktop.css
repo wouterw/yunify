@@ -1,3 +1,13 @@
+html,
+body {
+  background: #F2F3F3;
+  -webkit-font-smoothing: antialiased;
+  -moz-font-smoothing: antialiased;
+  -ms-font-smoothing: antialiased;
+  -o-font-smoothing: antialiased;
+  font-smoothing: antialiased;
+}
+
 #header {
   position: relative;
   margin-bottom: 20px;
@@ -20,6 +30,11 @@
   clear: both;
   width: 988px;
   margin: 0 auto;
+}
+
+#header_container ul {
+  padding: 0;
+  margin: 0;
 }
 
 #header a {
@@ -195,3 +210,172 @@ li.codertag a#codertag:active {
 #header nav li .sign_out:active, #header nav li .sign_in:active, #header nav li .sign_up:active {
   line-height: 56px;
 }
+
+/* -- Browse Groups ---------- */
+.sub_main {
+  overflow: hidden;
+  width: 960px;
+  margin: auto;
+  background: #fff;
+  line-height: 21px;
+  -webkit-box-shadow: 0px 1px 3px 0px rgba(0, 0, 0, .2);
+  -moz-box-shadow: 0px 1px 3px 0px rgba(0,0,0,.2);
+  box-shadow: 0px 1px 3px 0px rgba(0, 0, 0, .2);
+}
+.sub_main img {
+  margin-right: 15px;
+}
+.rounded {
+  -moz-border-radius: 4px;
+  -webkit-border-radius: 4px;
+  border-radius: 4px;
+}
+/* -- endgroup -- */
+
+/* -- @group TASKS ---------- */
+section#todoapp input#new-todo {
+  display: inline-block;
+  position: relative;
+  padding: 20px;
+  font-size: 2em;
+  width: 100%;
+}
+
+section#todoapp .sub_main {
+  margin-bottom: 10px;
+  padding: 10px 15px;
+  width: 100%;
+}
+
+section#todoapp .sub_main button.destroy {
+  float: right;
+}
+
+section#todoapp .sub_main.editing {
+  border-bottom: none;
+  padding: 0;
+}
+
+section#todoapp .sub_main.editing .edit {
+  display: block;
+  width: 506px;
+  padding: 13px 17px 12px 17px;
+  margin: 0 0 0 43px;
+}
+
+section#todoapp .sub_main.editing .view {
+  display: none;
+}
+
+section#todoapp .sub_main .edit {
+  display: none;
+}
+
+section#todoapp .sub_main .toggle {
+  border: none!important;
+  box-shadow: none;
+  text-align: center;
+  width: 40px;
+  height: 40px;
+  margin: auto 0;
+  -webkit-appearance: none;
+  -ms-appearance: none;
+  -o-appearance: none;
+  appearance: none;
+}
+
+section#todoapp .sub_main .toggle:after {
+  font-size: 18px;
+  content: '✔';
+  line-height: 43px; /* 40 + a couple of pixels visual adjustment */
+  font-size: 20px;
+  color: #d9d9d9;
+  text-shadow: 0 -1px 0 #bfbfbf;
+}
+
+section#todoapp .sub_main .toggle:checked:after {
+  color: #85ada7;
+  text-shadow: 0 1px 0 #669991;
+  bottom: 1px;
+  position: relative;
+}
+
+section#todoapp .sub_main label {
+  word-break: break-word;
+  margin: 15px 15px 15px 60px;
+  display: inline-block;
+  line-height: 1.2;
+  -webkit-transition: color 0.4s;
+  -moz-transition: color 0.4s;
+  -ms-transition: color 0.4s;
+  -o-transition: color 0.4s;
+  transition: color 0.4s;
+}
+
+section#todoapp .sub_main.completed label {
+  color: #a9a9a9;
+  text-decoration: line-through;
+}
+
+
+label[for='toggle-all'] {
+  display: none;
+}
+#toggle-all {
+  border: none!important;
+  box-shadow: none;
+  text-align: center;
+  -webkit-appearance: none;
+  -ms-appearance: none;
+  -o-appearance: none;
+  appearance: none;
+  -webkit-transform: rotate(90deg);
+  -ms-transform: rotate(90deg);
+  transform: rotate(90deg);
+}
+#toggle-all:before {
+  content: '»';
+  font-size: 28px;
+  color: #d9d9d9;
+  padding: 0 25px 7px;
+}
+#toggle-all:checked:before {
+  color: #737373;
+}
+
+#clear-completed {
+  float: right;
+}
+
+section#todoapp .sub_main .destroy {
+  display: none;
+  border: none!important;
+  box-shadow: none;
+  right: 10px;
+  width: 40px;
+  height: 40px;
+  margin: auto 0;
+  font-size: 22px;
+  color: #555;
+  background: transparent;
+  -webkit-transition: all 0.2s;
+  -moz-transition: all 0.2s;
+  -ms-transition: all 0.2s;
+  -o-transition: all 0.2s;
+  transition: all 0.2s;
+}
+section#todoapp .sub_main .destroy:hover {
+  -webkit-transform: scale(1.3);
+  -moz-transform: scale(1.3);
+  -ms-transform: scale(1.3);
+  -o-transform: scale(1.3);
+  transform: scale(1.3);
+}
+section#todoapp .sub_main .destroy:after {
+  content: '✖';
+}
+section#todoapp .sub_main:hover .destroy {
+  display: block;
+}
+
+/* -- endgroup -- */

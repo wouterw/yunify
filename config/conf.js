@@ -5,18 +5,18 @@ module.exports = {
 	port: 4000,
 	session: {
 		secret: '90nds9d219fds2c',
-		storeUri: 'mongodb://flame.mongohq.com:27031/yunify',
-		username: 'codability',
-		password: 'adm123',
+		storeUri: 'mongodb://localhost/yunify', //'mongodb://flame.mongohq.com:27031/yunify',
+		username: '', //'codability',
+		password: '', //'adm123',
 		collection: 'sessions',
 		reapInterval: 3000
 	},
 	db: {
-		uri: 'mongodb://codability:adm123@flame.mongohq.com:27031/yunify'
+		uri: 'mongodb://localhost/yunify', //'mongodb://codability:adm123@flame.mongohq.com:27031/yunify'
 	},
 	mail: {
 		host: 'localhost',		// smtp server hostname
-		port: '25',				// smtp server port
+		port: '25',						// smtp server port
 		domain: 'localhost'		// domain used by client to identify itself to server
 	},
 	fb: {

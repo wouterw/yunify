@@ -77,7 +77,9 @@ module.exports = function (app) {
 
 	// POST /api/groups/5/invite
 
-	app.post('/api/groups/:id/invite', function (res, res) {
+	app.post('/api/groups/:id/invite', function (req, res) {
+		
+		console.log(req.params);
 
 		// send the word out
 		mail.sendInvite();

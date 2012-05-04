@@ -6,8 +6,9 @@ html(lang='en')
 		meta(name='viewport', content='width=device-width, initial-scale=1.0')
 		meta(name='description', content='yunify')
 		meta(name='author', content='codability')
-		link(href='/css/lib/bootstrap.min.css', rel='stylesheet')
-		link(href='/css/desktop.css', rel='stylesheet')
+		block styles
+			link(href='/css/lib/bootstrap.min.css', rel='stylesheet')
+			link(href='/css/desktop.css', rel='stylesheet')
 		link(rel='shortcut icon', href='ico/favicon.ico')
 		link(rel='apple-touch-icon-precomposed', sizes='144x144', href='/ico/apple-touch-icon-144-precomposed.png')
 		link(rel='apple-touch-icon-precomposed', sizes='114x114', href='/ico/apple-touch-icon-114-precomposed.png')
@@ -28,6 +29,10 @@ html(lang='en')
 								a(href='/tasks') Tasks
 							li.nav_item
 								a(href='/roomies') Roomies 
+							li.nav_item
+								a(href='/groups') Groups
+							li.nav_item
+								a(href='/profiles') Profiles
 							li.codertag
 								a#codertag(href='/me')
 									img(alt='#{user.fullName}', src='https://graph.facebook.com/' + everyauth.user.fb.id + '/picture?type=square')
@@ -48,8 +53,14 @@ html(lang='en')
 			footer
 				small.muted &copy; 2012 Codability
 		block scripts
+			script(src='/socket.io/socket.io.js')
+			script
+				var socket = io.connect('/');
+				socket.on('news', function (data) {
+					console.log(data);
+				});
 			script(src='/js/lib/json2.js')
 			script(src='/js/lib/jquery-1.7.2.min.js')
 			script(src='/js/lib/bootstrap.min.js')
 			script(src='/js/lib/underscore.min.js')
-			script(src='/js/lib/backbone.min.js')
+			script(src='/js/lib/knockout-2.0.0.min.js')

@@ -20,3 +20,8 @@ nbproject
 *.vi
 *~
 *.sass-cache
+
+#nodejs
+/.tags
+/node_modules/
+/npm-debug.log

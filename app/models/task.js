@@ -5,8 +5,8 @@ var mongoose = require('mongoose'),
 	Schema = mongoose.Schema;
 
 var TaskSchema = new Schema({
-	text: { type: String, default: '' },
-	done: { type: Boolean, default: false },
+	title: { type: String, required: true },
+	completed: { type: Boolean, default: false },
 	group: { type: Schema.ObjectId, ref: 'Group' }, // task belongs_to group
 	created_at: { type: Date, default: Date.now }
 });

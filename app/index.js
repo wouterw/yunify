@@ -1,19 +1,25 @@
+var	gzippo = require('gzippo'),
+		color = require('./lib/ansi-color').set,
+		fs = require('fs');
 
-// index.js   -- bootstrapper for the entire application
+// load configuration file
+var conf = require('../config/conf');
 
-var express = require('express');
-var gzippo = require('gzippo');
+// create sessionstore
 var mongoStore = require('connect-mongodb');
-var fs = require('fs');
-var	everyauth = require('everyauth');
-var mongooseauth = require('mongoose-auth');
-var conf = require('./conf');
-var auth = require('./authorization')
+var	sessionStore = new mongoStore({
+	url: conf.session.storeUri,
+	collection: conf.session.collection,
+	reapInterval: conf.session.reapInterval,
+	username: conf.session.username,
+	password: conf.session.password	
+});
 
 // create server
-var app = module.exports = express.createServer();
+var express = require('express'),
+		app = module.exports = express.createServer();
 
-// bootstrap db connection
+// configure mongoose
 var mongoose = module.exports = require('mongoose');
 mongoose.connect(conf.db.uri);
 
@@ -21,45 +27,36 @@ mongoose.connect(conf.db.uri);
 var modelsPath = __dirname + '/models';
 var modelFiles = fs.readdirSync(modelsPath);
 modelFiles.forEach(function (file) {
-  	require(modelsPath + '/' + file);
-  	console.log('> ' + file + ' loaded.');
+	require(modelsPath + '/' + file);
 });
 
-// configure express and middleware
+// load authorization
+var everyauth = require('everyauth'),
+		mongooseauth = require('mongoose-auth'),
+		auth = require('./authorization');
+
+// configure express & middleware
 app.configure(function () {
-	// set views path, template engine and default layout
 	app.set('views', __dirname + '/views');
 	app.set('view engine', 'jade');
 	app.set('view options', { layout: false });
-
-	// bodyParser should be above methodOverride
 	app.use(express.bodyParser());
 	app.use(express.methodOverride());
-
-	// cookieParser should be above session
 	app.use(express.cookieParser());
-	app.use(express.session({ 
+	app.use(express.session({
+		store: sessionStore,
 		secret: conf.session.secret,
-		store: new mongoStore({
-			url: conf.session.storeUri,
-			collection: conf.session.collection,
-			reapInterval: conf.session.reapInterval,
-			username: conf.session.username,
-			password: conf.session.password	
-		}) 
+		key: 'express.sid'
 	}));
-
-	// logger and favicon
 	app.use(express.logger(':method :url :status'));
-    app.use(express.favicon());
-	
-	// routes should be at the last
+	app.use(express.favicon(__dirname + '/public/ico/favicon.ico'));
+	app.use(gzippo.compress());
 	app.use(mongooseauth.middleware());
 });
 
 // express error handling
 app.use(express.errorHandler({ 
-	dumpExceptions: true, 
+	dumpExceptions: false, 
 	showStack: false 
 }));
 
@@ -78,13 +75,6 @@ app.configure('production', function () {
 	app.use(gzippo.staticGzip(__dirname + '/public'));
 });
 
-// dynamic view helpers
-app.dynamicHelpers({
-	appName: function (req, res) {
-		return 'YunifyJs';
-	}
-});
-
 mongooseauth.helpExpress(app);
 everyauth.helpExpress(app, { userAlias: 'current_user' });
 
@@ -92,19 +82,22 @@ everyauth.helpExpress(app, { userAlias: 'current_user' });
 var controllersPath = __dirname + '/controllers';
 var controllerFiles = fs.readdirSync(controllersPath);
 controllerFiles.forEach(function (file) {
-  require(controllersPath + '/' + file)(app);
-  console.log('> ' + file + ' loaded.');
+	require(controllersPath + '/' + file)(app);
 });
 
-// bootstrap APIs
+// bootstrap api's
 var apisPath = __dirname + '/api';
 var apiFiles = fs.readdirSync(apisPath);
 apiFiles.forEach(function (file) {
-  require(apisPath + '/' + file)(app);
-  console.log('> ' + file + ' loaded.');
+	require(apisPath + '/' + file)(app);
 });
 
-// start the app
-app.listen(conf.port);
-console.log('>> Yunify has taken the stage');
-console.log('>> Listening on port %s', app.address().port);
+// start http server
+app.listen(conf.port);	
+var addr = app.address();
+
+console.log(color("success - ", "green+bold"), 
+	'Yunify has taken the stage on http://' + addr.address + ':' + addr.port);
+
+// start socket server
+var sio = require('./middleware/sockets')(app, sessionStore);

@@ -2,14 +2,26 @@
 extends ../layout
 
 block content
-	.well
-		- if (!everyauth.loggedIn)
-			h1 Yunify doesn't know you yet!
-			h3 Please login using your facebook account. It's quick and easy!
-			a.btn.btn-primary(href='/auth/facebook') Sign in with facebook
-		- else
-			h2 Authenticated
-			#user-id Logged in with `user.id` #{user.id} - aka `everyauth.user.id` #{everyauth.user.id}
-			- if (everyauth.facebook)
-				h3 Facebook User Data
-				p= JSON.stringify(everyauth.facebook.user)
+	.row
+		.span12
+			.sub_main.rounded(style='padding: 15px; margin-bottom: 30px;')
+				- if (!everyauth.loggedIn)
+					h1 Yunify doesn't know you yet!
+					h3 Please login using your facebook account. It's quick and easy!
+					a.btn.btn-primary(href='/auth/facebook') Sign in with facebook
+				- else
+					h1 Welcome, #{user.fullName}!
+					h2.muted Nice to see you again ;)
+	.row
+		.span4
+				h2 Standout
+				p
+					| Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui.
+			.span4
+				h2 Collaborate
+				p
+					| Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui.
+			.span4
+				h2 Be Inspired
+				p
+					| Donec sed odio dui. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Vestibulum id ligula porta felis euismod semper. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus.

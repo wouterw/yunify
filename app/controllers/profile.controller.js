@@ -25,10 +25,9 @@ module.exports = function(app) {
 	});
 
 	app.get('/profiles/:userId', function (req, res) {
-		var user = req.foundUser;
 		res.render('profiles/show', {
 			title: 'Profile / Yunify',
-			user: user
+			usr: req.foundUser
 		});
 	});
 

@@ -9,8 +9,10 @@ block content
 	.row
 		.span3
 			.well
+				h6 Picture
 				img(src='https://graph.facebook.com/' + everyauth.user.fb.id + '/picture?type=large', alt='#{user.fullName}')
 			.well
+				h6 Info
 				strong name
 				p= me.fullName
 				strong email
@@ -25,33 +27,38 @@ block content
 				p= me.bio
 
 			- if (!me.group)
-				a.btn.btn-primary.btn-large(data-toggle='modal', href='#create_group_modal') Create your own group
-				#create_group_modal.modal.hide.fade
-					.modal-header
-							button.close(data-dismiss='modal') ×
-							h3 New Group
-						.modal-body
-							form#new_group_form(method='post', action='/groups')
-								.control-group
-									label.control-label(for='group_name') Name
-										.controls
-											input#group_name.input-xlarge(type='text', name='name', placeholder='Your group's cool name goes here')
-								.control-group
-									label.control-label(for='group_description') Description
-										.controls
-											textarea#group_description.input-xlarge(rows='3', name='description', placeholder='Some awesome group description')
-						.modal-footer
-							button.btn.btn-primary(type='submit', form='new_group_form') Create
+				.alert
+					button.close(data-dismiss='alert') ×
+					span In order to use all features, you'll have to join or create a group!
+				.well
+					a.btn.btn-primary.btn-large(data-toggle='modal', href='#create_group_modal') Create a group
+					#create_group_modal.modal.hide.fade
+						.modal-header
+								button.close(data-dismiss='modal') ×
+								h3 New Group
+							.modal-body
+								form#new_group_form(method='post', action='/groups')
+									.control-group
+										label.control-label(for='group_name') Name
+											.controls
+												input#group_name.input-xlarge(type='text', name='name', placeholder='Your groups cool name goes here')
+									.control-group
+										label.control-label(for='group_description') Description
+											.controls
+												textarea#group_description.input-xlarge(rows='3', name='description', placeholder='Some awesome group description')
+							.modal-footer
+								button.btn.btn-primary(type='submit', form='new_group_form') Create
 			- else
 				.well
-					strong group name
+					a.btn.btn-primary.pull-right(href='/groups/#{me.group._id}') View
+					h6 Group
+					strong name
 					p= me.group.name
-					strong group description
+					strong description
 					p= me.group.description
-					strong 
-						a(href='/groups/#{me.group._id}') link
+					
 		.span8.offset1
-			form.form-horizontal(method='put', action='/profiles/' + user._id + '/update')
+			form.form-horizontal(method='put', action='/profiles/' + user._id)
 				fieldset
 					legend Edit my profile
 					.control-group
@@ -63,10 +70,18 @@ block content
 						.controls
 							input(type='email', name='email', value=me.email)
 					.control-group
+						label.control-label(for='bio') Bio:
+						.controls
+							textarea(name='bio', placeholder='Something about you.') #{me.bio}
+					.control-group
+						label.control-label(for='status') Status:
+						.controls
+							input(type='text', name='status', value=me.status)
+					.control-group
 						label.control-label(for='twitter') Twitter:
 						.controls
 							.input-prepend
 								span.add-on @
 								input#prependedInput(type='text', name='twitter', value=me.twitter)
 					.form-actions
-						btn#update_profile.btn.btn-primary.btn-large(type='submit') Update
+						btn#update_profile.btn.btn-primary.btn-large(type='submit') Update Profile

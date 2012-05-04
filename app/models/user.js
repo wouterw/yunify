@@ -5,7 +5,7 @@ var everyauth = require('everyauth');
 var	Promise = everyauth.Promise;
 var mongoose = require('mongoose');
 var	Schema = mongoose.Schema;
-var conf = require('../conf');
+var conf = require('../../config/conf');
 var	mongooseauth = require('mongoose-auth');
 var UserSchema = new Schema({});
 
@@ -18,7 +18,7 @@ UserSchema.add({
 	bio: { type: String, default: '' },
 	email: { type: String, required: true, index: { unique: true, sparse: true } },
 	twitter: { type: String, default: '' },
-	status: { type: String, default: '' },
+	status: { type: String, enum: ['Available', 'Busy', 'Studying', 'Sleeping', 'Out'] },
 	group: { type: Schema.ObjectId, ref: 'Group' }, // user belongs_to group
 	created_at: { type: Date, default: Date.now }
 });
