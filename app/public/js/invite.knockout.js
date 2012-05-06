@@ -50,7 +50,7 @@
 		};
 
 		self.sendInvites = function () {
-			$.post('/api/groups/' + grp._id + '/invite', JSON.stringify(self.invitees), function(data) {
+			$.post('/api/groups/' + groupId + '/invite', JSON.stringify(self.invitees), function(data) {
 				// show notification
 			});
 		};

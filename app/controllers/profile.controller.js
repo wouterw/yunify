@@ -1,14 +1,16 @@
+/*!
+ * Profile Controller
+ */
 
-// user.controller.js   -- Controller for user model
 var mongoose = require('mongoose');
 var User = mongoose.model('User');
 
 module.exports = function(app) {
-	
+
 	// Route Param Pre-conditions
 	app.param('userId', function (req, res, next, id) {
 		User.findOne({ _id : id }, function (err, user) {
-			if (err) { return next(err); } 
+			if (err) { return next(err); }
 			if (!user) { return next(new Error('Failed to load User ' + id)); }
 			req.foundUser = user;
 			next();

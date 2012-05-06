@@ -2,7 +2,7 @@
 // group.js   -- group schema
 
 var mongoose = require('mongoose'),
-	Schema = mongoose.Schema;
+		Schema   = mongoose.Schema;
 
 var GroupSchema = new Schema({
 	name: { type: String, default: '' },

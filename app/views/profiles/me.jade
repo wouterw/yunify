@@ -4,7 +4,7 @@ extends ../layout
 block content
 	.page-header
 		h1
-			| My Account 
+			| My Account
 			small this is you
 	.row
 		.span3
@@ -14,17 +14,21 @@ block content
 			.well
 				h6 Info
 				strong name
-				p= me.fullName
+				p(data-bind='text: fullName')
+				strong status
+				p(data-bind='text: status')
 				strong email
 				p
-					a(href='mailto:#{me.email}') #{me.email}
+					a(data-bind='text: email, attr: { href: email() }')
 				strong gender
 				p= me.fb.gender
 				strong facebook
 				p
 					a(href='#{everyauth.facebook.user.link}', target='_blank') #{everyauth.facebook.user.username}
+				strong twitter
+				p(data-bind='text: twitter')
 				strong bio
-				p= me.bio
+				p(data-bind='text: bio')
 
 			- if (!me.group)
 				.alert
@@ -56,32 +60,41 @@ block content
 					p= me.group.name
 					strong description
 					p= me.group.description
-					
+
 		.span8.offset1
-			form.form-horizontal(method='put', action='/profiles/' + user._id)
+			#update-success.alert.alert-success.fade.in(style='display: none;')
+				button.close(data-dismiss='alert')×
+				strong Success!&nbsp;
+				| Profile updated ;)
+			form.form-horizontal
 				fieldset
 					legend Edit my profile
 					.control-group
 						label.control-label(for='name') Full name:
 						.controls
-							input(type='text', name='name', value=me.fullName)
+							input(type='text', name='name', data-bind='value: fullName')
 					.control-group
 						label.control-label(for='email') Email:
 						.controls
-							input(type='email', name='email', value=me.email)
+							input(type='email', name='email', data-bind='value: email')
 					.control-group
 						label.control-label(for='bio') Bio:
 						.controls
-							textarea(name='bio', placeholder='Something about you.') #{me.bio}
+							textarea(name='bio', placeholder='Something about you.', data-bind='value: bio')
 					.control-group
 						label.control-label(for='status') Status:
 						.controls
-							input(type='text', name='status', value=me.status)
+							select(name='status', data-bind='options: statusValues, value: status')
 					.control-group
 						label.control-label(for='twitter') Twitter:
 						.controls
 							.input-prepend
 								span.add-on @
-								input#prependedInput(type='text', name='twitter', value=me.twitter)
+								input#prependedInput(type='text', name='twitter', data-bind='value: twitter')
 					.form-actions
-						btn#update_profile.btn.btn-primary.btn-large(type='submit') Update Profile
+						btn#update_profile.btn.btn-primary.btn-large(data-bind='click: update') Update Profile
+
+append scripts
+	script
+		var userId = !{JSON.stringify(me._id)};
+	script(src='/js/profile.knockout.js')

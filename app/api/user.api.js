@@ -4,7 +4,7 @@
 var mongoose = require('mongoose');
 var User = mongoose.model('User');
 
-module.exports = function(app) { 
+module.exports = function(app) {
 
 	// GET /api/users
 
@@ -17,16 +17,16 @@ module.exports = function(app) {
 
 	// GET /api/users/search?q=query
 
-	app.get('/api/users/search', function (req, res) {
+	app.get('/api/users/search', function(req, res) {
 			User.$where('this.fullName.toLowerCase().search(/' + req.query['q'].toLowerCase() + '/) !== -1').exec(function (err, users) {
 				res.send(users);
 			});
 	});
 
 
-	// GET /api/users/5	
+	// GET /api/users/5
 
-	app.get('/api/users/:id', function (req, res) {
+	app.get('/api/users/:id', function(req, res) {
 		return User.findById(req.params.id, function (err, user) {
 			return res.send(user);
 		});
@@ -34,15 +34,52 @@ module.exports = function(app) {
 
 
 	// POST /api/users
-	app.post('/api/users', function (req, res) {
+
+	app.post('/api/users', function(req, res) {
+		var newUser = new User({
+			fullName: req.body.fullName,
+			bio: req.body.bio,
+			email: req.body.email,
+			twitter: req.body.twitter,
+			status: req.body.status,
+			group: req.body.group
+		});
+		newUser.save(function(err, createdUser) {
+			res.send(createdUser);
+		});
 	});
 
-	// PUT /api/users
-	app.put('/api/users', function (req, res) {
+
+	// PUT /api/users/5
+
+	app.put('/api/users/:id', function(req, res) {
+		return User.findById(req.params.id, function(err, user) {
+			user.fullName = req.body.fullName;
+			user.email = req.body.email;
+			user.bio = req.body.bio;
+			user.status = req.body.status;
+			user.twitter = req.body.twitter;
+			return user.save(function(err) {
+				if(!err) {
+					res.statusCode = 200;
+					res.send(user);
+				} else {
+					console.log(err);
+					res.statusCode = 500;
+				}
+			});
+		});
 	});
 
-	// DELETE /api/users
-	app.del('/api/users/:id', function (req, res) {
+
+	// DELETE /api/users/5
+
+	app.del('/api/users/:id', function(req, res) {
+		return User.findById(req.params.id, function(err, user) {
+			return user.remove(function(err) {
+				return res.send('');
+			});
+		});
 	});
 
 };

@@ -28,7 +28,9 @@ html(lang='en')
 							li.nav_item
 								a(href='/tasks') Tasks
 							li.nav_item
-								a(href='/roomies') Roomies 
+								a(href='/chat') Chat
+							li.nav_item
+								a(href='/roomies') Roomies
 							li.nav_item
 								a(href='/groups') Groups
 							li.nav_item
@@ -43,7 +45,7 @@ html(lang='en')
 											span.exercises 15
 											span.achievements 22
 							li
-								a.sign_out(href='/logout') Sign Out 
+								a.sign_out(href='/logout') Sign Out
 						- else
 							li
 								a.sign_in(href='/auth/facebook') Sign in
@@ -53,12 +55,6 @@ html(lang='en')
 			footer
 				small.muted &copy; 2012 Codability
 		block scripts
-			script(src='/socket.io/socket.io.js')
-			script
-				var socket = io.connect('/');
-				socket.on('news', function (data) {
-					console.log(data);
-				});
 			script(src='/js/lib/json2.js')
 			script(src='/js/lib/jquery-1.7.2.min.js')
 			script(src='/js/lib/bootstrap.min.js')

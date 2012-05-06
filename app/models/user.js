@@ -1,5 +1,6 @@
-
-// user.js   -- user schema
+/*!
+ * User model
+ */
 
 var everyauth = require('everyauth');
 var	Promise = everyauth.Promise;
@@ -9,19 +10,27 @@ var conf = require('../../config/conf');
 var	mongooseauth = require('mongoose-auth');
 var UserSchema = new Schema({});
 
-everyauth.debug = true;
-everyauth.facebook.scope('user_about_me, email');
-everyauth.facebook.moduleTimeout(-1);
+/**
+ * Schema
+ */
 
 UserSchema.add({
 	fullName: { type: String, required: true },
 	bio: { type: String, default: '' },
 	email: { type: String, required: true, index: { unique: true, sparse: true } },
 	twitter: { type: String, default: '' },
-	status: { type: String, enum: ['Available', 'Busy', 'Studying', 'Sleeping', 'Out'] },
+	status: { type: String, enum: ['Available', 'Studying', 'Busy', 'Sleep', 'Out'] },
 	group: { type: Schema.ObjectId, ref: 'Group' }, // user belongs_to group
 	created_at: { type: Date, default: Date.now }
 });
+
+/**
+ * Plugins
+ */
+
+everyauth.debug = true;
+everyauth.facebook.scope('user_about_me, email');
+everyauth.facebook.moduleTimeout(-1);
 
 UserSchema.plugin(mongooseauth, {
 	everymodule: {
@@ -75,5 +84,15 @@ UserSchema.plugin(mongooseauth, {
 	}
 });
 
-// Expose user model
+/**
+ * Methods
+ */
+
+UserSchema.methods.findGroup = function(callback) {
+	return this.db.model('Group').findById(this.group, callback);
+};
+
+/**
+ * Expose model
+ */
 module.exports = mongoose.model('User', UserSchema);

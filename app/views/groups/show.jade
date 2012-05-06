@@ -5,71 +5,78 @@ block content
 	em.muted group:
 	.page-header
 		h1
-			| #{group.name} 
-			small #{group.description}
+			| My Group
+			small and roomies
 	.row
 		.span3
 			.well
 				h6 Info
 				strong name
-				p= group.name
+				p(data-bind='text: name')
 				strong description
-				p= group.description
+				p(data-bind='text: description')
 			.well
-				h6 Members
+				h6 Roomies
 				each u in group.users
 					a(href='/profiles/#{u._id}', title='#{u.fullName}')
-					img(src='https://graph.facebook.com/' + u.fb.id + '/picture?type=square', alt='#{u.fullName}')
+						img(src='https://graph.facebook.com/' + u.fb.id + '/picture?type=square', alt='#{u.fullName}')
 			.alert.alert-info
 				button.close(data-dismiss='alert') ×
 				span
-					strong Remember! 
+					strong Remember!
 					| You can invite your friends in your group ;)
 			.well
 				a.btn.btn-primary.btn-large(data-toggle='modal', href='#invite-modal') Invite friends
-				#invite-modal.modal.hide.fade(style='display: none;')
-					.modal-header
-						button.close(data-dismiss='modal') ×
-						h3 Send a Invitation
-					.modal-body
-						.row-fluid
-							.span6
-								label(for='invite-user')
-									strong Search
-									input#invite-user(type='text', placeholder='Start typing your friends name', data-bind='event: { keypress: queryChanged }')
-								label(for='invite-user')
-									strong Result(s)
-									select#user-suggestion(multiple='true', size='6', data-bind='optionsText: \'name\', optionsValue: \'id\', options:suggestions, selectedOptions:selectedSuggestions, event: { change: suggestionSelected }')
-							.span4(style='margin-left: 80px; text-align: center;')
-								div(data-bind='visible: invitees().length > 0')
-									ul#invite-user-preview.thumbnails(data-bind='foreach: invitees()')
-										li
-											.thumbnail
-												a(data-bind='attr: { href: profile(), title: name }')
-													img(data-bind='attr: { src: picture() }')
-								.alert.alert-info 
-									button.close(data-dismiss='alert') ×
-									| Invitations will be send by mail.
-					.modal-footer
-						a.btn(href='#', data-dismiss='modal') Close
-						a#user-invite-button.btn.btn-primary(href='#', data-bind='click: sendInvites') Invite
+				//
+					#invite-modal.modal.hide.fade(style='display: none;')
+						.modal-header
+							button.close(data-dismiss='modal') ×
+							h3 Send a Invitation
+						.modal-body
+							.row-fluid
+								.span6
+									label(for='invite-user')
+										strong Search
+										input#invite-user(type='text', placeholder='Start typing your friends name', data-bind='event: { keypress: queryChanged }')
+									label(for='invite-user')
+										strong Result(s)
+										select#user-suggestion(multiple='true', size='6', data-bind='optionsText: \'name\', optionsValue: \'id\', options:suggestions, selectedOptions:selectedSuggestions, event: { change: suggestionSelected }')
+								.span4(style='margin-left: 80px; text-align: center;')
+									div(data-bind='visible: invitees().length > 0')
+										ul#invite-user-preview.thumbnails(data-bind='foreach: invitees()')
+											li
+												.thumbnail
+													a(data-bind='attr: { href: profile(), title: name }')
+														img(data-bind='attr: { src: picture() }')
+									.alert.alert-info
+										button.close(data-dismiss='alert') ×
+										| Invitations will be send by mail.
+						.modal-footer
+							a.btn(href='#', data-dismiss='modal') Close
+							a#user-invite-button.btn.btn-primary(href='#', data-bind='click: sendInvites') Invite
 		.span8.offset1
-			form.form-horizontal(method='put', action='/groups/' + group._id)
+			#update-success.alert.alert-success.fade.in(style='display: none;')
+				button.close(data-dismiss='alert')×
+				strong Success!&nbsp;
+				| Your Group is up to date now ;)
+			form.form-horizontal
 				fieldset
 					legend Edit your group
 					.control-group
 						label.control-label(for='name') Name:
 						.controls
-							input(type='text', name='name', value=group.name)
+							input(type='text', name='name', data-bind='value: name')
 					.control-group
-						label.control-label(for='description') Email:
+						label.control-label(for='description') Description:
 						.controls
-							textarea(rows='3', name='description', placeholder='Add a comment here') #{group.description}
+							textarea(rows='3', name='description', placeholder='Add a description here', data-bind='value: description')
 					.form-actions
-						btn.btn.btn-primary.btn-large(type='submit') Update
+						btn.btn.btn-primary.btn-large(data-bind='click: update') Update
 
 append scripts
 	script
 		var fb = !{JSON.stringify(user.fb)};
-		var grp = !{JSON.stringify(group)};
-	script(src='/js/invite.knockout.js')
+		var groupId = !{JSON.stringify(group._id)};
+	script(src='/js/group.knockout.js')
+	//
+		script(src='/js/invite.knockout.js')

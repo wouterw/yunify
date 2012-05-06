@@ -9,7 +9,7 @@ module.exports = function (app) {
 
 	// GET /groups
 	app.get('/groups', function (req, res) {
-		return Group.find(function (err, groups) { 
+		return Group.find(function (err, groups) {
 			res.render('groups/index', {
 				title: 'Groups',
 				groups: groups
@@ -42,7 +42,7 @@ module.exports = function (app) {
 			newGroup.users.push(req.user);
 
 			newGroup.save(function (err, savedGroup) {
-				if (!err) { 
+				if (!err) {
 
 					User.findById(req.user.id, function (err, user) {
 						user.group = newGroup._id;
@@ -59,11 +59,11 @@ module.exports = function (app) {
 
 	// PUT /groups/5
 	app.put('/groups/:id', function (req, res) {
-		return Group.findById(req.params.id, function (err, group) {
+		Group.findById(req.params.id, function (err, group) {
 			group.name = req.body.name;
 			group.description = req.body.description;
 			task.done = res.body.done;
-			return group.save(function (err, savedGroup) {
+			group.save(function (err, savedGroup) {
 				if (!err) {
 					console.log('Group ' + req.params.id + 'updated');
 				}

@@ -1,8 +1,29 @@
+/**
+ * sockets.js
+ */
+ 
 module.exports = function (app, sessionStore) {
 
+	// start socket server
 	var io = require('socket.io').listen(app);
-	var parseCookie = require('connect').utils.parseCookie;
 
+	// configure socket.io
+	io.configure('production', function () {
+		io.enable('browser client minification');  // send minified client
+		io.enable('browser client etag');          // apply etag caching logic based on version number
+		io.enable('browser client gzip');          // gzip the file
+		io.set('log level', 1);                    // reduce logging
+		io.set('transports', [                     // enable all transports (optional if you want flashsocket)
+			'websocket',
+			'flashsocket',
+			'htmlfile',
+			'xhr-polling',
+			'jsonp-polling'
+		]);
+	});
+
+	// socket authentication
+	var parseCookie = require('connect').utils.parseCookie;
 	io.set('authorization', function (data, accept) {
 		if (!data.headers.cookie) {
 			return accept('no cookie', false);
@@ -20,6 +41,7 @@ module.exports = function (app, sessionStore) {
 		})
 	});
 
+	// log on new connection
 	io.sockets.on('connection', function (socket) {
 		var sessionId = socket.handshake.sessionId;
 		var session = socket.handshake.session;
@@ -27,38 +49,9 @@ module.exports = function (app, sessionStore) {
 		console.log('>> Identified as user ' + session.auth.facebook.user.username + ' (' + session.auth.userId + ')');
 	});
 
-	// yunify chat socket communication
-	var chat = io.of('/chat').on('connection', function (socket) {
-	});
-
-	// yunify news socket communication
-	var news = io.of('/news').on('connection', function (socket) {
-	});
-
-	// yunify tasks socket communication
-	var tasks = io.of('/tasks').on('connection', function (socket) {
-
-		var Task = mongoose.model('Task');
-
-		socket.emit('init', function () {
-			return data;
-		});
-
-		socket.on('add', function (data) {
-			console.log('task added');
-			socket.broadcast.emit('added', channel, task);
-		});
-
-		socket.on('update', function (data) {
-			console.log('task updated');
-			socket.broadcast.emit('updated', channel, task);
-		});
-
-		socket.on('remove', function (id) {
-			console.log('task removed');
-			socket.broadcast.emit('removed', channel, id);
-		});
-
-	});
+	// load modules
+	require('./chat.sockets.js')(io);
+	require('./tasks.sockets.js')(io);
+	//require('./news.sockets.js')(io);
 
 };

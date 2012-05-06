@@ -4,7 +4,7 @@ extends ../layout
 block content
 	.page-header
 		h1
-			| Tasks 
+			| Tasks&nbsp;
 			small earn respect by completing them
 
 	.row
@@ -12,11 +12,8 @@ block content
 			section#todoapp
 				header
 					input#new-todo(type='text', data-bind='value: current, valueUpdate: \'afterkeydown\', enterKey: add', placeholder='What needs to be done?', autofocus='autofocus')
-				
+
 				section#main(data-bind='visible: tasks().length')
-					input#toggle-all(type='checkbox', data-bind='checked: allCompleted')
-					label(for='toggle-all') Mark all as complete
-					
 					#todo-list(data-bind='foreach: tasks')
 						.sub_main.rounded(data-bind='css: { completed: completed, editing: editing }')
 							.view(data-bind='event: { dblclick: $root.editItem }')
@@ -24,17 +21,18 @@ block content
 								label(data-bind='text: title')
 								button.destroy(data-bind='click: $root.remove')
 							input.edit(data-bind='value: title, valueUpdate: \'afterkeydown\', enterKey: $root.stopEditing, selectAndFocus: editing, event: { blur: $root.stopEditing }')
-				
+
 				footer(data-bind='visible: completedCount() || remainingCount()')
 					.well
 						span#todo-count
-							strong(data-bind='text: remainingCount') 1 &nbsp;
-							span(data-bind='text: getLabel( remainingCount )') &nbps;
-							| left
-						button.btn.btn-danger#clear-completed(data-bind='visible: completedCount, click: removeCompleted')
-							| Clear completed (
-							span(data-bind='text: completedCount')
-							| )
+							strong(data-bind='text: remainingCount') 1
+							|&nbsp;left
 
 append scripts
+	script(src='/socket.io/socket.io.js')
+	script
+		var groupId = !{JSON.stringify(user.group)};
+	script(src='/js/trim.js')
+	script(src='/js/enterKey.handler.knockout.js')
+	script(src='/js/hasFocus.handler.knockout.js')
 	script(src='/js/tasks.knockout.js')
