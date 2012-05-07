@@ -1,1 +1,57 @@
-
+!!! 5
+html(lang='en')
+head
+	meta(charset='utf-8')
+	title Wall / Yunify
+	meta(name='viewport', content='width=device-width, initial-scale=1.0')
+	meta(name='description', content='Yunify, Living together made easy')
+	link(rel='stylesheet', href='/css/wall.css')
+body
+	#section_home.slide_page(style='left: 0px;')
+		.top_title
+			p
+				span.bold_text Hello&nbsp;
+				| #{user.fullName}.
+		hr
+		#home_tumb_text
+			p
+				| What would you like to&nbsp;
+				span.yellow_text do
+				| ?
+		#wrapper_thumbs
+			a.thumb(onclick='window.goToTaskScreen();')
+				img(src='/img/tile_tasks.png', alt='alt')
+			a.thumb(onclick='window.goToFacebookScreen();')
+				img(src='/img/tile_facebook.png', alt='alt')
+			a.thumb(onclick='window.goToTwitterScreen();')
+				img(src='/img/tile_twitter.png', alt='alt')
+			a.thumb(onclick='window.goToPhotoboothScreen();')
+				img(src='/img/tile_photobooth.png', alt='alt')
+			a.thumb(onclick='window.goToAchieveScreen();')
+				img(src='/img/tile_achieve.png', alt='alt')
+		hr
+		#home_bottom_text
+			p
+				span#big_text Right now&nbsp;
+				| it's&nbsp;
+				span.yellow_text.jclock
+				| &nbsp;and&nbsp;
+				span#weather.yellow_text
+				| &nbsp;outside!
+	#section_tasks.slide_page(style='left: 1920px;')
+		| TASKS
+	#section_facebook.slide_page(style='left: 3840px;')
+		| FACEBOOK
+	#section_twitter.slide_page(style='left: 5760px;')
+		| TWITTER
+	#section_photobooth.slide_page(style='left: 7680px;')
+		| PHOTOBOOTH
+	#section_achieve.slide_page(style='left: 11520px;')
+		| ACHIEVE
+	script(src='/js/lib/jquery-1.7.2.min.js')
+	script(src='/js/lib/jquery.jclock.js')
+	script(src='/js/lib/kinect.js')
+	script(src='/js/lib/jquery.simpleWeather-2.0.1.min.js')
+	//
+		script(src='/js/wall.kinect.js')
+	script(src='/js/wall.utils.js')

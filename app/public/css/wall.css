@@ -1,0 +1,211 @@
+/* -------------------------------------
+    Author: Codability
+    Website: http://codability.be/
+   ------------------------------------- */
+
+/* -------------------------------------
+    Reset
+   ------------------------------------- */
+
+p { -webkit-margin: 0em; }
+article, aside, details, figcaption, figure, footer, header, hgroup, nav, section { display: block; }
+canvas { display: inline-block; *display: inline; *zoom: 1; }
+a { color: #00e; }
+a:visited { color: #551a8b; }
+a:hover { color: #06e; }
+a:focus { outline: thin dotted; }
+a:hover, a:active { outline: 0; }
+b, strong { font-weight: bold; }
+ul, ol { margin: 1em 0; padding: 0 0 0 40px; }
+dd { margin: 0 0 0 40px; }
+nav ul, nav ol { list-style: none; list-style-image: none; margin: 0; padding: 0; }
+img { border: 0; -ms-interpolation-mode: bicubic; vertical-align: middle; display: block;}
+br { display: none; }
+.hidden { display: none !important; visibility: hidden; }
+
+/* -------------------------------------
+    Root
+   ------------------------------------- */
+
+p {
+  -webkit-margin-before: 0em;
+  -webkit-margin-after: 0em;
+  -webkit-margin-start: 0em;
+  -webkit-margin-end: 0em;
+  text-shadow: -3px -3px 3px rgba(0,0,0,0.36);
+}
+
+html {
+  margin: 0;
+  padding: 0;
+  font-size: 100%;
+  -webkit-text-size-adjust: 100%;
+  -ms-text-size-adjust: 100%;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  font: 100%/1.4 'ProximaNovaLight', sans-serif;
+  color: #f2f2f2;
+  width: 100%;
+  position: absolute;
+  height: 100%;
+
+    /* Fix Background */
+  background: url("../img/background.png") no-repeat center center fixed;
+  background-attachment: fixed;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+}
+
+/* -------------------------------------
+    Fonts
+   ------------------------------------- */
+
+@font-face {
+    font-family: 'ProximaNovaLight';
+    src: url('../fonts/proximanova-light-webfont.eot');
+    src: url('../fonts/proximanova-light-webfont.eot?#iefix') format('embedded-opentype'),
+         url('../fonts/proximanova-light-webfont.woff') format('woff'),
+         url('../fonts/proximanova-light-webfont.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'ProximaNovaRegular';
+    src: url('../fonts/proximanova-regular-webfont.eot');
+    src: url('../../fonts/proximanova-regular-webfont.eot?#iefix') format('embedded-opentype'),
+         url('../fonts/proximanova-regular-webfont.woff') format('woff'),
+         url('../fonts/proximanova-regular-webfont.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'ProximaNovaBold';
+    src: url('../fonts/proximanova-bold-webfont.eot');
+    src: url('../fonts/proximanova-bold-webfont.eot?#iefix') format('embedded-opentype'),
+         url('../fonts/proximanova-bold-webfont.woff') format('woff'),
+         url('../fonts/proximanova-bold-webfont.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+/* -------------------------------------
+    Content
+   ------------------------------------- */
+
+/* Returning stylings */
+.bold_text {
+  font-family: 'ProximaNovaBold';
+}
+
+.yellow_text {
+  color: #ddf153;
+}
+
+hr {
+  float: left;
+  width: 1608px;
+  height: 2px;
+  color: #3c3c3c;
+  background: #000000;
+  border: 0;
+  border-bottom: solid 1px #f3f3f3;
+  opacity: 0.3;
+
+}
+
+/* Main content */
+.slide_page{
+  width:1620px;
+  height: 780px;
+  margin: 150px;
+  position:absolute;
+  top:0;
+  -webkit-transition: left 600ms ease-in;
+  -moz-transition: left 600ms ease-in;
+  -ms-transition: left 600ms ease-in;
+}
+
+.top_title {
+  width: 1620px;
+  font-size: 7em;
+  height: 150px;
+  padding: 0;
+  margin: 0;
+  float: left;
+}
+
+/* Cursor */
+#_cursor{
+  width: 77px;
+  height: 88px;
+  border-radius:8px;
+  opacity:1;
+  background:white;
+  position:absolute;
+  z-index:10000;
+  background: url("../img/hand.png") no-repeat;
+}
+
+#_cursor.count {
+  color: #f7f8f8;
+  padding-top: 49px;
+  padding-left: 28px;
+  overflow: hidden;
+  font-size: 20px;
+  font-weight: bold;
+}
+
+/* -------------------------------------
+    Homescreen
+   ------------------------------------- */
+
+#section_home hr {
+  margin: 20px 0 20px 6px;
+}
+
+#home_tumb_text {
+  font-size: 2.7em;
+  float: left;
+  width: 1620px;
+  padding-top: 20px;
+  height: 80px;
+}
+
+#wrapper_thumbs {
+  float: left;
+  width: 1620px;
+  height: 310px;
+  margin-bottom: 20px;
+}
+
+#wrapper_thumbs a {
+  float: left;
+  width: 310px;
+  height: 310px;
+  display: inline-block;
+  padding-right: 7px;
+  padding-left: 7px;
+}
+
+#home_bottom_text {
+  float: left;
+  width: 1620px;
+  height: 132px;
+  font-size: 4em;
+  line-height: 2.4em;
+}
+
+#home_bottom_text p {
+  height: 132px;
+}
+
+#big_text {
+  font-size: 2em;
+}
