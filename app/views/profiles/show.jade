@@ -2,10 +2,25 @@
 extends ../layout
 
 block content
-	.well
-		h2 Profile
-		p= usr.fullName
-		p= usr.email
-		p= usr.fb.gender
-		p= usr.fb.link
-		p= usr.bio
+	em.muted public profile:
+	.page-header
+		h1 #{usr.fullName}
+	.row
+		.span12
+			.sub_main.rounded(style='padding: 15px; margin-bottom: 30px;')
+				section.pull-left
+					.thumbnail
+						img(src='https://graph.facebook.com/#{usr.fb.id}/picture?type=large', alt='#{usr.fullName}', style='margin: 0px;')
+				section.pull-left(style='margin-left: 25px;')
+					strong Name:
+					p= usr.fullName
+					strong Email:
+					p
+						a(href='mailto:#{usr.email}') #{usr.email}
+					strong Gender:
+					p= usr.fb.gender
+				section.pull-left(style='margin-left: 25px;')
+					strong Bio:
+					p= usr.bio
+					strong Member Since:
+					p #{usr.created_at}

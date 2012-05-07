@@ -1,9 +1,10 @@
 
 // group.api.js   -- RESTful api for groups
 
-var mongoose = require('mongoose');
-var Group = mongoose.model('Group');
-var _ = require('underscore');
+var mongoose = require('mongoose'),
+		Group = mongoose.model('Group'),
+		Invitation = mongoose.model('Invitation'),
+		_ = require('underscore');
 
 module.exports = function (app) {
 
@@ -70,7 +71,6 @@ module.exports = function (app) {
 		return Group.findById(req.params.id, function (err, group) {
 			return group.remove(function (err) {
 				if (!err) {
-					console.log('Group ' + req.params.id + 'removed');
 					return res.send('');
 				}
 			});
@@ -78,71 +78,49 @@ module.exports = function (app) {
 	});
 
 
-	// POST /api/groups/5/invite
+	// GET /api/groups/5/invitations
 
-	// app.post('/api/groups/:id/invite', function (req, res) {
+	app.get('/api/groups/:id/invitations', function(req, res) {
+		return Group.findById(req.params.id, function(err, group) {
+			return res.send(group.invitations);
+		});
+	});
 
-	// 	console.log(req.params);
+	// GET /api/groups/5/invitations/5
 
-	// 	// send the word out
-	// 	mail.sendInvite();
-
-	// 	console.log('Invitations for group :id has been send to {users}');
-	// 	return res.send('');
-	// });
-
-
-	// POST /api/groups/5/join
-
-	// app.post('/api/groups/:id/join', function (req, res) {
-	// 	return Group.findById(req.params.id, function (err, group) {
-	// 		req.user.populate('group').run(function (err, user) {
-	// 			if (err) {
-	// 				console.log(err);
-	// 			}
-
-	// 			// add user to group
-	// 			group.users.push(user);
-	// 			user.group = group._id;
-
-	// 			group.save();
-	// 			user.save();
-
-	// 			return group.save(function (err) {
-	// 				if (!err) {
-	// 					console.log('User ' + user._id + 'joined the group ' + group._id);
-	// 				}
-	// 				return res.send('');
-	// 			});
-	// 		});
-	// 	});
-	// });
+	app.get('/api/groups/:id/invitations/:invId', function(req, res) {
+		return Group.findById(req.params.id, function(err, group) {
+			return res.send(group)
+		});
+	});
 
 
-	// POST /api/groups/5/leave
+	// POST /api/groups/5/invitations
 
-	// app.post('/api/groups/:id/leave', function (req, res) {
-	// 	return Group.findById(req.params.id, function (err, group) {
-	// 		req.user.populate('group').run(function (err, user) {
-	// 			if (err) {
-	// 			 	console.log(err);
-	// 			}
+	app.post('/api/groups/:id/invitations', function(req, res) {
+		return Group.findById(req.params.id, function(err, group) {
+			group.invitations.push(new Invitation({
+				invitee: req.body.invitee,
+				motivation: req.body.motivation,
+				invited_by: req.body.invited_by
+			}));
+			return group.save(function(err) {
+				if(!err) {
+					res.statusCode = 200;
+					res.send(group);
+				} else {
+					res.statusCode = 500;
+					console.log(err);
+				}
+			});
+		});
+	});
 
-	// 			// remove user from group
-	// 			group.users[_.indexOf(group.users, user)].remove();
-	// 			user.group = 'undefined';
 
-	// 			group.save();
-	// 			user.save();
+	// DELETE /api/groups/5/invitations/5
 
-	// 			return group.save(function (err) {
-	// 				if (!err) {
-	// 					console.log('User ' + req.user._id + 'left the group ' + req.params.id);
-	// 				}
-	// 				return res.send('');
-	// 			});
-	// 		});
-	// 	});
-	// });
+	app.get('/api/groups/:id/invitations/:invId', function(req, res) {
+
+	});
 
 };

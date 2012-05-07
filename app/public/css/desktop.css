@@ -1,11 +1,6 @@
 html,
 body {
   background: #F2F3F3;
-  -webkit-font-smoothing: antialiased;
-  -moz-font-smoothing: antialiased;
-  -ms-font-smoothing: antialiased;
-  -o-font-smoothing: antialiased;
-  font-smoothing: antialiased;
 }
 
 #header {
@@ -431,10 +426,8 @@ section#todoapp .sub_main:hover .destroy {
   box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 1px 2px rgba(0, 0, 0, 0.05);
   cursor: pointer;
   filter: progid:DXImageTransform.Microsoft.gradient(enabled = false);
-
   display: inline-block;
   text-align: right;
-  padding: 5px;
   border: 1px solid #ccc;
   border-top-left-radius: 5px;
   border-bottom-left-radius: 5px;

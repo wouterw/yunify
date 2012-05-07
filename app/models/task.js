@@ -1,8 +1,13 @@
-
-// task.js  -- task schema
+/*!
+ * Task model
+ */
 
 var mongoose = require('mongoose'),
 	Schema = mongoose.Schema;
+
+/**
+ * Schema
+ */
 
 var TaskSchema = new Schema({
 	title: { type: String, required: true },
@@ -11,5 +16,8 @@ var TaskSchema = new Schema({
 	created_at: { type: Date, default: Date.now }
 });
 
-// Expose task model
+/**
+ * Export model
+ */
+
 module.exports = mongoose.model('Task', TaskSchema);

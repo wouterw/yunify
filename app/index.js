@@ -12,7 +12,7 @@ var	sessionStore = new mongoStore({
 	collection: conf.session.collection,
 	reapInterval: conf.session.reapInterval,
 	username: conf.session.username,
-	password: conf.session.password	
+	password: conf.session.password
 });
 
 // create server
@@ -24,11 +24,12 @@ var mongoose = module.exports = require('mongoose');
 mongoose.connect(conf.db.uri);
 
 // bootstrap models
-var modelsPath = __dirname + '/models';
-var modelFiles = fs.readdirSync(modelsPath);
-modelFiles.forEach(function (file) {
-	require(modelsPath + '/' + file);
-});
+require('./models/user');
+require('./models/invitation');
+require('./models/group');
+require('./models/chat');
+require('./models/task');
+
 
 // load authorization
 var everyauth = require('everyauth'),
@@ -55,9 +56,9 @@ app.configure(function () {
 });
 
 // express error handling
-app.use(express.errorHandler({ 
-	dumpExceptions: false, 
-	showStack: false 
+app.use(express.errorHandler({
+	dumpExceptions: false,
+	showStack: false
 }));
 
 // configure environments
@@ -93,10 +94,10 @@ apiFiles.forEach(function (file) {
 });
 
 // start http server
-app.listen(conf.port);	
+app.listen(conf.port);
 var addr = app.address();
 
-console.log(color("success - ", "green+bold"), 
+console.log(color("success - ", "green+bold"),
 	'Yunify has taken the stage on http://' + addr.address + ':' + addr.port);
 
 // start socket server

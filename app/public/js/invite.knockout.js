@@ -4,37 +4,45 @@
 (function () {
 	'use strict';
 
-	var Invitee = function (id, fbId, name) {
+	var Invitee = function (data) {
 		var self = this;
-		self.id = id;
-		self.fbId = fbId;
-		self.name = name;
-		self.picture = function () {
+		this.id = data._id;
+		this.fbId = data.fb.id;
+		this.name = data.fullName;
+
+		this.picture = function () {
 			return 'https://graph.facebook.com/' + self.fbId + '/picture?type=square';
 		};
-		self.profile = function () {
+
+		this.profile = function () {
 			return '/profiles/' + self.id;
 		};
+
+		this.toJSON = function() {
+			return {
+				"id": self.id
+			};
+		};
+
 	};
 
 	var Invitees = function () {
 		var self = this;
-		self.suggestions = ko.observableArray([]);
-		self.selectedSuggestions = ko.observableArray([]);
-		self.invitees = ko.observableArray([]);
+		this.suggestions = ko.observableArray([]);
+		this.selectedSuggestions = ko.observableArray([]);
+		this.invitees = ko.observableArray([]);
 
-		self.addInvitee = function (invitee) {
-			console.log(invitee);
-			if (self.invitees().indexOf(invitee) < 0) {
+		this.addInvitee = function (invitee) {
+			if (self.invitees().indexOf(invitee) === -1) {
 				self.invitees().push(invitee);
 			}
 		};
 
-		self.queryChanged = function () {
+		this.queryChanged = function () {
 			$.getJSON('/api/users/search?q=' + $('input#invite-user').val(), function(items) {
 				self.suggestions.removeAll();
 				_.each(items, function(item) {
-					var inv = new Invitee(item._id, item.fb.id, item.fullName);
+					var inv = new Invitee(item);
 					self.suggestions().push(inv);
 					ko.applyBindings(self);
 				});
@@ -42,14 +50,14 @@
 			return true;
 		};
 
-		self.suggestionSelected = function (e) {
+		this.suggestionSelected = function (e) {
 			_.each(self.selectedSuggestions(), function(selectedItem) {
 				self.addInvitee(selectedItem);
 			});
 			return true;
 		};
 
-		self.sendInvites = function () {
+		this.sendInvites = function () {
 			$.post('/api/groups/' + groupId + '/invite', JSON.stringify(self.invitees), function(data) {
 				// show notification
 			});

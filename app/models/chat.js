@@ -31,6 +31,6 @@ ChatSchema.statics.getChatHistory = function (room, count, callback) {
 };
 
 /**
- * Expose model
+ * Export model
  */
 module.exports = mongoose.model('Chat', ChatSchema);
