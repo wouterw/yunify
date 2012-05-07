@@ -39,9 +39,76 @@ body
 				span#weather.yellow_text
 				| &nbsp;outside!
 	#section_tasks.slide_page(style='left: 1920px;')
-		| TASKS
+		#todo-list(data-bind='foreach: tasks')
+			.sub_main.rounded
+				p(data-bind='text: title')
+				p(data-bind='text: completed')
+
 	#section_facebook.slide_page(style='left: 3840px;')
-		| FACEBOOK
+		#facebookSection.socialSection
+			.socialWrapper(data-bind='foreach: posts')
+				//
+					ko if: isStatus
+				.facebookBlock
+					img(data-bind='attr: { src: FromPicture }', alt='alt')
+					p.facebookText
+						span.title(data-bind='text:From')
+						br
+						span(data-bind='text:Message')
+						br
+						span.facebookUnderscript
+							span(data-bind='text:Created')
+							| ·
+							span(data-bind='text:Comments')
+							| comments ·
+							span(data-bind='text:Likes')
+							| likes
+				//
+					/ko
+				//
+					ko if: isPhoto
+				.facebookBlock
+					img(data-bind='attr: { src: FromPicture }', alt='alt')
+					p.facebookText
+						span.title(data-bind='text:From')
+						br
+						span.fbPhoto
+							img(data-bind='attr: { src: Photo }', alt='alt')
+							a(data-bind='text:Story')
+							span(data-bind='text:PhotoDescription')
+						br
+						span.facebookUnderscript
+							span(data-bind='text:Created')
+							| ·
+							span(data-bind='text:Comments')
+							| comments ·
+							span(data-bind='text:Likes')
+							| likes
+				//
+					/ko
+				//
+					ko if: isLink
+				.facebookBlock
+					img(data-bind='attr: { src: FromPicture }', alt='alt')
+					p.facebookText
+						span.title(data-bind='text:From')
+						br
+						span(data-bind='text:Message')
+						span.linkBlock
+							img(data-bind='attr: { src: LinkImage }', alt='alt')
+							a(data-bind='text:LinkName')
+							br
+							span(data-bind='text:LinkDescription')
+						br
+						span.facebookUnderscript
+							span(data-bind='text:Created')
+							| ·
+							span(data-bind='text:Comments')
+							| comments ·
+							span(data-bind='text:Likes')
+							| likes
+				//
+					/ko
 	#section_twitter.slide_page(style='left: 5760px;')
 		| TWITTER
 	#section_photobooth.slide_page(style='left: 7680px;')
@@ -49,9 +116,16 @@ body
 	#section_achieve.slide_page(style='left: 11520px;')
 		| ACHIEVE
 	script(src='/js/lib/jquery-1.7.2.min.js')
+	script(src='/js/lib/underscore.min.js')
+	script(src='/js/lib/knockout-2.0.0.min.js')
 	script(src='/js/lib/jquery.jclock.js')
-	script(src='/js/lib/kinect.js')
 	script(src='/js/lib/jquery.simpleWeather-2.0.1.min.js')
 	//
+		script(src='/js/lib/kinect.js')
 		script(src='/js/wall.kinect.js')
 	script(src='/js/wall.utils.js')
+	script(src='/socket.io/socket.io.js')
+	script
+		var fb_access_token = !{JSON.stringify(everyauth.facebook.accessToken)};
+		var groupId = !{JSON.stringify(user.group)};
+	script(src='/js/wall.knockout.js')

@@ -29,7 +29,7 @@ UserSchema.add({
  */
 
 everyauth.debug = true;
-everyauth.facebook.scope('user_about_me, email');
+everyauth.facebook.scope('user_about_me, email, read_stream');
 everyauth.facebook.moduleTimeout(-1);
 
 UserSchema.plugin(mongooseauth, {
