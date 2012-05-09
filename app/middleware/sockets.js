@@ -1,7 +1,7 @@
 /**
  * sockets.js
  */
- 
+
 module.exports = function (app, sessionStore) {
 
 	// start socket server
@@ -50,8 +50,9 @@ module.exports = function (app, sessionStore) {
 	});
 
 	// load modules
-	require('./chat.sockets.js')(io);
-	require('./tasks.sockets.js')(io);
+	require('./chat.sockets')(io);
+	require('./tasks.sockets')(io);
+	require('./twitter.sockets')(io);
 	//require('./news.sockets.js')(io);
 
 };

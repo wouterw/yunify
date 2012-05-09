@@ -3,8 +3,8 @@
  */
 
 var mongoose = require('mongoose'),
-		Invitation = mongoose.model('Invitation'),
-		Schema   = mongoose.Schema;
+		Schema = mongoose.Schema,
+		ObjectId = Schema.ObjectId;
 
 /**
  * Schema
@@ -13,12 +13,34 @@ var mongoose = require('mongoose'),
 var GroupSchema = new Schema({
 	name: { type: String, required: true, unique: true },
 	description: { type: String, default: '' },
-	tasks: [{ type: Schema.ObjectId, ref: 'Task' }], // Group has_many tasks
-	users: [{ type: Schema.ObjectId, ref: 'User' }], // Group has_many users
-	invitations: [Invitation],
-	creator: { type: Schema.ObjectId, ref: 'User' }, // Group has_one creator
 	created_at: { type: Date, default: Date.now }
 });
+
+/**
+ * Virtuals
+ */
+
+GroupSchema.virtual('members').get(function() {
+	return this.db.model('User').where('group', this._id).run();
+});
+
+GroupSchema.virtual('tasks').get(function() {
+	return this.db.model('Task').where('group', this._id).run();
+});
+
+/**
+ * Methods
+ */
+
+InvitationSchema.statics.addMember = function(user) {
+	user.group = this._id;
+	user.save();
+};
+
+InvitationSchema.statics.removeMember = function(user) {
+	user.group = null;
+	user.save();
+};
 
 /**
  * Export model

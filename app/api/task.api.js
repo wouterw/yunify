@@ -1,5 +1,7 @@
-
-// task.api.js   -- RESTful api for tasks
+/*!
+ * task.api.js
+ * RESTful api for tasks
+ */
 
 var mongoose = require('mongoose');
 var Task = mongoose.model('Task');
@@ -32,6 +34,7 @@ module.exports = function (app) {
 		var newTask = new Task({
 			title: req.body.title,
 			completed: req.body.completed,
+			important: req.body.important,
 			group: req.user.group
 		});
 		newTask.save(function (err) {
@@ -46,6 +49,7 @@ module.exports = function (app) {
 		return Task.findById(req.params.id, function(err, task) {
 			task.title = res.body.title;
 			task.completed = res.body.completed;
+			task.important = req.body.important;
 			return task.save(function(err, updatedTask) {
 				res.send(updatedTask);
 			});

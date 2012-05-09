@@ -1,31 +1,31 @@
-
 extends ../layout
 
 block content
 	em.muted browse profiles:
 	.page-header
-		h1
-			| Profiles 
-			small search
+		h1 Profiles
+			small  search
 	.row
-		.span3
+		.span12
 			.well
 				h6 Search
 				.input-append
-					input.input-small(type='text')
+					input(type='text')
 					button.btn(type='button')
 						i.icon-search
-		.span8.offset1
-			- if (users.length !== 0)
-				each usr in users
+	.row
+		.span12
+			.users(data-bind='foreach: users')
+				a(data-bind='{ attr: { href: url } }')
 					.sub_main.rounded(style='width: auto; margin-bottom: 10px; padding: 20px;')
-						a.btn.btn-large.btn-primary.pull-right(href='/profiles/#{usr._id}')
-							i.icon-eye-open.icon-white 
-							|  View
+						a.btn.btn-success.pull-right(href='/profiles/#{usr._id}')
+							i.icon-envelope.icon-white
+							|  Invite
 						img.pull-left(src='https://graph.facebook.com/#{usr.fb.id}/picture?type=square', alt='#{usr.fullName')
-						h3 #{usr.fullName} 
-						span.muted #{usr.bio} 
-			- else
-				.alert.alert-info 
-					button.close(data-dismiss='alert') ×
-					| No public profiles found :(
+						h3 #{usr.fullName}
+							span.label.label-info(style='margin-left: 10px;') Group
+						p.muted #{usr.bio}
+append scripts
+	script
+		var groupId = !{JSON.stringify(user.group)};
+	script(src='/js/profiles.me.knockout.js')

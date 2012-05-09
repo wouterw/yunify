@@ -18,6 +18,7 @@ block content
 						.sub_main.rounded(data-bind='css: { completed: completed, editing: editing }')
 							.view(data-bind='event: { dblclick: $root.editItem }')
 								input.toggle(type='checkbox', data-bind='checked: completed')
+								input.toggle-important(type='checkbox', data-bind='checked: important')
 								label(data-bind='text: title')
 								button.destroy(data-bind='click: $root.remove')
 							input.edit(data-bind='value: title, valueUpdate: \'afterkeydown\', enterKey: $root.stopEditing, selectAndFocus: editing, event: { blur: $root.stopEditing }')

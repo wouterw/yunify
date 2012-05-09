@@ -25,6 +25,7 @@ module.exports = function (io) {
 			var newTask = new Task({
 				title: data.title,
 				completed: data.completed,
+				important: data.important,
 				group: data.groupId
 			});
 			newTask.save(function(err, task) {
@@ -42,6 +43,7 @@ module.exports = function (io) {
 				if (!err) {
 					task.title = data.title;
 					task.completed = data.completed;
+					task.important = data.important;
 					task.save(function(err) {
 						if (!err) {
 							socket.broadcast.to(data.groupId).emit('updated', task);

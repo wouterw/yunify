@@ -6,6 +6,7 @@
 		this.id = data._id;
 		this.title = ko.observable(data.title);
 		this.completed = ko.observable(data.completed);
+		this.important = ko.observable(data.important);
 		this.editing = ko.observable(false);
 
 		this.title.subscribe(function() {
@@ -13,6 +14,10 @@
 		});
 
 		this.completed.subscribe(function() {
+			owner.update(ko.toJS(self));
+		});
+
+		this.important.subscribe(function() {
 			owner.update(ko.toJS(self));
 		});
 	};
@@ -38,7 +43,8 @@
 			if (current) {
 				var data = {
 					"title": current,
-					"completed": false
+					"completed": false,
+					"important": false
 				};
 				emitAdd(data);
 				self.current('');
@@ -68,6 +74,7 @@
 			self.notify = false;
 			oldTask.title(updatedTask.title);
 			oldTask.completed(updatedTask.completed);
+			oldTask.completed(updatedTask.important);
 			self.notify = true;
 		};
 
@@ -137,6 +144,7 @@
 		socket.emit('add', {
 			"title": task.title,
 			"completed": task.completed,
+			"important": task.important,
 			"groupId": groupId
 		});
 	};
@@ -146,6 +154,7 @@
 		 "id": task.id,
 		 "title": task.title,
 		 "completed": task.completed,
+		 "important": task.important,
 		 "groupId": groupId
 		});
 	};

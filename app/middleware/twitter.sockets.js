@@ -2,9 +2,28 @@
  * twitter.sockets.js
  * twitter feed socket communication
  */
+var TwitterStream = require('../lib/twitterStream');
 
-var headers = [];
-var auth = base64.encode(username + ':' + password);
-headers['Authorization'] =
+module.exports = function (io) {
 
-var twitter =
+	var tweets = io.of('/tweets').on('connection', function(socket) {
+
+		var stream = new TwitterStream({
+			username: 'wouter_willaert',
+			password: 'fqb0j8621',
+			track: 'NielsenRamon'
+		});
+
+		stream.on('tweet', function(tweet) {
+			socket.broadcast.emit('tweet', tweet);
+		});
+
+		stream.on('error', function(err) {
+			console.log(err);
+		});
+
+		stream.getTweets();
+
+	});
+
+};

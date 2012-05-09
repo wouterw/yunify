@@ -1,0 +1,14 @@
+
+extends ../layout
+
+block content
+	.tweets(data-bind='foreach: tweets')
+		.tweet
+			strong(data-bind='text: name')
+			span(data-bind='text: text')
+			span.muted(data-bind='text: time')
+			img(data-bind='attr: { src: img, alt: name }')
+
+append scripts
+	script(src='/socket.io/socket.io.js')
+	script(src='/js/tweets.knockout.js')

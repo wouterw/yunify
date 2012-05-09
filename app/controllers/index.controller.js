@@ -22,6 +22,14 @@ module.exports = function(app) {
 	});
 
 
+	// GET /tweets
+
+	app.get('/tweets', function(req, res) {
+		res.render('home/tweets', {
+			title: 'Tweets'
+		});
+	});
+
 	// GET /wall
 
 	app.get('/wall', function(req, res) {

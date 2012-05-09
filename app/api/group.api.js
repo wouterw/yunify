@@ -1,10 +1,10 @@
-
-// group.api.js   -- RESTful api for groups
+/*!
+ * group.api.js
+ * RESTful api for groups
+ */
 
 var mongoose = require('mongoose'),
-		Group = mongoose.model('Group'),
-		Invitation = mongoose.model('Invitation'),
-		_ = require('underscore');
+		Group = mongoose.model('Group');
 
 module.exports = function (app) {
 
@@ -75,52 +75,6 @@ module.exports = function (app) {
 				}
 			});
 		});
-	});
-
-
-	// GET /api/groups/5/invitations
-
-	app.get('/api/groups/:id/invitations', function(req, res) {
-		return Group.findById(req.params.id, function(err, group) {
-			return res.send(group.invitations);
-		});
-	});
-
-	// GET /api/groups/5/invitations/5
-
-	app.get('/api/groups/:id/invitations/:invId', function(req, res) {
-		return Group.findById(req.params.id, function(err, group) {
-			return res.send(group)
-		});
-	});
-
-
-	// POST /api/groups/5/invitations
-
-	app.post('/api/groups/:id/invitations', function(req, res) {
-		return Group.findById(req.params.id, function(err, group) {
-			group.invitations.push(new Invitation({
-				invitee: req.body.invitee,
-				motivation: req.body.motivation,
-				invited_by: req.body.invited_by
-			}));
-			return group.save(function(err) {
-				if(!err) {
-					res.statusCode = 200;
-					res.send(group);
-				} else {
-					res.statusCode = 500;
-					console.log(err);
-				}
-			});
-		});
-	});
-
-
-	// DELETE /api/groups/5/invitations/5
-
-	app.get('/api/groups/:id/invitations/:invId', function(req, res) {
-
 	});
 
 };

@@ -1,5 +1,7 @@
-
-// user.api.js   -- RESTful api for users
+/*!
+ * user.api.js
+ * RESTful api for users
+ */
 
 var mongoose = require('mongoose');
 var User = mongoose.model('User');
