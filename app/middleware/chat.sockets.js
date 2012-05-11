@@ -1,6 +1,5 @@
 /**
- * chat.sockets.js
- * chat socket communication
+ * Realtime Chat
  */
 
 var Chat = require('mongoose').model('Chat'),

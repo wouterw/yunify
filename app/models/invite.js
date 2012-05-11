@@ -1,5 +1,5 @@
 /*!
- * Invitation model
+ * Invite model
  */
 
 var mongoose = require('mongoose'),
@@ -11,11 +11,10 @@ var mongoose = require('mongoose'),
  */
 
 var InviteSchema = new Schema({
-	group: { type; ObjectId, ref: 'Group' },
+	group: { type: ObjectId, ref: 'Group' },
 	invitee: { type: ObjectId, ref: 'User' },
-	motivation: { type: String, default: '' },
 	status: { type: String, enum: ['Pending', 'Accepted', 'Rejected'], default: 'Pending' },
-	invited_by: { type: String, required: true },
+	invited_by: { type: ObjectId, ref: 'User' },
 	created_at: { type: Date, default: Date.now }
 });
 

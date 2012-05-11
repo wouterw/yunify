@@ -5,37 +5,39 @@ block content
 	.page-header
 		h1
 			| My Account
-			small this is you
+			small  this is you
 	.row
 		.span3
+			.page-header
+				h3 Picture
 			.well
-				h6 Picture
 				img(src='https://graph.facebook.com/' + everyauth.user.fb.id + '/picture?type=large', alt='#{user.fullName}')
+
+			.page-header
+				h3 Info
 			.well
-				h6 Info
-				strong name
-				p(data-bind='text: fullName')
-				strong status
-				p(data-bind='text: status')
-				strong email
+				h6 name
+				p(data-bind='text: profile.fullName')
+				h6 status
+				p(data-bind='text: profile.status')
+				h6 email
 				p
-					a(data-bind='text: email, attr: { href: email() }')
-				strong gender
-				p= me.fb.gender
-				strong facebook
+					a(data-bind='text: profile.email, attr: { href: profile.email_link }')
+				h6 facebook
 				p
 					a(href='#{everyauth.facebook.user.link}', target='_blank') #{everyauth.facebook.user.username}
-				strong twitter
-				p(data-bind='text: twitter')
-				strong bio
-				p(data-bind='text: bio')
+				h6 twitter
+				p
+					a(data-bind='text: profile.twitter, attr: { href: profile.twitter_link }', target='_blank')
+				h6 bio
+				p(data-bind='text: profile.bio')
 
-			- if (!me.group)
-				.alert
-					button.close(data-dismiss='alert') ×
-					span In order to use all features, you'll have to join or create a group!
-				.well
-					a.btn.btn-primary.btn-large(data-toggle='modal', href='#create_group_modal') Create a group
+			.page-header
+				h3 Group
+			.well
+				- if (!me.group)
+					p You haven't joined a group.
+					a.btn.btn-primary.btn-large(data-toggle='modal', href='#create_group_modal', style='display: block;') Create a group
 					#create_group_modal.modal.hide.fade
 						.modal-header
 								button.close(data-dismiss='modal') ×
@@ -52,49 +54,75 @@ block content
 												textarea#group_description.input-xlarge(rows='3', name='description', placeholder='Some awesome group description')
 							.modal-footer
 								button.btn.btn-primary(type='submit', form='new_group_form') Create
-			- else
-				.well
-					a.btn.btn-primary.pull-right(href='/groups/#{me.group._id}') View
-					h6 Group
-					strong name
-					p= me.group.name
-					strong description
-					p= me.group.description
-
-		.span8.offset1
+				- else
+						h6 name
+						p #{me.group.name}
+						h6 description
+						p #{me.group.description}
+						a.btn.btn-primary(href='/roomies', style='display: block;')
+							i.icon-home.icon-white
+							|  Take me there
+		.span6
 			#update-success.alert.alert-success.fade.in(style='display: none;')
 				button.close(data-dismiss='alert')×
-				strong Success!&nbsp;
-				| Profile updated ;)
+				strong Success.&nbsp;
+				| Changes saved!
 			form.form-horizontal
-				fieldset
-					legend Edit my profile
-					.control-group
-						label.control-label(for='name') Full name:
-						.controls
-							input(type='text', name='name', data-bind='value: fullName')
-					.control-group
-						label.control-label(for='email') Email:
-						.controls
-							input(type='email', name='email', data-bind='value: email')
-					.control-group
-						label.control-label(for='bio') Bio:
-						.controls
-							textarea(name='bio', placeholder='Something about you.', data-bind='value: bio')
-					.control-group
-						label.control-label(for='status') Status:
-						.controls
-							select(name='status', data-bind='options: statusValues, value: status')
-					.control-group
-						label.control-label(for='twitter') Twitter:
-						.controls
-							.input-prepend
-								span.add-on @
-								input#prependedInput(type='text', name='twitter', data-bind='value: twitter')
-					.form-actions
-						btn#update_profile.btn.btn-primary.btn-large(data-bind='click: update') Update Profile
+				.page-header
+					h3 My status
+				.control-group
+					label.control-label(for='status') Status:
+					.controls
+						select(name='status', data-bind='options: profile.statusValues, value: profile.status')
+				.page-header
+					h3 My info
+				.control-group
+					label.control-label(for='name') Full name:
+					.controls
+						input(type='text', name='name', data-bind='value: profile.fullName')
+				.control-group
+					label.control-label(for='bio') Bio:
+					.controls
+						textarea(name='bio', placeholder='Something about you.', data-bind='value: profile.bio')
+				.control-group
+					label.control-label(for='email') Email:
+					.controls
+						.input-prepend
+							span.add-on
+								i.icon-envelope
+							input(type='email', name='email', data-bind='value: profile.email')
+				.control-group
+					label.control-label(for='twitter') Twitter:
+					.controls
+						.input-prepend
+							span.add-on @
+							input(type='text', name='twitter', data-bind='value: profile.twitter')
+				.control-group
+					.controls
+						btn#update_profile.btn.btn-success.btn-large(data-bind='click: profile.update') Save Changes
+		.span3
+			.page-header
+				h3 Points
+			p You haven't earned any points.
+			.page-header
+				h3 Awards
+			p You haven't earned any badges.
+			.page-header
+				h3 Invites
+			section#invites(data-bind='foreach: invites')
+				.alert.alert-block.alert-info
+					h4 You've been invited!
+					p
+						| You have been invited by&nbsp;
+						a(data-bind='text: $data.invited_by.fullName, attr: { href: $data.invited_by_link }')
+						| &nbsp;to join his group&nbsp;
+						a(data-bind='text: $data.group.name, attr: { href: $data.group_link }')
+						|!
+					p
+						| &rarr;&nbsp;
+						a(href='#', data-bind='event: { click: $data.accept }') Accept
+						| &nbsp;or&nbsp;
+						a(href='#', data-bind='event: { click: $data.reject }') Reject
 
 append scripts
-	script
-		var userId = !{JSON.stringify(me._id)};
 	script(src='/js/profiles.me.knockout.js')

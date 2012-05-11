@@ -1,12 +1,9 @@
-
 extends ../layout
 
 block content
-	em.muted browse groups:
 	.page-header
-		h1
-			| Groups 
-			small search
+		h1 Group
+			small  browser
 	.row
 		.span3
 			.well
@@ -18,13 +15,12 @@ block content
 		.span8.offset1
 			- if (groups.length !== 0)
 				each group in groups
-					.sub_main.rounded(style='width: auto; margin-bottom: 10px; padding: 20px;')
-						a.btn.btn-large.btn-primary.pull-right(href='/groups/#{group._id}')
-							i.icon-eye-open.icon-white 
-							|  View
-						h3 #{group.name} 
-						span.muted #{group.description} 
+					.rounded-box.grey-box(style='width: auto; margin-bottom: 10px; padding: 20px;')
+						a.btn.pull-right(href='/groups/#{group._id}')
+							i.i.icon-search
+						h3 #{group.name}
+						span.muted #{group.description}
 			- else
-				.alert.alert-info 
+				.alert.alert-info
 					button.close(data-dismiss='alert') ×
 					| No groups found :(

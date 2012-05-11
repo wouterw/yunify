@@ -1,83 +1,26 @@
-
 extends ../layout
 
 block content
-	em.muted group:
-	.page-header
-		h1 My Group&nbsp;
-			small and roomies
 	.row
-		.span3
-			.well
-				h6 Info
-				strong name
-				p(data-bind='text: group.name')
-				strong description
-				p(data-bind='text: group.description')
-			.well
-				h6 Roomies
-				each u in group.users
-					a(href='/profiles/#{u._id}', title='#{u.fullName}')
-						img(src='https://graph.facebook.com/' + u.fb.id + '/picture?type=square', alt='#{u.fullName}')
-
-
-
-			form.well.form-search
-				h6 Add invite
-				input.input-medium.search-query(type='text')
-				.form-actions
-					btn.btn.btn-primary(data-toggle='modal', href='#invite-modal')
-						i.icon.icon-plus.icon-white
-						| Invite
-
-
-			#invite-success.alert.alert-success.fade.in(style='display: none;')
-				button.close(data-dismiss='alert')×
-				strong Success!&nbsp;
-				| A invitation has been send.
-
-
-
-
-			.well
-				h6 Invitations
-
-				#invite-modal.modal.hide.fade(style='display: none;')
-					.modal-header
-						button.close(data-dismiss='modal') ×
-						h3 Send a Invitation
-					.modal-body
-						label(for='search')
-							strong Search
-							input(type='text', name='search', placeholder='Start typing your friends name', data-bind='value: searchquery')
-						a(data-bind='attr: { href: invitee.link, title: invitee.name }')
-							img(data-bind='attr: { src: invitee.picture, alt: invitee.name }')
-						label(for='motivation')
-							strong Motivation
-							textarea(name='motivation', placeholder='Type a motivation here', data-bind='value: motivation')
-					.modal-footer
-						a.btn(href='#', data-dismiss='modal') Close
-						a.btn.btn-primary(href='#', data-bind='click: invite') Invite
-		.span8.offset1
-			#update-success.alert.alert-success.fade.in(style='display: none;')
-				button.close(data-dismiss='alert')×
-				strong Success!&nbsp;
-				| Your Group is up to date now ;)
-			form.form-horizontal
-				fieldset
-					legend Edit your group
-					.control-group
-						label.control-label(for='name') Name:
-						.controls
-							input(data-bind='value: group.name', type='text', name='name')
-					.control-group
-						label.control-label(for='description') Description:
-						.controls
-							textarea(data-bind='value: group.description', name='description', placeholder='Add a description here')
-					.form-actions
-						btn.btn.btn-primary.btn-large(data-bind='click: update') Update
-append scripts
-	script
-		var fb = !{JSON.stringify(user.fb)};
-		var groupId = !{JSON.stringify(group._id)};
-	script(src='/js/group.knockout.js')
+		.span12
+			ul.breadcrumb
+				li
+					a(href='/groups') Groups
+					span.divider /
+				li.active
+					| #{group.name}
+	.row
+		.span12
+			.rounded-box.grey-box(style='padding: 15px;')
+				h1 #{group.name}
+				div.pull-left(style='margin-right: 30px;')
+					h6 Members:
+					p
+						each u in members
+								a(href='/profiles/#{u._id}', title='#{u.fullName}')
+									img(src='https://graph.facebook.com/' + u.fb.id + '/picture?type=square', alt='#{u.fullName}')
+				div.pull-left
+					h6 Description:
+					p #{group.description}
+					h6 Since
+					p #{group.created_at}

@@ -9,9 +9,9 @@ module.exports = function (io) {
 	var tweets = io.of('/tweets').on('connection', function(socket) {
 
 		var stream = new TwitterStream({
-			username: 'wouter_willaert',
-			password: 'fqb0j8621',
-			track: 'NielsenRamon'
+			username: '',
+			password: '',
+			track: ''
 		});
 
 		stream.on('tweet', function(tweet) {

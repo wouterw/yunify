@@ -51,9 +51,19 @@ html(lang='en')
 								a.sign_in(href='/auth/facebook') Sign in
 		.container
 			block content
-			hr
-			footer
-				small.muted &copy; 2012 Codability
+		footer.footer
+			.wrapper
+				ul.foot_links
+					li
+						a(href='/about') About
+					li |
+					li
+						a(href='/team') Team
+					li |
+					li
+						a(href='/team') Contact
+					li.copyright_txt
+						| Codability &copy; 2012
 		block scripts
 			script(src='/js/lib/json2.js')
 			script(src='/js/lib/jquery-1.7.2.min.js')

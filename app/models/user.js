@@ -1,9 +1,10 @@
-/*!
+	/*!
  * User model
  */
 
 var mongoose = require('mongoose'),
 		Schema = mongoose.Schema,
+		ObjectId = mongoose.Types.ObjectId,
 		lastMod = require('./plugins/lastMod');
 
 /**
@@ -26,30 +27,27 @@ var UserSchema = new Schema({
 });
 
 /**
- * Virtuals
- */
-
-UserSchema.virtual('invites').get(function() {
-	return this.db.model('Invite').where('invitee', this._id).run();
-});
-
-/**
  * Plugins
  */
 
-// add updated_at
 UserSchema.plugin(lastMod);
 
-// add authentication
 require('./plugins/authentication')(mongoose, UserSchema);
 
 /**
  * Methods
  */
 
-UserSchema.methods.findGroup = function(callback) {
-	return this.db.model('Group').findById(this.group, callback);
+UserSchema.methods.findGroup = function(cb) {
+	return this.db.model('Group').findById(this.group, cb);
 };
+
+UserSchema.methods.invites = function(cb) {
+	return this.db.model('Invite').where('invitee').equals(this._id)
+		.populate('group', ['name']).populate('invited_by', ['fullName'])
+		.run(cb);
+};
+
 
 /**
  * Export model

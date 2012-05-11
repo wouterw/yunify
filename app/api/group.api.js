@@ -16,6 +16,16 @@ module.exports = function (app) {
 		});
 	});
 
+	// GET /api/me/group
+
+	app.get('/api/me/group', function (req, res) {
+		return Group.findById(req.user.group, function (err, group) {
+			if (!err) {
+				return res.send(group);
+			}
+		});
+	});
+
 
 	// GET /api/groups/5
 

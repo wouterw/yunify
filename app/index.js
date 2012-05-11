@@ -25,7 +25,7 @@ mongoose.connect(conf.db.uri);
 
 // bootstrap models
 require('./models/user');
-require('./models/invitation');
+require('./models/invite');
 require('./models/group');
 require('./models/chat');
 require('./models/task');

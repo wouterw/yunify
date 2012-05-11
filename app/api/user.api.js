@@ -26,6 +26,12 @@ module.exports = function(app) {
 	});
 
 
+	// GET /api/me
+
+	app.get('/api/me', function(req, res) {
+		return res.send(req.user);
+	});
+
 	// GET /api/users/5
 
 	app.get('/api/users/:id', function(req, res) {

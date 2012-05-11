@@ -60,7 +60,6 @@ TwitterStream.prototype.getTweets = function() {
 					self.emit('tweet', json);
 				}
 			} catch(err) {
-				console.log(chunk)
 				self.emit('error', err.message);
 			}
 		}).on('error', function(err) {

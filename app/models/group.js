@@ -17,29 +17,31 @@ var GroupSchema = new Schema({
 });
 
 /**
- * Virtuals
- */
-
-GroupSchema.virtual('members').get(function() {
-	return this.db.model('User').where('group', this._id).run();
-});
-
-GroupSchema.virtual('tasks').get(function() {
-	return this.db.model('Task').where('group', this._id).run();
-});
-
-/**
  * Methods
  */
 
-InvitationSchema.statics.addMember = function(user) {
+GroupSchema.methods.addMember = function(user, cb) {
 	user.group = this._id;
-	user.save();
+	user.save(cb);
 };
 
-InvitationSchema.statics.removeMember = function(user) {
+GroupSchema.methods.removeMember = function(user, cb) {
 	user.group = null;
-	user.save();
+	user.save(cb);
+};
+
+GroupSchema.methods.invites = function(cb) {
+	return this.db.model('Invite').where('group').equals(this._id)
+		.populate('invitee', ['fullName']).populate('invited_by', ['fullName'])
+		.run(cb);
+};
+
+GroupSchema.methods.members = function(cb) {
+	return this.db.model('User').where('group').equals(this._id).run(cb);
+};
+
+GroupSchema.methods.tasks = function(cb) {
+	return this.db.model('Task').where('group').equals(this._id).run(cb);
 };
 
 /**

@@ -1,12 +1,14 @@
 /*!
  * invite.api.js
- * RESTful api for invitation
+ * RESTful api for invite
  */
 
 var mongoose = require('mongoose'),
+		_ = require('underscore')._,
 		Group = mongoose.model('Group'),
 		User = mongoose.model('User'),
-		Invite = mongoose.model('Invitation');
+		Invite = mongoose.model('Invite');
+
 
 module.exports = function (app) {
 
@@ -15,40 +17,39 @@ module.exports = function (app) {
 	 */
 
 	app.param('invId', function (req, res, next, id) {
-		Invite.findOne({ _id : id }, function (err, invitation) {
+		Invite.findOne({ _id : id }, function (err, invite) {
 			if (err) { return next(err); }
-			if (!invitation) { return next(new Error('Failed to load invitation ' + id)); }
-			req.found_invite = invitation;
+			if (!invite) { return next(new Error('Failed to load invite ' + id)); }
+			req.found_invite = invite;
 			next();
 		});
 	});
 
 	/**
-	 * GET /api/group/invitates
+	 * GET /api/me/group/invitates
 	 * @return all pending invites of current user's group
 	 */
 
-	app.get('/api/group/invites', function(req, res) {
+	app.get('/api/me/group/invites', function(req, res) {
 		var me = req.user;
-		.populate('group').run(function(err, me) {
-
+		me.populate('group').run(function(err, me) {
+			res.send(me.group.invites);
 		});
 	});
 
 	/**
-	 * POST /api/group/invites
+	 * POST /api/me/group/invites
 	 * invites a given user to the current user's group
 	 */
 
-	app.post('/api/group/invites', function(req, res) {
-		var me = user.group;
-		return Group.findById(req.params.id, function(err, group) {
+	app.post('/api/me/group/invites', function(req, res) {
+		var me = req.user;
+		return Group.findById(me.group, function(err, group) {
 			var invite = new Invite({
 				group: me.group,
 				invitee: req.body.invitee,
-				motivation: req.body.motivation,
-				invited_by: me._id,
-			}));
+				invited_by: me._id
+			});
 			return invite.save(function(err) {
 				if(!err) {
 					res.statusCode = 200;
@@ -67,11 +68,13 @@ module.exports = function (app) {
 	 */
 
 	app.get('/api/me/invites', function(req, res) {
-		res.send(req.user.invites);
+		req.user.invites(function(err, invites) {
+			res.send(invites);
+		});
 	});
 
 	/**
-	 * GET /api/me/invites/1/accept
+	 * POST /api/me/invites/1/accept
 	 */
 
 	app.get('/api/me/invites/:invId/accept', function(req, res) {
@@ -79,15 +82,19 @@ module.exports = function (app) {
 		var me = req.user;
 		if(isValid(invite, me)) {
 			Group.findById(invite.group, function (err, group) {
-				group.addMember(me);
-				invite.status = 'Accepted';
-				invite.save();
+				group.addMember(me, function() {
+					invite.status = 'Accepted';
+					invite.save();
+				});
 			});
+		} else {
+			res.statusCode = 400;
+			res.send({"err":"invalid invite"});
 		}
 	});
 
 	/**
-	 * GET /api/me/invites/:invId/reject
+	 * POST /api/me/invites/:invId/reject
 	 */
 
 	app.get('/api/me/invites/:invId/reject', function(req, res) {
@@ -100,9 +107,8 @@ module.exports = function (app) {
 	});
 
 	var isValid = function(invite, user) {
-		if(invite && invite.status === 'Pending' && invite.user === user) {
-			return true;
-		}
+		return (invite.status === 'Pending'
+			&& invite.invitee.toString() === user._id.toString());
 	};
 
 };

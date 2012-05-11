@@ -1,0 +1,136 @@
+extends ../layout
+
+block content
+
+	.page-header
+		h1 My Group&nbsp;
+			small and roomies
+
+	.row
+		.span3
+
+			.page-header
+				h3 Group
+
+			#update-success.alert.alert-success.fade.in(style='display: none;')
+				button.close(data-dismiss='alert')×
+				| Changes Saved
+
+			.well
+				h6 name:
+				h3(data-bind='text: group.name')
+				h6 description:
+				p(data-bind='text: group.description')
+				hr
+				btn.btn.btn-primary(style='display: block;', href='#update-group-modal', data-toggle='modal')
+					i.icon-pencil.icon-white
+					|  Edit
+
+			#update-group-modal.modal.hide.fade(style='display: none;')
+				.modal-header
+					button.close(data-dismiss='modal') ×
+					h3 Edit group
+				.modal-body
+					form.form-horizontal
+						.control-group
+							label.control-label(for='name') Name:
+							.controls
+								input(data-bind='value: group.name', type='text', name='name')
+						.control-group
+							label.control-label(for='description') Description:
+							.controls
+								textarea(data-bind='value: group.description', name='description', placeholder='Add a description here')
+				.modal-footer
+					a.btn(href='#', data-dismiss='modal') Close
+					a.btn.btn-primary(href='#', data-bind='click: update') Save Changes
+
+			.page-header
+				h3 Roomies
+					span.badge.pull-right #{members.length}
+
+			.well
+				each u in members
+					a.pull-left(href='/profiles/#{u._id}', title='#{u.fullName}', style='margin-right: 10px;')
+						img(src='https://graph.facebook.com/' + u.fb.id + '/picture?type=square', alt='#{u.fullName}')
+					h6 #{u.fullName}
+					em.muted #{u.status}
+					hr
+
+			.page-header
+				h3 Pending Invites
+					span.badge.pull-right #{invites.length}
+
+			.well
+				each i in invites
+					p
+						strong #{i.invitee.fullName}
+						em.muted &nbsp;-&nbsp;#{i.status}
+				hr
+
+				btn.btn.btn-primary(style='display: block;', href='#invite-user-modal', data-toggle='modal')
+					i.icon-plus-sign.icon-white
+					|  Add invite
+
+				#invite-user-modal.modal.hide.fade(style='display: none;')
+					.modal-header
+						button.close(data-dismiss='modal') ×
+						h3 Send a Invitation
+					.modal-body
+						label(for='search')
+							strong Search
+							input(type='text', name='search', placeholder='Start typing your friends name', data-bind='value: searchquery')
+						a(data-bind='attr: { href: invitee.link, title: invitee.name }')
+							img(data-bind='attr: { src: invitee.picture, alt: invitee.name }')
+						label(for='motivation')
+							strong Motivation
+							textarea(name='motivation', placeholder='Type a motivation here', data-bind='value: motivation')
+					.modal-footer
+						a.btn(href='#', data-dismiss='modal') Close
+						a.btn.btn-primary(href='#', data-bind='click: invite') Invite
+
+		.span6
+
+			.page-header
+				h3 Rankboard
+
+			table.table.table-striped
+				thead
+					tr
+						th #
+						th Roomie
+						th Points
+						th Tasks
+						th Awards
+				tbody
+					tr
+						td 1
+						td Wouter
+						td 500
+						td 5
+						td 2
+					tr
+						td 2
+						td Helene
+						td 300
+						td 2
+						td 1
+
+		.span3
+
+			.page-header
+				h3 Major
+
+			img(src='https://graph.facebook.com/1198598708/picture?type=normal', alt='Wouter Willaert')
+			.page-header
+				h3 Recent Activity
+			ul
+				li You haven't earned any badges.
+				li You haven't earned any badges.
+				li You haven't earned any badges.
+				li You haven't earned any badges.
+
+append scripts
+	script
+		var fb = !{JSON.stringify(user.fb)};
+		var groupId = !{JSON.stringify(group._id)};
+	script(src='/js/group.knockout.js')

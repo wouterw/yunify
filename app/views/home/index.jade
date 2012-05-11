@@ -4,27 +4,35 @@ extends ../layout
 block content
 	.row
 		.span12
-			.sub_main.rounded(style='padding: 15px; margin-bottom: 30px;')
-				- if (!everyauth.loggedIn)
-					h1 Yunify doesn't know you yet!
-					h3 Please login using your facebook account. It's quick and easy!
-					a.btn.btn-primary(href='/auth/facebook') Sign in with facebook
-				- else
-					h1 Welcome, #{user.fullName}!
-					h2.muted Nice to see you again ;)
+			div.pull-right(style='margin: 30px 0px 50px;')
+				h1(style='font-size: 5em;') Yunify
+				h2.muted(style='font-size: 1.8em; padding-top: 10px;') Living together made easy.
 	.row
-		.span4
+		.span2
+			a.rounded-box.grey-box(href='#')
+				h3 Standout
+				p
+					| Donec id elit non mi porta gravida at eget metus.
+			a.rounded-box.grey-box(href='#')
+				h3 Collaborate
+				p
+					| Donec id elit non mi porta gravida at eget metus.
+		.span5
+			article.rounded-box
 				h2 Standout
 				p
-					| Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui.
-			.span4
-				h2 Collaborate
+					| Donec id elit non mi porta gravida at eget metus.
+					| Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh,
+					| ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna
+					| euismod. Donec sed odio dui.
+		.span5
+			article.rounded-box
+				h2 Try the new Wall feature!
 				p
-					| Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui.
-			.span4
-				h2 Be Inspired
-				p
-					| Donec sed odio dui. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Vestibulum id ligula porta felis euismod semper. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus.
-	.row
-		.span12
-			a.btn.btn-success(href='/wall', style='width: 100%; font-size: 1.2em; padding: 15px;') Launch your wall
+					| Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+					| tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+					| quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+					| consequat.
+				ul
+					li
+						a(href='/wall') Launch

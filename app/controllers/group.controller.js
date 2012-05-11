@@ -11,8 +11,25 @@ module.exports = function (app) {
 	app.get('/groups', function (req, res) {
 		return Group.find(function (err, groups) {
 			res.render('groups/index', {
-				title: 'Groups',
+				title: 'Browse Groups',
 				groups: groups
+			});
+		});
+	});
+
+
+	// GET /roomies
+	app.get('/roomies', function (req, res) {
+		return Group.findById(req.user.group, function (err, group) {
+			return group.members(function(err, members) {
+				return group.invites(function(err, invites) {
+					res.render('groups/roomies', {
+						title: 'Roomies / Yunify',
+						group: group,
+						members: members,
+						invites: invites
+					});
+				});
 			});
 		});
 	});
@@ -20,10 +37,16 @@ module.exports = function (app) {
 
 	// GET /groups/5
 	app.get('/groups/:id', function (req, res) {
-		return Group.findById(req.params.id).populate('users').run(function (err, group) {
-			res.render('groups/show', {
-				title: 'Group Detail / Yunify',
-				group: group
+		return Group.findById(req.params.id, function (err, group) {
+			return group.members(function(err, members) {
+				return group.invites(function(err, invites) {
+					res.render('groups/show', {
+						title: 'Group Detail / Yunify',
+						group: group,
+						members: members,
+						invites: invites
+					});
+				});
 			});
 		});
 	});
@@ -70,12 +93,6 @@ module.exports = function (app) {
 				res.redirect('/groups/' + savedGroup._id);
 			});
 		});
-	});
-
-
-	// GET /roomies
-	app.get('/roomies', function (req, res) {
-
 	});
 
 }
