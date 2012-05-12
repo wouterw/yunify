@@ -49,6 +49,7 @@
 		this.invitee = data.invitee;
 		this.group = data.group;
 		this.status = data.status;
+		this.motivation = data.motivation;
 		this.invited_by = data.invited_by;
 		this.created_at = data.created_at;
 
@@ -58,6 +59,10 @@
 
 		this.invited_by_link = function() {
 			return '/profiles/' + self.invited_by._id;
+		}();
+
+		this.isPending = function() {
+			return (self.status === 'Pending');
 		}();
 
 		this.accept = function() {
@@ -85,6 +90,12 @@
 				_.each(data, function(d) {
 					self.invites.push(new Invite(d));
 				});
+			});
+		};
+
+		this.leaveGroup = function() {
+			$.post('/api/me/group/leave', function(response) {
+				window.location.reload();
 			});
 		};
 

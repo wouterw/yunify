@@ -48,6 +48,7 @@ module.exports = function (app) {
 			var invite = new Invite({
 				group: me.group,
 				invitee: req.body.invitee,
+				motivation: req.body.motivation,
 				invited_by: me._id
 			});
 			return invite.save(function(err) {

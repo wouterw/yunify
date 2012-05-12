@@ -71,19 +71,32 @@ block content
 					i.icon-plus-sign.icon-white
 					|  Add invite
 
+				#invite-success.alert.alert-success.fade.in(style='display: none;')
+					button.close(data-dismiss='alert')×
+					| A invitation has been send!
+
 				#invite-user-modal.modal.hide.fade(style='display: none;')
 					.modal-header
-						button.close(data-dismiss='modal') ×
+						button.close(data-dismiss='modal')×
 						h3 Send a Invitation
 					.modal-body
-						label(for='search')
-							strong Search
-							input(type='text', name='search', placeholder='Start typing your friends name', data-bind='value: searchquery')
-						a(data-bind='attr: { href: invitee.link, title: invitee.name }')
-							img(data-bind='attr: { src: invitee.picture, alt: invitee.name }')
+						form#searchForm.form-search.dropdown
+							input.input-large.search-query.dropdown-toggle(data-bind='value: searchquery', type='text', name='search', placeholder='Search')
+							ul.dropdown-menu(data-bind='foreach: searchResults')
+								li
+									a(data-bind='click: $parent.select', href='#')
+										p.list-item
+											img.pull-left(data-bind='attr: { src: picture, alt: name }')
+											span(data-bind='text: name')
+						p(data-bind='visible: invitee, with: invitee')
+							a(data-bind='attr: { href: link, title: name }', target='_blank')
+								img(data-bind='attr: { src: picture, alt: name }', style='padding-right: 10px;')
+								span(data-bind='text: name')
+
 						label(for='motivation')
 							strong Motivation
 							textarea(name='motivation', placeholder='Type a motivation here', data-bind='value: motivation')
+
 					.modal-footer
 						a.btn(href='#', data-dismiss='modal') Close
 						a.btn.btn-primary(href='#', data-bind='click: invite') Invite
@@ -130,7 +143,4 @@ block content
 				li You haven't earned any badges.
 
 append scripts
-	script
-		var fb = !{JSON.stringify(user.fb)};
-		var groupId = !{JSON.stringify(group._id)};
-	script(src='/js/group.knockout.js')
+	script(src='/js/groups.roomies.knockout.js')

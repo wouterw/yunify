@@ -59,9 +59,23 @@ block content
 						p #{me.group.name}
 						h6 description
 						p #{me.group.description}
-						a.btn.btn-primary(href='/roomies', style='display: block;')
-							i.icon-home.icon-white
-							|  Take me there
+						hr
+						p
+							a.btn.btn-primary(href='/roomies', style='display: block;')
+								| Visit
+						p
+							a.btn.btn-danger(data-toggle='modal', href='#confirm-leave-modal', style='display: block;')
+								| Leave
+							#confirm-leave-modal.modal.hide.fade.in
+								.modal-header
+									button.close(data-dismiss='modal')×
+									h3 Confirmation
+								.modal-body
+									p You are about to leave your group #{me.group.name}!
+									strong Are you sure?
+								.modal-footer
+										a.btn.btn-danger(data-bind='event: { click: leaveGroup }', style='display: block;')
+											| Yes, I'm sure I want to leave my group!
 		.span6
 			#update-success.alert.alert-success.fade.in(style='display: none;')
 				button.close(data-dismiss='alert')×
@@ -110,19 +124,23 @@ block content
 			.page-header
 				h3 Invites
 			section#invites(data-bind='foreach: invites')
-				.alert.alert-block.alert-info
-					h4 You've been invited!
-					p
-						| You have been invited by&nbsp;
-						a(data-bind='text: $data.invited_by.fullName, attr: { href: $data.invited_by_link }')
-						| &nbsp;to join his group&nbsp;
-						a(data-bind='text: $data.group.name, attr: { href: $data.group_link }')
-						|!
-					p
-						| &rarr;&nbsp;
-						a(href='#', data-bind='event: { click: $data.accept }') Accept
-						| &nbsp;or&nbsp;
-						a(href='#', data-bind='event: { click: $data.reject }') Reject
+				span(data-bind='if: $data.isPending')
+					.alert.alert-block.alert-info
+						h4 You've been invited!
+						p
+							| by&nbsp;
+							a(data-bind='text: $data.invited_by.fullName, attr: { href: $data.invited_by_link }')
+							| &nbsp;to join the group&nbsp;
+							a(data-bind='text: $data.group.name, attr: { href: $data.group_link }')
+							|!
+						strong motivation:
+						p
+							em.muted(data-bind='text: $data.motivation')
+						p
+							| &rarr;&nbsp;
+							a(href='#', data-bind='event: { click: $data.accept }') Accept
+							| &nbsp;or&nbsp;
+							a(href='#', data-bind='event: { click: $data.reject }') Reject
 
 append scripts
 	script(src='/js/profiles.me.knockout.js')

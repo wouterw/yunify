@@ -26,6 +26,20 @@ module.exports = function (app) {
 		});
 	});
 
+	// GET /api/me/group/leave
+
+	app.post('/api/me/group/leave', function (req, res) {
+		Group.findById(req.user.group, function (err, group) {
+			if (!err) {
+				group.removeMember(req.user);
+				res.statusCode = 200;
+			} else {
+				console.log(err.message);
+				res.statusCode = 500;
+			}
+		});
+		res.send('');
+	});
 
 	// GET /api/groups/5
 

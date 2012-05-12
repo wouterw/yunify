@@ -14,6 +14,7 @@ var InviteSchema = new Schema({
 	group: { type: ObjectId, ref: 'Group' },
 	invitee: { type: ObjectId, ref: 'User' },
 	status: { type: String, enum: ['Pending', 'Accepted', 'Rejected'], default: 'Pending' },
+	motivation: { type: String, default: '' },
 	invited_by: { type: ObjectId, ref: 'User' },
 	created_at: { type: Date, default: Date.now }
 });
