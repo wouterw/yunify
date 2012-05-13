@@ -32,7 +32,7 @@
 
 		this.update = function() {
 			$.ajax({
-				url: '/api/users/' + userId,
+				url: '/api/users/' + self.id,
 				type: 'PUT',
 				data: self.toJSON(),
 				success: function() {

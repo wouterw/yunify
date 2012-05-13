@@ -63,7 +63,7 @@
 			$.ajax({
 				url: '/api/groups/' + self.group.id,
 				type: 'PUT',
-				data: self.toJSON(),
+				data: self.group.toJSON(),
 				success: function() {
 					$('#update-success').show();
 				}
