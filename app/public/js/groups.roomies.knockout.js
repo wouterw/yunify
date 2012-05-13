@@ -56,8 +56,6 @@
 
 		this.select = function(item) {
 			self.invitee(item);
-			console.log(ko.toJSON(item));
-			console.log(ko.toJSON(self.invitee));
 		};
 
 		// update the group

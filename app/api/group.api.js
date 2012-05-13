@@ -16,6 +16,14 @@ module.exports = function (app) {
 		});
 	});
 
+	// GET /api/groups/search?q=query
+
+	app.get('/api/groups/search', function(req, res) {
+			Group.$where('this.name.toLowerCase().search(/' + req.query['q'].toLowerCase() + '/) !== -1').exec(function (err, groups) {
+				res.send(groups);
+			});
+	});
+
 	// GET /api/me/group
 
 	app.get('/api/me/group', function (req, res) {

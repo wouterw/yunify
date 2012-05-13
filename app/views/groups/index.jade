@@ -9,18 +9,19 @@ block content
 			.well
 				h6 Search
 				.input-append
-					input.input-small(type='text')
+					input.input-small(type='text', data-bind='value: searchquery')
 					button.btn(type='button')
 						i.icon-search
 		.span8.offset1
-			- if (groups.length !== 0)
-				each group in groups
-					.rounded-box.grey-box(style='width: auto; margin-bottom: 10px; padding: 20px;')
-						a.btn.pull-right(href='/groups/#{group._id}')
-							i.i.icon-search
-						h3 #{group.name}
-						span.muted #{group.description}
-			- else
-				.alert.alert-info
-					button.close(data-dismiss='alert') ×
-					| No groups found :(
+			.alert.alert-block.fade.in(data-bind='visible: !groups().length')
+				button.close(data-dismiss='alert')×
+				h4.alert-heading No groups found!
+				p We didn't find any groups matching the criteria.
+			.groups(data-bind='foreach: groups')
+				.rounded-box.grey-box
+					a.btn.pull-right(data-bind='attr: { href: $data.link }', title='view')
+						i.i.icon-search
+					h3(data-bind='text: $data.name')
+					em.muted(data-bind='text: $data.description')
+append scripts
+	script(src='/js/groups.index.knockout.js')
