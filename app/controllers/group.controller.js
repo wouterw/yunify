@@ -1,5 +1,6 @@
-
-// group.controller.js
+/*!
+ * Group Controller
+ */
 
 var mongoose = require('mongoose');
 var Group = mongoose.model('Group');
@@ -11,7 +12,7 @@ module.exports = function (app) {
 	app.get('/groups', function (req, res) {
 		return Group.find(function (err, groups) {
 			res.render('groups/index', {
-				title: 'Browse Groups',
+				title: 'Groups / Yunify',
 				groups: groups
 			});
 		});
@@ -41,7 +42,7 @@ module.exports = function (app) {
 			return group.members(function(err, members) {
 				return group.invites(function(err, invites) {
 					res.render('groups/show', {
-						title: 'Group Detail / Yunify',
+						title: 'Group / Yunify',
 						group: group,
 						members: members,
 						invites: invites

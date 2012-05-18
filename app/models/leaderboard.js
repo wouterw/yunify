@@ -1,49 +1,40 @@
 /*!
- * Leaderboard Mongoose Model
+ * leaderboard.js
  */
 
 var mongoose = require('mongoose'),
-		Schema = mongoose.Schema;
+		DocumentObjectId = mongoose.Types.ObjectId,
+		Entry = mongoose.model('LeaderboardEntry'),
+		User = mongoose.model('User'),
+		EventEmitter = require('events').EventEmitter;
 
-/**
- * Schema
- */
+var leaderboard = exports = module.exports = new EventEmitter();
 
-var Leaderboard = new Schema({
-	group: { type: Schema.ObjectId, ref: 'Group' },
-	user: { type: Schema.ObjectId, ref: 'User' },
-	points: { type: Number, default: 0 },
-});
-
-/**
- * Methods
- */
-
-Leaderboard.methods.findUser = function(callback) {
-	return this.db.model('User').findById(this.user, callback);
+leaderboard.addPoints = function(usrId, points, cb) {
+	User.findById(usrId, function(err, user) {
+		if(err) { console.log(err.message); }
+		Entry.findOne({ "user":user._id, "group":user.group}, function(err, entry) {
+			if(!err) {
+				if (entry) {
+					entry.points += points;
+					entry.save(cb);
+				} else {
+					new Entry({
+						group: user.group,
+						user: user._id,
+						points: points
+					}).save(cb);
+				}
+				leaderboard.emit('changes');
+			} else {
+				cb(err);
+			}
+		});
+	});
 };
 
-Leaderboard.methods.findGroup = function(callback) {
-	return this.db.model('Group').findById(this.group, callback);
+leaderboard.getPoints = function(grpId, cb) {
+	Entry.where('group', new DocumentObjectId.fromString(grpId))
+		.populate('user', ['fullName'])
+		.desc('points').run(cb);
 };
-
-// Add a score to the scoreboard, appends if key exists
-Leaderboard.statics.addPoints = function(user, points, callback) {
-
-};
-
-// Remove a score from the scoreboard
-Leaderboard.statics.removePoints = function(user, points, callback) {
-
-};
-
-// Get scoreboard order by leader first
-Leaderboard.statics.getPoints = function(callback) {
-
-};
-
-/**
- * Export model
- */
-
-module.exports = mongoose.model('Leaderboard', Leaderboard);

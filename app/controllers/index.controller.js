@@ -8,7 +8,7 @@ module.exports = function(app) {
 
 	app.get('/', function(req, res) {
 		res.render('home/index', {
-			title: 'Home'
+			title: 'Home / Yunify'
 		});
 	});
 
@@ -17,7 +17,7 @@ module.exports = function(app) {
 
 	app.get('/chat', function(req, res) {
 		res.render('home/chat', {
-			title: 'Chat'
+			title: 'Chat / Yunify'
 		});
 	});
 
@@ -26,7 +26,7 @@ module.exports = function(app) {
 
 	app.get('/tweets', function(req, res) {
 		res.render('home/tweets', {
-			title: 'Tweets'
+			title: 'Tweets / Yunify'
 		});
 	});
 
@@ -34,7 +34,7 @@ module.exports = function(app) {
 
 	app.get('/wall', function(req, res) {
 		res.render('wall', {
-			title: 'Wall'
+			title: 'Wall / Yunify'
 		});
 	});
 

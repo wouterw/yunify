@@ -18,9 +18,9 @@ block content
 
 			.well
 				h6 name:
-				h3(data-bind='text: group.name')
+				h3(data-bind='text: groupViewModel.group.name')
 				h6 description:
-				p(data-bind='text: group.description')
+				p(data-bind='text: groupViewModel.group.description')
 				hr
 				btn.btn.btn-primary(style='display: block;', href='#update-group-modal', data-toggle='modal')
 					i.icon-pencil.icon-white
@@ -35,14 +35,14 @@ block content
 						.control-group
 							label.control-label(for='name') Name:
 							.controls
-								input(data-bind='value: group.name', type='text', name='name')
+								input(data-bind='value: groupViewModel.group.name', type='text', name='name')
 						.control-group
 							label.control-label(for='description') Description:
 							.controls
-								textarea(data-bind='value: group.description', name='description', placeholder='Add a description here')
+								textarea(data-bind='value: groupViewModel.group.description', name='description', placeholder='Add a description here')
 				.modal-footer
 					a.btn(href='#', data-dismiss='modal') Close
-					a.btn.btn-primary(href='#', data-bind='click: update') Save Changes
+					a.btn.btn-primary(href='#', data-bind='click: groupViewModel.update') Save Changes
 
 			.page-header
 				h3 Roomies
@@ -81,25 +81,25 @@ block content
 						h3 Send a Invitation
 					.modal-body
 						form#searchForm.form-search.dropdown
-							input.input-large.search-query.dropdown-toggle(data-bind='value: searchquery', type='text', name='search', placeholder='Search')
-							ul.dropdown-menu(data-bind='foreach: searchResults')
+							input.input-large.search-query.dropdown-toggle(data-bind='value: inviteViewModel.searchquery', type='text', name='search', placeholder='Search')
+							ul.dropdown-menu(data-bind='foreach: inviteViewModel.searchResults')
 								li
-									a(data-bind='click: $parent.select', href='#')
+									a(data-bind='click: $parent.inviteViewModel.select', href='#')
 										p.list-item
 											img.pull-left(data-bind='attr: { src: picture, alt: name }')
 											span(data-bind='text: name')
-						p(data-bind='visible: invitee, with: invitee')
+						p(data-bind='visible: inviteViewModel.invitee, with: inviteViewModel.invitee')
 							a(data-bind='attr: { href: link, title: name }', target='_blank')
 								img(data-bind='attr: { src: picture, alt: name }', style='padding-right: 10px;')
 								span(data-bind='text: name')
 
 						label(for='motivation')
 							strong Motivation
-							textarea(name='motivation', placeholder='Type a motivation here', data-bind='value: motivation')
+							textarea(name='motivation', placeholder='Type a motivation here', data-bind='value: inviteViewModel.motivation')
 
 					.modal-footer
 						a.btn(href='#', data-dismiss='modal') Close
-						a.btn.btn-primary(href='#', data-bind='click: invite') Invite
+						a.btn.btn-primary(href='#', data-bind='click: inviteViewModel.invite') Invite
 
 		.span6
 
@@ -114,19 +114,13 @@ block content
 						th Points
 						th Tasks
 						th Awards
-				tbody
+				tbody(data-bind='foreach: leaderBoardViewModel.leaderboardEntries')
 					tr
-						td 1
-						td Wouter
-						td 500
+						td(data-bind='text: $index')
+						td(data-bind='text: roomie')
+						td(data-bind='text: points')
 						td 5
 						td 2
-					tr
-						td 2
-						td Helene
-						td 300
-						td 2
-						td 1
 
 		.span3
 
@@ -143,4 +137,5 @@ block content
 				li You haven't earned any badges.
 
 append scripts
-	script(src='/js/groups.roomies.knockout.js')
+	script(src='/socket.io/socket.io.js')
+	script(src='/js/roomies.knockout.js')

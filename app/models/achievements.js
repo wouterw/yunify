@@ -1,0 +1,7 @@
+/*!
+ * Achievements
+ */
+
+module.exports.achievements = {
+
+};

@@ -10,12 +10,12 @@ var https = require('https'),
 		events = require('events');
 
 var TwitterStream = function(options) {
-	this.user = options.username,
-	this.pwd = options.password,
-	this.track = options.track
+	this.user = options.username;
+	this.pwd = options.password;
+	this.track = options.track;
 };
 
-TwitterStream.prototype = new events.EventEmitter;
+TwitterStream.prototype = new events.EventEmitter();
 
 TwitterStream.prototype.getTweets = function() {
 	var self = this;
@@ -43,7 +43,7 @@ TwitterStream.prototype.getTweets = function() {
 		return quoted.replace(escapable, function(a) {
 			return '';
 		});
-	}
+	};
 
 	return https.get(host, function(response) {
 		response.setEncoding('utf8');

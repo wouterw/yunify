@@ -25,7 +25,7 @@ module.exports = function(mongoose, UserSchema) {
 		},
 		facebook: {
 			everyauth: {
-				myHostname: 'http://localhost:' + conf.port,
+				myHostname: 'http://localhost:' + conf.server.port,
 				appId: conf.fb.appId,
 				appSecret: conf.fb.appSecret,
 				redirectPath: '/',
@@ -37,7 +37,7 @@ module.exports = function(mongoose, UserSchema) {
 						if (foundUser) {
 							return promise.fulfill(foundUser);
 						}
-						var expiresDate = new Date;
+						var expiresDate = new Date();
 						expiresDate.setSeconds(expiresDate.getSeconds() + accessTokenExtra);
 						var newUser = new User({
 							fullName: facebookUser.name,

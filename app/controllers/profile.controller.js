@@ -20,7 +20,7 @@ module.exports = function(app) {
 	app.get('/profiles', function (req, res) {
 		return User.find(function (err, users) {
 			res.render('profiles/index', {
-				title: 'Browse Profiles / Yunify',
+				title: 'Profiles / Yunify',
 				users: users
 			});
 		});

@@ -34,6 +34,24 @@ module.exports = function (app) {
 		});
 	});
 
+	// GET /api/me/group/members
+
+	app.get('/api/me/group/members', function(req, res) {
+		return Group.findById(req.user.group, function(err, group) {
+			if(!err) {
+				return group.members(function(err, members) {
+					if(!err) {
+						return res.send(members);
+					} else {
+						console.log(err.message);
+					}
+				});
+			} else {
+				console.log(err.message);
+			}
+		});
+	});
+
 	// GET /api/me/group/leave
 
 	app.post('/api/me/group/leave', function (req, res) {

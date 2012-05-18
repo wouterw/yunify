@@ -11,10 +11,6 @@ var mongoose = require('mongoose'),
  * Schema
  */
 
-var meta = {
-	points: { type: Number, default: 0 }
-};
-
 var UserSchema = new Schema({
 	fullName: { type: String, required: true },
 	bio: { type: String, default: '' },
@@ -22,7 +18,6 @@ var UserSchema = new Schema({
 	twitter: { type: String, default: '' },
 	status: { type: String, enum: ['Available', 'Studying', 'Busy', 'Sleep', 'Out'] },
 	group: { type: Schema.ObjectId, ref: 'Group' },
-	meta: meta,
 	created_at: { type: Date, default: Date.now }
 });
 

@@ -32,7 +32,7 @@ var Activity = new Schema({
 	published: {type: Date, default: Date.now}
 });
 
-Activity.prototype = new events.EventEmitter;
+Activity.prototype = new events.EventEmitter();
 
 /**
  * Virtuals

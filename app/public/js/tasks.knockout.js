@@ -13,8 +13,10 @@
 			owner.update(ko.toJS(self));
 		});
 
-		this.completed.subscribe(function() {
-			owner.update(ko.toJS(self));
+		this.completed.subscribe(function(newValue) {
+			if (newValue) {
+				owner.complete(ko.toJS(self));
+			}
 		});
 
 		this.important.subscribe(function() {
@@ -85,6 +87,11 @@
 			}
 		};
 
+		// emit 'complete task' event to server
+		this.complete = function(task) {
+			emitComplete(task);
+		};
+
 		// enable edit mode
 		this.editItem = function(task) {
 			task.editing(true);
@@ -151,11 +158,18 @@
 
 	var emitUpdate = function(task) {
 		socket.emit('update', {
-		 "id": task.id,
-		 "title": task.title,
-		 "completed": task.completed,
-		 "important": task.important,
-		 "groupId": groupId
+			"id": task.id,
+			"title": task.title,
+			"completed": task.completed,
+			"important": task.important,
+			"groupId": groupId
+		});
+	};
+
+	var emitComplete = function(task) {
+		socket.emit('complete', {
+			"id": task.id,
+			"groupId": groupId
 		});
 	};
 

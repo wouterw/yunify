@@ -1,7 +1,7 @@
 /**
- * tasks.sockets.js
- * tasks socket communication
- */
+* tasks.sockets.js
+* tasks socket communication
+*/
 
 var mongoose = require('mongoose'),
 		ObjectId = mongoose.Types.ObjectId,
@@ -41,15 +41,29 @@ module.exports = function (io) {
 		socket.on('update', function(data) {
 			Task.findById(data.id, function(err, task) {
 				if (!err) {
-					task.title = data.title;
-					task.completed = data.completed;
-					task.important = data.important;
-					task.save(function(err) {
-						if (!err) {
-							socket.broadcast.to(data.groupId).emit('updated', task);
-						} else {
-							console.log(err.message);
-						}
+					if(!task.completed) { //can't update a completed task
+						task.title = data.title;
+						task.important = data.important;
+						task.save(function(err) {
+							if (!err) {
+								socket.broadcast.to(data.groupId).emit('updated', task);
+							} else {
+								console.log(err.message);
+							}
+						});
+					}
+				} else {
+					console.log(err.message);
+				}
+			});
+		});
+
+		socket.on('complete', function(data) {
+			var userId = socket.handshake.session.auth.userId;
+			Task.findById(data.id, function(err, task) {
+				if(!err) {
+					task.complete(userId, function(task) {
+						socket.broadcast.to(data.groupId).emit('updated', task);
 					});
 				} else {
 					console.log(err.message);

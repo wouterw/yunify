@@ -44,11 +44,11 @@ function logMessage(message,color) {
 
 function replace(full_text, search_regex, color) {
   try {
-   var regex = new RegExp('(' + search_regex + ')', 'ig');
-	 var new_text = full_text.replace(regex, setColor('$1', color));
+  var regex = new RegExp('(' + search_regex + ')', 'ig');
+	var new_text = full_text.replace(regex, setColor('$1', color));
 	 return new_text;
   } catch (e) {
-	 return full_text;  
+	 return full_text;
   }
 }
 

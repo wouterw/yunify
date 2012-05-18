@@ -28,6 +28,8 @@ require('./models/user');
 require('./models/invite');
 require('./models/group');
 require('./models/chat');
+require('./models/leaderboardEntry');
+require('./models/leaderboard');
 require('./models/task');
 
 
@@ -94,7 +96,7 @@ apiFiles.forEach(function (file) {
 });
 
 // start http server
-app.listen(conf.port);
+app.listen(conf.server.port);
 var addr = app.address();
 
 console.log(color("success - ", "green+bold"),

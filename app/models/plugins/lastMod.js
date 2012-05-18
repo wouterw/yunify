@@ -6,7 +6,7 @@
 module.exports = function lastModifiedPlugin (schema, options) {
 	schema.add({ updated_at: Date });
 	schema.pre('save', function (next) {
-		this.updated_at = new Date;
+		this.updated_at = new Date();
 		next();
 	});
 	if (options && options.index) {

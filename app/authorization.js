@@ -4,10 +4,10 @@
 
 exports.requiresLogin = function (req, res, next) {
   if (!req.loggedIn) {
-    req.flash('notice', 'You are not authorized. Please login')
-    res.redirect('/articles')
+    req.flash('notice', 'You are not authorized. Please login');
+    res.redirect('/articles');
   }
-  next()
+  next();
 };
 
 
@@ -18,9 +18,9 @@ exports.requiresLogin = function (req, res, next) {
 exports.user = {
     hasAuthorization : function (req, res, next) {
       if (req.foundUser.id != req.session.auth.userId) {
-        req.flash('notice', 'You are not authorized')
-        res.redirect('/profile/'+req.foundUser.id)
+        req.flash('notice', 'You are not authorized');
+        res.redirect('/profile/'+req.foundUser.id);
       }
-      next()
+      next();
     }
-}
+};

@@ -38,7 +38,7 @@ module.exports = function (app, sessionStore) {
 			}
 			data.session = session;
 			accept(null, true);
-		})
+		});
 	});
 
 	// log on new connection
@@ -53,6 +53,6 @@ module.exports = function (app, sessionStore) {
 	require('./chat.sockets')(io);
 	require('./tasks.sockets')(io);
 	require('./twitter.sockets')(io);
-	//require('./news.sockets.js')(io);
+	require('./leaderboard.sockets.js')(io);
 
 };
