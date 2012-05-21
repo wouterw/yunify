@@ -35,8 +35,7 @@ require('./models/task');
 
 // load authorization
 var everyauth = require('everyauth'),
-		mongooseauth = require('mongoose-auth'),
-		auth = require('./authorization');
+		mongooseauth = require('mongoose-auth');
 
 // configure express & middleware
 app.configure(function () {
@@ -82,18 +81,20 @@ mongooseauth.helpExpress(app);
 everyauth.helpExpress(app, { userAlias: 'current_user' });
 
 // bootstrap controllers
-var controllersPath = __dirname + '/controllers';
-var controllerFiles = fs.readdirSync(controllersPath);
-controllerFiles.forEach(function (file) {
-	require(controllersPath + '/' + file)(app);
-});
+require('./controllers/auth.controller.js')(app);
+require('./controllers/award.controller.js')(app);
+require('./controllers/group.controller.js')(app);
+require('./controllers/index.controller.js')(app);
+require('./controllers/mobile.controller.js')(app);
+require('./controllers/profile.controller.js')(app);
 
 // bootstrap api's
-var apisPath = __dirname + '/api';
-var apiFiles = fs.readdirSync(apisPath);
-apiFiles.forEach(function (file) {
-	require(apisPath + '/' + file)(app);
-});
+require('./api/awards.api.js')(app);
+require('./api/fb.api.js')(app);
+require('./api/group.api.js')(app);
+require('./api/invite.api.js')(app);
+require('./api/task.api.js')(app);
+require('./api/user.api.js')(app);
 
 // start http server
 app.listen(conf.server.port);

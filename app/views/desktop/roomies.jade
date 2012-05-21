@@ -1,0 +1,141 @@
+extends ../layouts/layout-desktop
+
+block content
+
+	.page-header
+		h1 My Group&nbsp;
+			small and roomies
+
+	.row
+		.span3
+
+			.page-header
+				h3 Group
+
+			#update-success.alert.alert-success.fade.in(style='display: none;')
+				button.close(data-dismiss='alert')×
+				| Changes Saved
+
+			.well
+				h6 name:
+				h3(data-bind='text: groupViewModel.group.name')
+				h6 description:
+				p(data-bind='text: groupViewModel.group.description')
+				hr
+				btn.btn.btn-primary(style='display: block;', href='#update-group-modal', data-toggle='modal')
+					i.icon-pencil.icon-white
+					|  Edit
+
+			#update-group-modal.modal.hide.fade(style='display: none;')
+				.modal-header
+					button.close(data-dismiss='modal') ×
+					h3 Edit group
+				.modal-body
+					form.form-horizontal
+						.control-group
+							label.control-label(for='name') Name:
+							.controls
+								input(data-bind='value: groupViewModel.group.name', type='text', name='name')
+						.control-group
+							label.control-label(for='description') Description:
+							.controls
+								textarea(data-bind='value: groupViewModel.group.description', name='description', placeholder='Add a description here')
+				.modal-footer
+					a.btn(href='#', data-dismiss='modal') Close
+					a.btn.btn-primary(href='#', data-bind='click: groupViewModel.update') Save Changes
+
+			.page-header
+				h3 Roomies
+					span.badge.pull-right #{members.length}
+
+			.well
+				each u in members
+					a.pull-left(href='/profiles/#{u._id}', title='#{u.fullName}', style='margin-right: 10px;')
+						img(src='https://graph.facebook.com/' + u.fb.id + '/picture?type=square', alt='#{u.fullName}')
+					h6 #{u.fullName}
+					em.muted #{u.status}
+					hr
+
+			.page-header
+				h3 Pending Invites
+					span.badge.pull-right #{invites.length}
+
+			.well
+				each i in invites
+					p
+						strong #{i.invitee.fullName}
+						em.muted &nbsp;-&nbsp;#{i.status}
+				hr
+
+				btn.btn.btn-primary(style='display: block;', href='#invite-user-modal', data-toggle='modal')
+					i.icon-plus-sign.icon-white
+					|  Add invite
+
+				#invite-success.alert.alert-success.fade.in(style='display: none;')
+					button.close(data-dismiss='alert')×
+					| A invitation has been send!
+
+				#invite-user-modal.modal.hide.fade(style='display: none;')
+					.modal-header
+						button.close(data-dismiss='modal')×
+						h3 Send a Invitation
+					.modal-body
+						form#searchForm.form-search.dropdown
+							input.input-large.search-query.dropdown-toggle(data-bind='value: inviteViewModel.searchquery', type='text', name='search', placeholder='Search')
+							ul.dropdown-menu(data-bind='foreach: inviteViewModel.searchResults')
+								li
+									a(data-bind='click: $parent.inviteViewModel.select', href='#')
+										p.list-item
+											img.pull-left(data-bind='attr: { src: picture, alt: name }')
+											span(data-bind='text: name')
+						p(data-bind='visible: inviteViewModel.invitee, with: inviteViewModel.invitee')
+							a(data-bind='attr: { href: link, title: name }', target='_blank')
+								img(data-bind='attr: { src: picture, alt: name }', style='padding-right: 10px;')
+								span(data-bind='text: name')
+
+						label(for='motivation')
+							strong Motivation
+							textarea(name='motivation', placeholder='Type a motivation here', data-bind='value: inviteViewModel.motivation')
+
+					.modal-footer
+						a.btn(href='#', data-dismiss='modal') Close
+						a.btn.btn-primary(href='#', data-bind='click: inviteViewModel.invite') Invite
+
+		.span6
+
+			.page-header
+				h3 Rankboard
+
+			table.table.table-striped
+				thead
+					tr
+						th #
+						th Roomie
+						th Points
+						th Tasks
+						th Awards
+				tbody(data-bind='foreach: leaderBoardViewModel.leaderboardEntries')
+					tr
+						td(data-bind='text: $index')
+						td(data-bind='text: roomie')
+						td(data-bind='text: points')
+						td 5
+						td 2
+
+		.span3
+
+			.page-header
+				h3 Major
+
+			img(src='https://graph.facebook.com/1198598708/picture?type=normal', alt='Wouter Willaert')
+			.page-header
+				h3 Recent Activity
+			ul
+				li You haven't earned any badges.
+				li You haven't earned any badges.
+				li You haven't earned any badges.
+				li You haven't earned any badges.
+
+append scripts
+	script(src='/socket.io/socket.io.js')
+	script(src='/desktop/js/roomies.knockout.js')

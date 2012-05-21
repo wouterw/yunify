@@ -25,10 +25,10 @@ module.exports = function (app) {
 		});
 	});
 
-	/**
-	 * GET /api/me/group/invitates
-	 * @return all pending invites of current user's group
-	 */
+	/*
+	* GET /api/me/group/invitates
+	* @return all pending invites of current user's group
+	*/
 
 	app.get('/api/me/group/invites', function(req, res) {
 		var me = req.user;

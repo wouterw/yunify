@@ -19,7 +19,7 @@ module.exports = function(app) {
 
 	app.get('/profiles', function (req, res) {
 		return User.find(function (err, users) {
-			res.render('profiles/index', {
+			res.render('desktop/profiles', {
 				title: 'Profiles / Yunify',
 				users: users
 			});
@@ -27,7 +27,7 @@ module.exports = function(app) {
 	});
 
 	app.get('/profiles/:userId', function (req, res) {
-		res.render('profiles/show', {
+		res.render('desktop/profile', {
 			title: 'Profile / Yunify',
 			usr: req.foundUser
 		});
@@ -36,16 +36,11 @@ module.exports = function(app) {
 	app.get('/me', function (req, res) {
 		User.findById(req.user.id).populate('group').run(function (err, user) {
 			if (err) { console.log(err); }
-			res.render('profiles/me', {
+			res.render('desktop/me', {
 				title: 'Me / Yunify',
 				me: user
 			});
 		});
 	});
 
-	app.get('/logout', function (req, res) {
-		req.logout();
-		res.redirect('/index');
-	});
-
-}
+};

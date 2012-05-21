@@ -1,0 +1,29 @@
+extends ../layouts/layout-desktop
+
+block content
+	.page-header
+		h1 Profile
+			small  browser
+	.row
+		.span3
+			.well
+				h6 Search
+				.input-append
+					input.input-small(type='text', data-bind='value: searchquery')
+					button.btn(type='button')
+						i.icon-search
+		.span8.offset1
+			.alert.alert-block.fade.in(data-bind='visible: !users().length')
+				button.close(data-dismiss='alert')×
+				h4.alert-heading No profiles found!
+				p We didn't find any profiles matching the criteria.
+			.users(data-bind='foreach: users')
+				.rounded-box.grey-box
+					a.btn.pull-right(data-bind='attr: { href: $data.profile_link }', title='view')
+						i.icon-search
+					img.pull-left(data-bind='attr: { src: $data.profile_picture }', style='padding-right: 15px;')
+					h3(data-bind='text: $data.name')
+					em.muted(data-bind='text: $data.bio')
+
+append scripts
+	script(src='/desktop/js/profiles.knockout.js')

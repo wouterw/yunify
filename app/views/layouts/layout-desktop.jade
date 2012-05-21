@@ -1,0 +1,60 @@
+!!! 5
+html(lang='en')
+	head
+		include ../includes/head
+		block styles
+			include ../includes/styles-desktop
+
+	body
+		header#header
+			#header_container
+				.logo
+					h1
+						a(href='/') Yunify
+				nav
+					ul
+						- if (everyauth.loggedIn)
+							li.nav_item
+								a(href='/') Home
+							li.nav_item
+								a(href='/tasks') Tasks
+							li.nav_item
+								a(href='/chat') Chat
+							li.nav_item
+								a(href='/roomies') Roomies
+							li.nav_item
+								a(href='/groups') Groups
+							li.nav_item
+								a(href='/profiles') Profiles
+							li.codertag
+								a#codertag(href='/me')
+									img(alt='#{user.fullName}', src='https://graph.facebook.com/' + everyauth.user.fb.id + '/picture?type=square')
+									.account_info
+										h2 #{user.fullName}
+										.stats
+											span.score 500 points
+											span.exercises 15
+											span.achievements 22
+							li
+								a.sign_out(href='/logout') Sign Out
+						- else
+							li
+								a.sign_in(href='/auth/facebook') Sign in
+		.container
+			block content
+		footer.footer
+			.wrapper
+				ul.foot_links
+					li
+						a(href='/about') About
+					li |
+					li
+						a(href='/team') Team
+					li |
+					li
+						a(href='/team') Contact
+					li.copyright_txt
+						| Codability &copy; 2012
+
+		block scripts
+			include ../includes/scripts-desktop

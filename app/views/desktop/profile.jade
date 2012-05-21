@@ -1,0 +1,29 @@
+extends ../layouts/layout-desktop
+
+block content
+	.row
+		.span12
+			ul.breadcrumb
+				li
+					a(href='/profiles') Profiles
+					span.divider /
+				li.active
+					| #{usr.fullName}
+	.row
+		.span12
+			.rounded-box.grey-box(style='padding: 15px; margin-bottom: 30px;')
+				section.pull-left
+					img(src='https://graph.facebook.com/#{usr.fb.id}/picture?type=large', alt='#{usr.fullName}', style='margin: 0px;')
+				section.pull-left(style='margin-left: 25px;')
+					h1 #{usr.fullName}
+					section.pull-left
+						h6 Email:
+						p
+							a(href='mailto:#{usr.email}') #{usr.email}
+						h6 Gender:
+						p #{usr.fb.gender}
+					section.pull-left(style='margin-left: 25px;')
+						h6 Bio:
+						p #{usr.bio}
+						h6 Member Since:
+						p #{usr.created_at}

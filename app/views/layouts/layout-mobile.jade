@@ -1,0 +1,33 @@
+!!! 5
+html(lang='en')
+	head
+		include ../includes/head
+		block styles
+			include ../includes/styles-mobile
+
+	body
+		div(data-role='page')
+
+			div(data-role='header', data-id="nav", data-position='fixed')
+				a(href='/mobile', data-icon='home', data-transition='fade') Home
+				h1 Yunify
+				- if (!everyauth.loggedIn)
+					a(href='/auth/facebook', data-icon='home', data-theme='b') Login
+				- else
+					a(href='/mobile/logout', data-icon='home', data-theme='b') Logout
+				div(data-role='navbar')
+					ul
+						li
+							a(href='/mobile/', data-icon='info', data-transition='slide') Me
+						li
+							a(href='/mobile/', data-icon='star', data-transition='slide') Awards
+
+			div(data-role='content')
+				block content
+
+			//
+				div(data-role='footer')
+					p Codability &copy; 2012
+
+		block scripts
+			include ../includes/scripts-mobile

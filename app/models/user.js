@@ -1,4 +1,4 @@
-	/*!
+/*!
  * User model
  */
 
@@ -10,34 +10,80 @@ var mongoose = require('mongoose'),
 /**
  * Schema
  */
+var Award = new Schema({
+	id: { type: Number },
+	name: { type: String },
+	desc: { type: String },
+	worth: { type: Number },
+	awarded_at: { type: Date, default: Date.now }
+});
 
-var UserSchema = new Schema({
-	fullName: { type: String, required: true },
-	bio: { type: String, default: '' },
-	email: { type: String, required: true, index: { unique: true, sparse: true } },
-	twitter: { type: String, default: '' },
-	status: { type: String, enum: ['Available', 'Studying', 'Busy', 'Sleep', 'Out'] },
-	group: { type: Schema.ObjectId, ref: 'Group' },
-	created_at: { type: Date, default: Date.now }
+var User = new Schema({
+
+	fullName: {
+		type: String,
+		required: true
+	},
+
+	bio: {
+		type: String
+	},
+
+	email: {
+		type: String,
+		required: true,
+		index: {
+			unique: true,
+			sparse: true
+		}
+	},
+
+	twitter: {
+		type: String
+	},
+
+	status: {
+		type: String,
+		enum: ['Available', 'Studying', 'Busy', 'Sleep', 'Out']
+	},
+
+	group: {
+		type: Schema.ObjectId,
+		ref: 'Group'
+	},
+
+	achievements: {
+		unlocked: [Award],
+		login_count: { type: Number, default: 0 },
+		award_count: { type: Number, default: 0 },
+		score_count: { type: Number, default: 0 },
+		tasks_count: { type: Number, default: 0 }
+	},
+
+	created_at: {
+		type: Date,
+		default: Date.now
+	}
+
 });
 
 /**
  * Plugins
  */
 
-UserSchema.plugin(lastMod);
+User.plugin(lastMod);
 
-require('./plugins/authentication')(mongoose, UserSchema);
+require('./plugins/authentication')(mongoose, User);
 
 /**
  * Methods
  */
 
-UserSchema.methods.findGroup = function(cb) {
+User.methods.findGroup = function(cb) {
 	return this.db.model('Group').findById(this.group, cb);
 };
 
-UserSchema.methods.invites = function(cb) {
+User.methods.invites = function(cb) {
 	return this.db.model('Invite').where('invitee').equals(this._id)
 		.populate('group', ['name']).populate('invited_by', ['fullName'])
 		.run(cb);
@@ -48,4 +94,4 @@ UserSchema.methods.invites = function(cb) {
  * Export model
  */
 
-module.exports = mongoose.model('User', UserSchema);
+module.exports = mongoose.model('User', User);

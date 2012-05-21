@@ -11,7 +11,7 @@ module.exports = function (app) {
 	// GET /groups
 	app.get('/groups', function (req, res) {
 		return Group.find(function (err, groups) {
-			res.render('groups/index', {
+			res.render('desktop/groups', {
 				title: 'Groups / Yunify',
 				groups: groups
 			});
@@ -24,7 +24,7 @@ module.exports = function (app) {
 		return Group.findById(req.user.group, function (err, group) {
 			return group.members(function(err, members) {
 				return group.invites(function(err, invites) {
-					res.render('groups/roomies', {
+					res.render('desktop/roomies', {
 						title: 'Roomies / Yunify',
 						group: group,
 						members: members,
@@ -41,7 +41,7 @@ module.exports = function (app) {
 		return Group.findById(req.params.id, function (err, group) {
 			return group.members(function(err, members) {
 				return group.invites(function(err, invites) {
-					res.render('groups/show', {
+					res.render('desktop/group', {
 						title: 'Group / Yunify',
 						group: group,
 						members: members,
@@ -96,4 +96,4 @@ module.exports = function (app) {
 		});
 	});
 
-}
+};

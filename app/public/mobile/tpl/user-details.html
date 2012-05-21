@@ -1,0 +1,22 @@
+<div data-role="header">
+  <a href="#" data-icon="back" class="back ui-btn-left">Back</a>
+  <h1>User Details</h1>
+  <a href="#" data-icon="search" class="search ui-btn-right">Search</a>
+</div>
+
+<div data-role="content">
+  <img src="https://graph.facebook.com/<%= fb.id %>/picture?type=square" alt="<%= fullName %>" />
+  <div class="user-details">
+    <h3><%= fullName %></h3>
+    <p><%= bio %></p>
+  </div>
+
+  <ul data-role="listview" data-inset="true" class="action-list">
+    <li><a href=""></a><li>
+    <li><a href="tel:<%= officePhone %>"><h3>Call Office</h3><p><%= officePhone %></p></a></li>
+    <li><a href="tel:<%= cellPhone %>"><h3>Call Cell</h3><p><%= cellPhone %></p></a></li>
+    <li><a href="sms:<%= cellPhone %>"><h3>SMS</h3><p><%= cellPhone %></p></a></li>
+    <li><a href="mailto:<%= email %>"><h3>Email</h3><p><%= email %></p></a></li>
+  </ul>
+
+</div>

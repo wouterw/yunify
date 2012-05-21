@@ -1,7 +1,0 @@
-/*!
- * Achievements
- */
-
-module.exports.achievements = {
-
-};
