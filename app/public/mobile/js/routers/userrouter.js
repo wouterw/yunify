@@ -2,32 +2,30 @@
    AppRouter
    -------------------------------------------------------------------------- */
 
-window.AppRouter = new (Backbone.Router.extend({
+window.AppRouter = Backbone.Router.extend({
 
 	routes:{
-		'':'list',
-		'list':'list',
-		'users/:id':'userDetails'
+		"": "list",
+		"list": "list",
+		"users/:id": "userDetails"
 	},
 
-	initialize:function () {
+	initialize: function () {
 		$('.back').live('click', function(event) {
 			window.history.back();
 			return false;
 		});
 		this.firstPage = true;
 		this.searchResults = new UserCollection();
-	},
-
-	start: function() {
-		Backbone.history.start({ pushState: true, root: '/mobile' });
+		this.searchResults.fetch();
 	},
 
 	list:function () {
 		this.changePage(new UserListPage({model: this.searchResults}));
 	},
 
-	userDetails:function (id) {
+	userDetails: function (id) {
+		console.log(id);
 		var user = new User({id:id});
 		var self = this;
 		user.fetch({
@@ -37,7 +35,7 @@ window.AppRouter = new (Backbone.Router.extend({
 		});
 	},
 
-	changePage:function (page) {
+	changePage: function (page) {
 		$(page.el).attr('data-role', 'page');
 		page.render();
 		$('body').append($(page.el));
@@ -50,7 +48,7 @@ window.AppRouter = new (Backbone.Router.extend({
 		$.mobile.changePage($(page.el), {changeHash:false, transition: transition});
 	}
 
-}))();
+});
 
 /* --------------------------------------------------------------------------
    Kick off
@@ -58,6 +56,7 @@ window.AppRouter = new (Backbone.Router.extend({
 
 $(document).ready(function () {
 	tpl.loadTemplates(['search-page', 'user-details', 'user-list-item'], function () {
-		AppRouter.start();
+		app = new AppRouter();
+		Backbone.history.start();
 	});
 });

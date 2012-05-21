@@ -34,3 +34,17 @@ tpl = {
 	}
 
 };
+
+window.utils = {
+	showAlert: function(title, text, cssClass) {
+		$('.alert').removeClass("alert-error alert-warning alert-success alert-info");
+		$('.alert').addClass(cssClass);
+		$('.alert').html('<strong>' + title + '</strong> ' + text);
+		$('.alert').show();
+	},
+
+	hideAlert: function() {
+		$('.alert').hide();
+	}
+
+};

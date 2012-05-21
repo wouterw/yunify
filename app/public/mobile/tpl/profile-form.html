@@ -1,0 +1,14 @@
+<form>
+	<div data-role="fieldcontain">
+		<p><%= status %></p>
+		<label for="select-choice-1" class="select">Change your status:</label>
+		<select name="status" id="status" value="<%= status %>">
+				<option <%= status === 'Available' ? 'selected' : '' %> value="Available">Available</option>
+				<option <%= status === 'Studying' ? 'selected' : '' %> value="Studying">Studying</option>
+				<option <%= status === 'Busy' ? 'selected' : '' %> value="Busy">Busy</option>
+				<option <%= status === 'Sleep' ? 'selected' : '' %> value="Sleep">Sleep</option>
+				<option <%= status === 'Out' ? 'selected' : '' %> value="Out">Out</option>
+		</select>
+	</div>
+	<a class="save-changes" href="#" data-role="button">Change Status</a>
+</form>

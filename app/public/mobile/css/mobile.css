@@ -2,4 +2,21 @@
    Mobile Stylesheet
    -------------------------------------------------------------------------- */
 
+.user-picture {
+	float: left;
+	padding-right: 10px;
+	padding-bottom: 16px;
+}
 
+.user-picture.ui-li-thumb {
+	padding: 15px 0 0 15px;
+}
+
+.user-details p {
+	margin-top: 0;
+	margin-bottom: 8px;
+}
+
+.action-list {
+	clear: both;
+}

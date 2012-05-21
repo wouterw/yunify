@@ -18,16 +18,16 @@ html(lang='en')
 				div(data-role='navbar')
 					ul
 						li
-							a(href='/mobile/', data-icon='info', data-transition='slide') Me
+							a(href='/mobile/me', data-icon='info', data-transition='slide') Me
 						li
-							a(href='/mobile/', data-icon='star', data-transition='slide') Awards
+							a(href='/mobile/awards', data-icon='star', data-transition='slide') Awards
+						li
+							a(href='/mobile/users', data-icon='star', data-transition='slide') Users
+						li
+							a(href='/mobile/groups', data-icon='star', data-transition='slide') Groups
 
 			div(data-role='content')
 				block content
-
-			//
-				div(data-role='footer')
-					p Codability &copy; 2012
 
 		block scripts
 			include ../includes/scripts-mobile
