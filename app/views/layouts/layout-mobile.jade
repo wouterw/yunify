@@ -6,28 +6,7 @@ html(lang='en')
 			include ../includes/styles-mobile
 
 	body
-		div(data-role='page')
 
-			div(data-role='header', data-id="nav", data-position='fixed')
-				a(href='/mobile', data-icon='home', data-transition='fade') Home
-				h1 Yunify
-				- if (!everyauth.loggedIn)
-					a(href='/auth/facebook', data-icon='home', data-theme='b') Login
-				- else
-					a(href='/mobile/logout', data-icon='home', data-theme='b') Logout
-				div(data-role='navbar')
-					ul
-						li
-							a(href='/mobile/me', data-icon='info', data-transition='slide') Me
-						li
-							a(href='/mobile/awards', data-icon='star', data-transition='slide') Awards
-						li
-							a(href='/mobile/users', data-icon='star', data-transition='slide') Users
-						li
-							a(href='/mobile/groups', data-icon='star', data-transition='slide') Groups
-
-			div(data-role='content')
-				block content
+		block content
 
 		block scripts
-			include ../includes/scripts-mobile

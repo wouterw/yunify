@@ -89,7 +89,6 @@ User.methods.invites = function(cb) {
 		.run(cb);
 };
 
-
 /**
  * Export model
  */

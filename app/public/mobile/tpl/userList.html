@@ -1,0 +1,9 @@
+<% _.each( users , function( user, i ) { %>
+<li>
+	<a href="#users/<%= user.get('_id') %>">
+		<img class="user-picture" src="https://graph.facebook.com/<%= user.get('fb').id %>/picture?type=square" alt="<%= user.get('fullName') %>" class="ui-li-thumb" />
+		<h3 class="ui-li-heading"><%= user.get('fullName') %></h4>
+		<p class="ui-li-desc"><%= user.get('bio') %></p>
+	</a>
+</li>
+<% }); %>

@@ -1,33 +1,31 @@
 /* --------------------------------------------------------------------------
-   UserModel
+   GroupModel
    -------------------------------------------------------------------------- */
 
-window.User = Backbone.Model.extend({
+window.Group = Backbone.Model.extend({
 
-	urlRoot: '/api/users'
+	urlRoot: '/api/groups'
 
 });
 
 /* --------------------------------------------------------------------------
-   UserCollection
+   GroupCollection
    -------------------------------------------------------------------------- */
 
-window.UserCollection = Backbone.Collection.extend({
+window.GroupCollection = Backbone.Collection.extend({
 
-	model: User,
+	model: Group,
 
-	url: '/api/users',
+	url: '/api/groups',
 
 	findByName: function(key) {
-		var url = (key === '') ? '/api/users' : '/api/users/search?q=' + key;
-		console.log('findByName: ' + key);
+		var url = (key === '') ? '/api/groups' : '/api/groups/search?q=' + key;
 		var self = this;
 		$.ajax({
 			url: url,
 			cache: false,
 			dataType: 'json',
 			success: function(results) {
-				console.log('search success: ' + results.length);
 				self.reset(results);
 			}
 		});

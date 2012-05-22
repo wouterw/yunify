@@ -1,0 +1,15 @@
+<img class="user-picture" src="https://graph.facebook.com/<%= fb.id %>/picture?type=large" alt="<%= fullName %>" />
+<div class="user-details">
+  <h3><%= fullName %></h3>
+  <p><%= bio %></p>
+  <small><%= fb.gender %></small>
+</div>
+
+<ul id="user-details-list" data-role="listview" data-inset="true" class="action-list">
+  <li><a href=""><h3>Firstname</h3><p><%= fb.first_name %></p></a></li>
+  <li><a href=""><h3>Lastname</h3><p><%= fb.last_name %></p></a></li>
+  <li><a href=""><h3>Status</h3><p><%= status %></p></a></li>
+  <li><a href="mailto:<%= email %>"><h3>Email</h3><p><%= email %></p></a></li>
+  <li><a href="https://twitter.com/#!/search/realtime/<%= twitter %>"><h3>Twitter</h3><p>@<%= twitter %></p></a></li>
+  <li><a href="<%= fb.link %>"><h3>Facebook</h3><p><%= fb.link %></p></a></li>
+</ul>

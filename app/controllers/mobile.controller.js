@@ -7,7 +7,7 @@ module.exports = function(app) {
 	// GET /mobile
 
 	app.get('/mobile', function(req, res) {
-		res.render('mobile/home', {
+		res.render('mobile/index', {
 			title: 'Home / Yunify'
 		});
 	});

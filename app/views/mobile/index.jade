@@ -1,0 +1,105 @@
+extends ../layouts/layout-mobile
+
+block content
+
+	div#index-page(data-role='page')
+		div(data-role='header', data-id='nav', data-position='fixed')
+			a(href='#index', data-icon='home', data-transition='fade') Home
+			h1 Yunify
+			- if (!everyauth.loggedIn)
+				a(href='/auth/facebook', data-icon='home', data-theme='b') Login
+			- else
+				a(href='/mobile/logout', data-icon='home', data-theme='b') Logout
+
+		div(data-role='navbar')
+			ul
+				li
+					a(href='', data-icon='home', class='ui-btn-active') Home
+				li
+					a(href='#me', data-icon='info') Me
+				li
+					a(href='#tasks', data-icon='check') Tasks
+				li
+					a(href='#roomies', data-icon='grid') Roomies
+				li
+					a(href='#users', data-icon='search') Users
+				li
+					a(href='#groups', data-icon='search') Groups
+
+			div(data-role='content')
+				h1 Welcome, #{user.fullName}!
+				p
+					| Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+					| tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+					| quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+					| consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
+					| cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
+					| proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+
+			div(data-role='footer', data-theme='c')
+				h4 Codability &copy; 2012
+
+	div#my-profile-page(data-role='page')
+		div(data-role='header')
+			a(href='', data-icon='home', data-transition='fade') Home
+			h1 My Profile
+
+		div(data-role='content')
+
+
+
+	div#my-profile-edit-page(data-role='page')
+		div(data-role='header')
+			a(href='', data-icon='home', data-transition='fade') Home
+			h1 Edit Profile
+
+		div(data-role='content')
+
+
+
+	div#search-users-page(data-role='page')
+		div(data-role='header')
+			a(href='', data-icon='home', data-transition='fade') Home
+			h1 User Browser
+
+		div(class='ui-bar ui-bar-c')
+			input(type='search', class='search-query', placeholder='Search')
+
+		div(data-role='content')
+			ul(data-role='listview', id='user-list')
+
+
+
+	div#user-details-page(data-role='page')
+		div(data-role='header')
+			a(href='', data-icon='home', data-transition='fade') Home
+			h1 User Details
+
+		div(data-role='content')
+			section#user-details
+
+
+
+	div#search-groups-page(data-role='page')
+		div(data-role='header')
+			a(href='', data-icon='home', data-transition='fade') Home
+			h1 Group Browser
+
+		div(class='ui-bar ui-bar-c')
+			input(type='search', class='search-query', placeholder='Search')
+
+		div(data-role='content')
+			ul(data-role="listview", id='group-list')
+
+
+
+	div#group-details-page(data-role='page')
+		div(data-role='header')
+			a(href='', data-icon='home', data-transition='fade') Home
+			h1 Group Details
+
+		div(data-role='content')
+
+
+append scripts
+	script(data-main='/mobile/js/main', src='/common/js/lib/require/require.min.js')
