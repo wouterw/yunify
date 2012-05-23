@@ -1,13 +1,14 @@
 # Yunify
 
-Yunify is a Node.JS project.
-...
+This project consist of:
 
-## How to install
-...
+1. A Node.js + Express + Socket.io back-end, using MongoDb + Mongoose on it's data layer.
 
-## How to use
-...
+2. A desktop client application using Twitter Bootstrap, Knockout.js (MVVM).
+
+3. A mobile application using JQuery Mobile, Backbone.js (MVC*), AMD for separation of modules,
+Require.js for dependency management, the Require.js Text plugin for template
+externalisation and Underscore for templating.
 
 ## Authors
 [Wouter Willaert](http://wouterwillaert.be/)
@@ -15,22 +16,33 @@ Yunify is a Node.JS project.
 [Nielsen Ramon](http://nielsenramon.be/)
 
 ## Structure
-app
+
+/app
+	/api 					-- api
+
 	/controllers	-- controllers
+
+	/helpers
+
+	/lib
+
+	/middleware
+
 	/models			-- models
+
 	/public			-- static files
+
 	/shared			-- isomorphic (client/server) files
+
 	/views			-- views
+
 	index.js		-- starts the application
+
+config			-- configuration files
+
 doc					-- documentation
 
-
-#### Jade Syntax Highlighting in Sublime Text 2 (OS X)
-curl -O https://raw.github.com/miksago/jade-tmbundle/master/Syntaxes/Jade.tmLanguage
-into
-/Users/<username>/Library/Application Support/Sublime Text 2/Packages
-
-## License 
+## License
 
 (The MIT License)
 
