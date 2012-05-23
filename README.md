@@ -10,37 +10,38 @@ This project consist of:
 Require.js for dependency management, the Require.js Text plugin for template
 externalisation and Underscore for templating.
 
-## Authors
-[Wouter Willaert](http://wouterwillaert.be/)
 
-[Nielsen Ramon](http://nielsenramon.be/)
 
 ## Structure
 
-/app
-	/api 					-- api
+	/app
 
-	/controllers	-- controllers
+		/api 					-- api
 
-	/helpers
+		/controllers	-- controllers
 
-	/lib
+		/helpers
 
-	/middleware
+		/lib
 
-	/models			-- models
+		/middleware
 
-	/public			-- static files
+		/models			-- models
 
-	/shared			-- isomorphic (client/server) files
+		/public			-- static files
 
-	/views			-- views
+		/shared			-- isomorphic (client/server) files
 
-	index.js		-- starts the application
+		/views			-- views
 
-config			-- configuration files
+		index.js		-- starts the application
 
-doc					-- documentation
+	config			-- configuration files
+
+	doc					-- documentation
+
+## Authors
+[Wouter Willaert](http://wouterwillaert.be/) & [Nielsen Ramon](http://nielsenramon.be/)
 
 ## License
 
