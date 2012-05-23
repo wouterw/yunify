@@ -1,9 +1,13 @@
 /* --------------------------------------------------------------------------
-   ProfileModel
+   Award Model
    -------------------------------------------------------------------------- */
 
-window.Profile = Backbone.Model.extend({
+define(['backbone'], function( Backbone ) {
 
-	urlRoot: '/api/me'
+	var Award = Backbone.Model.extend({
+		urlRoot: '/api/awards'
+	});
+
+	return Award;
 
 });

@@ -32,6 +32,25 @@ module.exports = function(app) {
 		return res.send(req.user);
 	});
 
+	// PUT /api/me/status
+
+	app.put( '/api/me/status', function( req, res ) {
+		User.findById(req.user._id, function(err, me) {
+			console.log(req.body);
+			me.status = req.body.status;
+			me.save(function(err) {
+				if(!err) {
+					res.statusCode = 200;
+					res.send('');
+				} else {
+					console.log(err);
+					res.statusCode = 500;
+					res.send('');
+				}
+			});
+		});
+	});
+
 	// GET /api/users/5
 
 	app.get('/api/users/:id', function(req, res) {

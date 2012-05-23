@@ -13,11 +13,9 @@ define(['jquery', 'backbone', 'underscore'],
 
 			"users": "users",
 			"users/:id": "userDetails",
-			"users/:id/awards": "userAwards",
 
 			"groups": "groups",
 			"groups/:id": "groupDetails",
-			"groups/:id/members": "groupMembers",
 
 			"me": "myProfile",
 			"me/edit": "myProfileEdit",
@@ -47,28 +45,32 @@ define(['jquery', 'backbone', 'underscore'],
 		},
 
 		root: function () {
-			yunify.utils.changePage('#index-page', 'slide', false, false);
+			require(['views/myStatus'], function( MyStatusView ) {
+				var myStatusView = new MyStatusView();
+				myStatusView.render();
+				yunify.utils.changePage( '#index-page', 'fade', false, false );
+			});
 		},
 
 		users: function () {
-			require(['collections/users', 'views/userList'], function(Users, UserListView) {
+			require(['collections/users', 'views/userSearch'], function( Users, UserSearchView ) {
 				var users = new Users();
 				users.fetch({
-					success: function (data) {
-						var listView = new UserListView({collection: data});
-						listView.render();
+					success: function ( data ) {
+						var searchView = new UserSearchView( { collection: data } );
+						searchView.render();
 					}
 				});
-				yunify.utils.changePage("#search-users-page", "slide", false, false);
+				yunify.utils.changePage( "#search-users-page", "slide", false, false );
 			});
 		},
 
 		userDetails: function (id) {
-			require(['models/user', 'views/userDetails'], function(User, UserView) {
-				var user = new User({id:id});
+			require(['models/user', 'views/userDetails'], function ( User, UserView ) {
+				var user = new User( { id:id } );
 				user.fetch({
-					success: function (data) {
-						var userView = new UserView({model: data});
+					success: function ( data ) {
+						var userView = new UserView( { model: data } );
 						userView.render();
 					}
 				});
@@ -76,25 +78,43 @@ define(['jquery', 'backbone', 'underscore'],
 			});
 		},
 
-		userAwards: function (id) {},
-
 		groups: function () {
-			var groups = new GroupCollection();
-			groups.fetch();
-			this.changePage(new GroupListPage({model: groups}));
-		},
-
-		groupDetails: function (id) {
-			var group = new Group({id:id});
-			var self = this;
-			group.fetch({
-				success: function (data) {
-					self.changePage(new GroupView({model:data}));
-				}
+			require(['collections/groups', 'views/groupSearch'], function( Groups, GroupSearchView ) {
+				var groups = new Groups();
+				groups.fetch({
+					success: function ( data ) {
+						var searchView = new GroupSearchView( { collection: data } );
+						searchView.render();
+					}
+				});
+			yunify.utils.changePage( "#search-groups-page", "slide", false, false );
 			});
 		},
 
-		groupMembers: function (id) {}
+		groupDetails: function (id) {
+			require(['models/group', 'views/groupDetails'], function ( Group, GroupView ) {
+				var group = new Group( { id: id } );
+				group.fetch({
+					success: function (data) {
+						var groupView = new GroupView( { model: data } );
+						groupView.render();
+					}
+				});
+				yunify.utils.changePage("#group-details-page", "slide", false, false);
+			});
+		},
+
+		myProfile: function () {
+
+		},
+
+		myProfileEdit: function () {
+
+		},
+
+		myRoomies: function () {
+			alert('myRoomies');
+		}
 
 	});
 

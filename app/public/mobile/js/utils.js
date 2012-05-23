@@ -8,6 +8,7 @@ define( ['jquery'], function ( $ ) {
 	var utils = {};
 
 	utils.changePage = function ( viewID, effect, direction, updateHash ) {
+		$( viewID ).page();
 		$.mobile.changePage( viewID, { transition: effect, reverse: direction, changeHash: updateHash } );
 	};
 

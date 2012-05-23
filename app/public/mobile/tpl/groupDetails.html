@@ -1,0 +1,17 @@
+<div class="group-details">
+  <h1><%= group.get('name') %></h1>
+  <h4><%= group.get('description') %></h4>
+</div>
+
+<ul id="group-members-list" data-role="listview" data-inset="true">
+	<li data-role="list-divider"><h1>Members</h1></li>
+	<% _.each( members , function( member, i ) { %>
+	<li>
+		<a href="#users/<%= member._id %>">
+			<img class="user-picture" src="https://graph.facebook.com/<%= member.fb.id %>/picture?type=square" alt="<%= member.fullName %>" class="ui-li-thumb" />
+			<h3 class="ui-li-heading"><%= member.fullName %></h4>
+			<p class="ui-li-desc"><%= member.bio %></p>
+		</a>
+	</li>
+	<% }); %>
+</ul>

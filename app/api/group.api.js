@@ -72,7 +72,28 @@ module.exports = function (app) {
 	app.get('/api/groups/:id', function (req, res) {
 		return Group.findById(req.params.id, function (err, group) {
 			if (!err) {
-				return res.send(group);
+				return res.send( group );
+			} else {
+				console.log(err.message);
+				res.statusCode = 500;
+			}
+		});
+	});
+
+	// GET /api/groups/5/members
+
+	app.get( '/api/groups/:id/members', function ( req, res ) {
+		return Group.findById(req.params.id, function(err, group) {
+			if(!err) {
+				return group.members(function(err, members) {
+					if(!err) {
+						return res.send(members);
+					} else {
+						console.log(err.message);
+					}
+				});
+			} else {
+				console.log(err.message);
 			}
 		});
 	});

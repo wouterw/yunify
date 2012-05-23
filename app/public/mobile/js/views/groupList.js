@@ -1,28 +1,28 @@
 /* --------------------------------------------------------------------------
-   UserList View
+   GroupList View
    -------------------------------------------------------------------------- */
 
-define(['jquery', 'backbone', 'underscore', 'text!tpl/userList.html'],
+define(['jquery', 'backbone', 'underscore', 'text!tpl/groupList.html'],
 	function( $, Backbone, _, listTemplate ) {
 
-		var UserListView = Backbone.View.extend({
+		var GroupListView = Backbone.View.extend({
 
-			el: $( 'ul#user-list' ),
+			el: $( 'ul#group-list' ),
 
 			initialize: function () {
 				this.template = _.template( listTemplate );
 				this.collection.on( 'reset', this.render, this );
 			},
 
-			render: function() {
+			render: function () {
 				this.$el.empty();
-				this.$el.html( this.template( { users: this.collection.models } ) );
+				this.$el.html( this.template( { groups: this.collection.models } ) );
 				this.$el.listview( 'refresh' );
 				return this;
 			}
 
 		});
 
-		return UserListView;
+		return GroupListView;
 
 	});

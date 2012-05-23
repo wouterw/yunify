@@ -1,13 +1,13 @@
 /* --------------------------------------------------------------------------
-   User Model
+   Group Model
    -------------------------------------------------------------------------- */
 
 define(['backbone'], function( Backbone ) {
 
-	var User = Backbone.Model.extend({
-		urlRoot: '/api/users'
+	var Group = Backbone.Model.extend({
+		urlRoot: '/api/groups'
 	});
 
-	return User;
+	return Group;
 
 });

@@ -8,6 +8,10 @@
 	padding-bottom: 16px;
 }
 
+.badge {
+	padding: 6px 20px 6px 6px;
+}
+
 .user-picture.ui-li-thumb {
 	padding: 15px 0 0 15px;
 }

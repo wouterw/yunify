@@ -1,0 +1,8 @@
+<% _.each( groups, function(group, i ) { %>
+<li>
+	<a href="#groups/<%= group.get('_id') %>">
+		<h3 class="ui-li-heading"><%= group.get('name') %></h4>
+		<p class="ui-li-desc"><%= group.get('description') %></p>
+	</a>
+</li>
+<% }); %>

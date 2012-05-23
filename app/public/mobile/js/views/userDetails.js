@@ -2,29 +2,34 @@
    UserDetail View
    -------------------------------------------------------------------------- */
 
+define(['jquery', 'backbone', 'underscore', 'text!tpl/userDetails.html'],
+	function( $, Backbone, _, userTemplate ) {
 
-define(['jquery', 'backbone', 'underscore', 'models/user', 'text!tpl/userDetails.html'],
-	function( $, Backbone, _, Users, userTemplate ) {
+		var UserView = Backbone.View.extend({
 
-	var UserView = Backbone.View.extend({
+			el: $('section#user-details'),
 
-		el: $('section#user-details'),
+			events: {
+				'afterRender': 'afterRender'
+			},
 
-		initialize: function() {
-			this.template = _.template(userTemplate);
-		},
+			initialize: function () {
+				this.template = _.template( userTemplate );
+			},
 
-		render: function() {
-			//this.$el.listview();
-			$('ul#user-details-list').listview();
-			this.$el.html(this.template(this.model.toJSON()));
-			//this.$el.listview('refresh');
-			$('ul#user-details-list').listview('refresh');
-			return this;
-		}
+			render: function () {
+				this.$el.html( this.template( this.model.toJSON() ) ) ;
+				this.$el.trigger('afterRender');
+				return this;
+			},
+
+			afterRender: function () {
+				$( '#user-details-list' ).listview();
+				$( '#user-awards-list' ).listview();
+			}
+
+		});
+
+		return UserView;
 
 	});
-
-	return UserView;
-
-});

@@ -26,18 +26,16 @@ block content
 				li
 					a(href='#groups', data-icon='search') Groups
 
-			div(data-role='content')
-				h1 Welcome, #{user.fullName}!
-				p
-					| Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-					| tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-					| quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-					| consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
-					| cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
-					| proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+		div(data-role='content')
+			h1 Welkom, #{user.fullName}!
 
-			div(data-role='footer', data-theme='c')
-				h4 Codability &copy; 2012
+			h2 Change your status
+			section#my-status
+
+		//
+			div(data-role='footer', data-theme='a')
+
+
 
 	div#my-profile-page(data-role='page')
 		div(data-role='header')
@@ -66,7 +64,7 @@ block content
 			input(type='search', class='search-query', placeholder='Search')
 
 		div(data-role='content')
-			ul(data-role='listview', id='user-list')
+			ul(data-role='listview', data-autodividers='true', id='user-list')
 
 
 
@@ -89,7 +87,7 @@ block content
 			input(type='search', class='search-query', placeholder='Search')
 
 		div(data-role='content')
-			ul(data-role="listview", id='group-list')
+			ul(data-role="listview", data-autodividers='true', id='group-list')
 
 
 
@@ -99,6 +97,8 @@ block content
 			h1 Group Details
 
 		div(data-role='content')
+			section#group-details
+
 
 
 append scripts
