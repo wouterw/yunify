@@ -52,7 +52,5 @@ module.exports = function (app, sessionStore) {
 	// load modules
 	require('./chat.sockets')(io);
 	require('./tasks.sockets')(io);
-	require('./twitter.sockets')(io);
-	require('./leaderboard.sockets.js')(io);
 
 };

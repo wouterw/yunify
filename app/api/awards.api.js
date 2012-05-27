@@ -68,12 +68,4 @@ module.exports = function (app) {
 		});
 	});
 
-	/* --- FOR TEST PURPOSE ONLY ----------------------------------- */
-
-	app.get('/api/award/me/a/badge', function(req, res) {
-		awarder.tryUnlockingAchievement("AUTOBIOGRAPHER", req.user, function(achievement) {
-			res.send(achievement);
-		});
-	});
-
 };

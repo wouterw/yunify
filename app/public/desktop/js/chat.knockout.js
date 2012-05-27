@@ -1,15 +1,14 @@
 (function() {
-	'use strict';
 
 	var Message = function(author, text, timestamp) {
 		this.author = ko.observable(author);
 		this.text = ko.observable(text);
 		this.timestamp = ko.observable(new XDate(timestamp).toString('MMM d, yyyy h(:mm)TT'));
-	}
+	};
 
 	var User = function(username) {
 		this.username = ko.observable(username);
-	}
+	};
 
 	var ChatViewModel = function() {
 		var self = this;
@@ -37,10 +36,13 @@
 			self.users.push(new User(data.username));
 		};
 
-		this.removeUser = function (userId) {
+		this.removeUser = function (user) {
+			console.log('removeuser triggered', user);
+			console.log(ko.toJS(self.users));
 			self.users.remove(function(item) {
-				return item.username == userId;
+				return (item.username() === user.username);
 			});
+			console.log(ko.toJS(self.users));
 		};
 
 		this.loadUsers = function(users) {
@@ -62,7 +64,7 @@
 
 	var socket = io.connect('/chat');
 
-	socket.on('connect', function() { 
+	socket.on('connect', function() {
 		socket.emit('newuser', username);
 	});
 
@@ -82,8 +84,9 @@
 		chatvm.addUser(data);
 	});
 
-	socket.on('removeuser', function(userId) {
-		chatvm.removeUser(userId);
+	socket.on('removeuser', function(user) {
+		console.log('removeuser', user);
+		chatvm.removeUser(user);
 	});
 
 	var emitMessage = function (msg) {

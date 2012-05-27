@@ -2,7 +2,7 @@ extends ../layouts/layout-desktop
 
 block content
 	.row
-		.span8
+		.span12
 			.page-header
 				h1 Tasks
 					.label.pull-right(data-bind='text: remainingCount') 1
@@ -16,16 +16,6 @@ block content
 							label(data-bind='text: title')
 							button.destroy(data-bind='click: $root.remove')
 						input.edit(data-bind='value: title, valueUpdate: \'afterkeydown\', enterKey: $root.stopEditing, selectAndFocus: editing, event: { blur: $root.stopEditing }')
-		.span4
-			.page-header
-				h3 # Points
-			h1 500
-			.page-header
-				h3 # Completed
-			h1 5
-			.page-header
-				h4 # Pending
-			h1 15
 
 append scripts
 	script(src='/socket.io/socket.io.js')

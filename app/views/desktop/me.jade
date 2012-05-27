@@ -114,12 +114,25 @@ block content
 					.controls
 						btn#update_profile.btn.btn-success.btn-large(data-bind='click: profile.update') Save Changes
 		.span3
+
 			.page-header
 				h3 Points
-			p You haven't earned any points.
+
+			- if (user.achievements.score_count && user.achievements.score_count > 0)
+				h1 #{user.achievements.score_count}
+			- else
+				p You haven't earned any points yet.
+
 			.page-header
 				h3 Awards
-			p You haven't earned any badges.
+
+			- if (user.achievements.unlocked && user.achievements.unlocked.length > 0)
+				ul
+					each b in user.achievements.unlocked
+						li= b.name
+			- else
+				p You haven't earned any badges.
+
 			.page-header
 				h3 Invites
 			section#invites(data-bind='foreach: invites')

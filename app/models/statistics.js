@@ -7,24 +7,64 @@ var mongoose = require('mongoose'),
 
 var stats = exports = module.exports = {};
 
-stats.getLoginCount = function(user) {
-	//return user.achievements.login_count;
-	return 1;
+/*
+ * Increments
+ */
+
+stats.incrementScoreCount = function ( user, amount ) {
+	fixUser(user, function ( err, user ) {
+		if (amount && amount >= 1) {
+			user.achievements.score_count += amount;
+			user.save();
+		} else {
+			console.log( new Error( 'Amount must be 1 or more' ) );
+		}
+	});
 };
 
-stats.incrementLoginCount = function(user, cb) {
-	user.achievements.login_count++;
-	user.save(cb);
+stats.incrementTaskCount = function ( user ) {
+	fixUser(user, function ( err, user ) {
+		user.achievements.task_count++;
+		user.save();
+	});
 };
 
-stats.getAwardCount = function(user) {
-	return 5;
+/*
+ * Gets
+ */
+
+stats.getScoreCount = function ( user ) {
+	var score_count = 0;
+	fixUser(user, function ( err, user ) {
+		score_count = user.achievements.score_count;
+	});
+	return score_count;
 };
 
-stats.getScoreCount = function(user) {
-	return 50;
+stats.getAwardCount = function ( user ) {
+	var award_count;
+	fixUser(user, function ( err, user ) {
+		award_count = user.achievements.unlocked.length();
+	});
+	return award_count;
 };
 
-stats.getTaskCount = function(user) {
-	return 5;
+stats.getTaskCount = function ( user ) {
+	var task_count = 0;
+	fixUser(user, function ( err, user ) {
+		task_count = user.achievements.task_count;
+	});
+	return task_count;
+};
+
+/*
+ * Helpers
+ */
+
+var fixUser = function ( user, cb ) {
+	if (typeof user === 'string' || typeof user === 'number') {
+		User.findById(user, cb);
+	} else {
+		cb( null, user );
+	}
 };

@@ -100,6 +100,17 @@ block content
 			section#group-details
 
 
+	div#tasks-page(data-role='page')
+		div(data-role='header')
+			a(href='', data-icon='home', data-transition='fade') Home
+			h1 Tasks
+
+		div(data-role='content')
+			section#tasks
+				input#new-task(placeholder='What needs to be done?', type='text')
+				ul#task-list
+				div#todo-stats
+
 
 append scripts
 	script(data-main='/mobile/js/main', src='/common/js/lib/require/require.min.js')

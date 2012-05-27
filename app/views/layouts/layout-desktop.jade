@@ -32,9 +32,9 @@ html(lang='en')
 									.account_info
 										h2 #{user.fullName}
 										.stats
-											span.score 500 points
-											span.exercises 15
-											span.achievements 22
+											span.score #{user.achievements.score_count} points
+											span.exercises #{user.achievements.task_count}
+											span.achievements #{user.achievements.unlocked.length}
 							li
 								a.sign_out(href='/logout') Sign Out
 						- else

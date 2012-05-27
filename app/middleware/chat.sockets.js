@@ -52,8 +52,8 @@ module.exports = function (io) {
 
 		socket.on('disconnect', function(data) {
 			delete usernames[socket.username];
-			socket.emit('removeuser', mapper.createUser(socket.username));
-			var msg = mapper.createChatMessage(socket.username + ' disconnected.');
+			socket.broadcast.emit('removeuser', mapper.createUser(socket.username));
+			var msg = mapper.createChatMessage('SERVER', socket.username + ' disconnected');
 			socket.broadcast.emit('updatechat', msg);
 			logMessage(room, msg);
 		});

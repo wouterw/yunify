@@ -13,37 +13,22 @@ var awarder = exports = module.exports = {};
  * Object containing all achievements
  */
 awarder.achievements = {
-	LETS_GET_STARTED: {
-		id: 1,
-		name: "Let's get started!",
-		desc: "Join the Yunify Community.",
-		worth: 5,
-		isCompleted: function(user) {
-			return (stats.getLoginCount(user) >= 1);
-		}
-	},
 	SOCIAL_MEDIA_JUNKIE: {
 		id: 2,
 		name: "Social Media Junkie!",
 		desc: "Fill in your twitter account.",
-		worth: 5
+		worth: 5,
+		isCompleted: function( user ) {
+			return ( user.twitter && user.twitter.length > 0);
+		}
 	},
 	EARN_50_POINTS: {
 		id: 3,
 		name: "Points Collector",
 		desc: "Earn 50 points",
 		worth: 5,
-		isCompleted: function(user) {
-			return (stats.getScoreCount(user) >= 50);
-		}
-	},
-	EARN_5_AWARDS: {
-		id: 4,
-		name: "5 Awards",
-		desc: "Earn 5 Awards",
-		worth: 5,
-		isCompleted: function() {
-			return (stats.getAwardCount() >= 5);
+		isCompleted: function( user ) {
+			return (stats.getScoreCount( user ) >= 50);
 		}
 	},
 	COMPLETE_5_TASKS: {
@@ -51,8 +36,8 @@ awarder.achievements = {
 		name: "5 Tasks",
 		desc: "Complete 5 Tasks",
 		worth: 5,
-		isCompleted: function() {
-			return (stats.getTaskCount() >= 5);
+		isCompleted: function( user ) {
+			return (stats.getTaskCount( user ) >= 5);
 		}
 	},
 	MAJOR: {
@@ -92,7 +77,7 @@ awarder.getAchievementById = function(id) {
 awarder.hasUnlockedAchievement = function(achievement, user) {
 	var unlocked = false;
 	_.each(user.achievements.unlocked, function(unlocked_achievement) {
-		if(unlocked_achievement.id === achievement.id) {
+		if(unlocked_achievement.id == achievement.id) {
 			unlocked = true;
 		}
 	});
@@ -134,13 +119,28 @@ awarder.unlockAchievement = function(achievement, user) {
  * Try to unlock a achievement
  */
 awarder.tryUnlockingAchievement = function(achievement_name, user, cb) {
-	var achievement = null;
-	if(achievement_name in this.achievements) {
-		achievement = this.achievements[achievement_name];
-		if(achievement.isCompleted(user) && this.unlockAchievement(achievement, user)) {
-			cb(achievement);
-		} else {
-			cb('false');
+	var self = this;
+	fixUser(user, function ( err, user ) {
+		var achievement = null;
+		if(achievement_name in self.achievements) {
+			achievement = self.achievements[achievement_name];
+			if(achievement.isCompleted(user) && self.unlockAchievement(achievement, user)) {
+				cb(achievement);
+			} else {
+				cb('false');
+			}
 		}
+	});
+};
+
+/*
+ * Helpers
+ */
+var fixUser = function ( user, cb ) {
+	if (typeof user === 'string' || typeof user === 'number') {
+		User.findById(user, cb);
+	} else {
+		cb( null, user );
 	}
 };
+

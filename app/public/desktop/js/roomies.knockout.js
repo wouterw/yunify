@@ -1,11 +1,10 @@
 (function() {
-	'use strict';
 
 /* --------------------------------------------------------------------------
    GroupViewModel
    -------------------------------------------------------------------------- */
 
-	var Group = function(data) {
+	var Group = function ( data ) {
 		var self = this;
 		this.id = data._id;
 		this.name = ko.observable(data.name);
@@ -19,10 +18,78 @@
 		};
 	};
 
-	var GroupViewModel = function(data) {
+	var Member = function ( data ) {
 		var self = this;
-		this.group = new Group(data);
-		this.update = function() {
+		this.id = data._id;
+		this.fbId = data.fb.id;
+		this.name = data.fullName;
+		this.status = data.status;
+		this.picture = function () {
+			return 'https://graph.facebook.com/' + self.fbId + '/picture?type=normal';
+		}();
+		this.award_count = data.achievements.unlocked.length;
+		this.task_count = data.achievements.task_count || 0;
+		this.score_count = data.achievements.score_count || 0;
+	};
+
+	var GroupViewModel = function () {
+		var self = this;
+
+		this.group = {};
+		this.major = {};
+		this.members = ko.observableArray([]);
+		this.members.subscribe(function ( newValue ) {
+			var members = self.members();
+			for (var i = 0, j = members.length; i < j; i++) {
+				var member = members[i];
+				if (!member.index) {
+					member.index = ko.observable(i+1);
+				} else {
+					member.index(i+1);
+				}
+			}
+			self.getMajor();
+		});
+
+		this.getMajor = function () {
+			self.major = self.members()[0];
+		};
+
+		this.init = function () {
+			self.getGroup();
+			self.getMembers();
+			self.sortMembers();
+		};
+
+		this.getGroup = function () {
+			$.ajax({
+				async: false,
+				url: '/api/me/group',
+				success: function (data) {
+					self.group = new Group(data);
+				}
+			});
+		};
+
+		this.getMembers = function () {
+			$.ajax({
+				async: false,
+				url: '/api/me/group/members',
+				success: function (data) {
+					_.each(data, function(item) {
+						self.members.push(new Member(item));
+					});
+				}
+			});
+		};
+
+		this.sortMembers = function () {
+			this.members.sort(function(left, right) {
+				return left.score_count === right.score_count ? 0 : (left.score_count > right.score_count ? -1 : 1);
+			});
+		};
+
+		this.update = function () {
 			$.ajax({
 				url: '/api/groups/' + self.group.id,
 				type: 'PUT',
@@ -32,6 +99,7 @@
 				}
 			});
 		};
+
 	};
 
 /* --------------------------------------------------------------------------
@@ -99,62 +167,16 @@
 	});
 
 /* --------------------------------------------------------------------------
-   LeaderboardViewModel
-   -------------------------------------------------------------------------- */
-
-	var LeaderboardEntry = function(item) {
-		this.id = item._id;
-		this.roomie = item.user.fullName;
-		this.points = item.points;
-	};
-
-	var LeaderBoardViewModel = function() {
-		var self = this;
-		this.leaderboardEntries = ko.observableArray([]);
-		this.update = function(items) {
-			_.each(items, function(item) {
-				self.leaderboardEntries.push(new LeaderboardEntry(item));
-			});
-		};
-	};
-
-/* --------------------------------------------------------------------------
    MasterViewModel
    -------------------------------------------------------------------------- */
 
-	var group = {};
-	$.ajax({
-		async: false,
-		url: '/api/me/group',
-		success: function (data) {
-			group = data;
-		}
-	});
-
 	var MasterViewModel = {
-		groupViewModel : new GroupViewModel(group),
-		inviteViewModel : new InviteViewModel(),
-		leaderBoardViewModel : new LeaderBoardViewModel()
+		groupViewModel : new GroupViewModel(),
+		inviteViewModel : new InviteViewModel()
 	};
 
+	MasterViewModel.groupViewModel.init();
+
 	ko.applyBindings(MasterViewModel);
-
-/* --------------------------------------------------------------------------
-   Leaderboard Socket Communication
-   -------------------------------------------------------------------------- */
-
-	var socket = io.connect('/ranking');
-
-	socket.on('connect', function(data) {
-		socket.emit('init', {
-			"groupId": MasterViewModel.groupViewModel.group.id
-		});
-	});
-
-	socket.on('update', function(data) {
-		MasterViewModel.leaderBoardViewModel.update(data);
-	});
-
-	console.log(ko.toJS(MasterViewModel));
 
 })();

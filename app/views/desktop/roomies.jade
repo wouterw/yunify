@@ -61,10 +61,15 @@ block content
 					span.badge.pull-right #{invites.length}
 
 			.well
-				each i in invites
-					p
-						strong #{i.invitee.fullName}
-						em.muted &nbsp;-&nbsp;#{i.status}
+				- if (invites && invites.length > 0)
+					each i in invites
+						p
+							strong #{i.invitee.fullName}
+							em.muted &nbsp;-&nbsp;#{i.status}
+
+				- else
+					p No invites for this group
+
 				hr
 
 				btn.btn.btn-primary(style='display: block;', href='#invite-user-modal', data-toggle='modal')
@@ -114,27 +119,19 @@ block content
 						th Points
 						th Tasks
 						th Awards
-				tbody(data-bind='foreach: leaderBoardViewModel.leaderboardEntries')
+				tbody(data-bind='foreach: groupViewModel.members')
 					tr
-						td(data-bind='text: $index')
-						td(data-bind='text: roomie')
-						td(data-bind='text: points')
-						td 5
-						td 2
+						td(data-bind='text: index')
+						td(data-bind='text: name')
+						td(data-bind='text: score_count')
+						td(data-bind='text: task_count')
+						td(data-bind='text: award_count')
 
 		.span3
-
 			.page-header
 				h3 Major
-
-			img(src='https://graph.facebook.com/1198598708/picture?type=normal', alt='Wouter Willaert')
-			.page-header
-				h3 Recent Activity
-			ul
-				li You haven't earned any badges.
-				li You haven't earned any badges.
-				li You haven't earned any badges.
-				li You haven't earned any badges.
+			p(data-bind='text: groupViewModel.major.name')
+			img(data-bind='attr: { src: groupViewModel.major.picture , alt: groupViewModel.major.name }')
 
 append scripts
 	script(src='/socket.io/socket.io.js')

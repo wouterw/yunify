@@ -4,8 +4,8 @@
  * Copyright (c) 2012 Codability
  */
 
-define(['backbone', 'routers/approuter', 'utils'],
-	function (Backbone, AppRouter, utils) {
+define(['backbone', 'routers/approuter', 'utils', 'vent'],
+	function ( Backbone, AppRouter, utils, vent ) {
 
 		$(function () {
 
@@ -16,7 +16,8 @@ define(['backbone', 'routers/approuter', 'utils'],
 			window.yunify = {
 				models: {},
 				routers: {},
-				utils: utils
+				utils: utils,
+				events: vent
 			};
 
 			/*

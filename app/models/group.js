@@ -20,32 +20,45 @@ var GroupSchema = new Schema({
  * Methods
  */
 
-GroupSchema.methods.addMember = function(user, cb) {
+GroupSchema.methods.members = function ( cb ) {
+	return this.db.model('User')
+		.where('group').equals(this._id)
+		.run(cb);
+};
+
+GroupSchema.methods.addMember = function( user, cb ) {
 	user.group = this._id;
 	user.save(cb);
 };
 
-GroupSchema.methods.removeMember = function(user, cb) {
+GroupSchema.methods.removeMember = function( user, cb ) {
 	user.group = null;
 	user.save(cb);
 };
 
-GroupSchema.methods.invites = function(cb) {
-	return this.db.model('Invite').where('group').equals(this._id)
-		.populate('invitee', ['fullName']).populate('invited_by', ['fullName'])
+GroupSchema.methods.leaderboard = function ( cb ) {
+	return this.db.model('User')
+		.where('group').equals(this._id)
+		.desc('achievements.score_count')
 		.run(cb);
 };
 
-GroupSchema.methods.members = function(cb) {
-	return this.db.model('User').where('group').equals(this._id).run(cb);
+GroupSchema.methods.invites = function ( cb ) {
+	return this.db.model('Invite')
+		.where('group').equals(this._id)
+		.populate('invitee', ['fullName'])
+		.populate('invited_by', ['fullName'])
+		.run(cb);
 };
 
-GroupSchema.methods.tasks = function(cb) {
-	return this.db.model('Task').where('group').equals(this._id).run(cb);
+GroupSchema.methods.tasks = function ( cb ) {
+	return this.db.model('Task')
+		.where('group').equals(this._id)
+		.run(cb);
 };
 
 /**
  * Export model
  */
 
-module.exports = mongoose.model('Group', GroupSchema);
+module.exports = mongoose.model( 'Group', GroupSchema );

@@ -63,8 +63,6 @@ module.exports = function (app) {
 				creator: req.user.id
 			});
 
-			newGroup.users.push(req.user);
-
 			newGroup.save(function (err, savedGroup) {
 				if (!err) {
 
@@ -73,7 +71,7 @@ module.exports = function (app) {
 						user.save();
 					});
 
-					res.redirect('/groups/' + savedGroup._id);
+					res.redirect('/roomies');
 				}
 			});
 

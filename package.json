@@ -1,6 +1,22 @@
 {
 	"name": "Yunify",
 	"version": "0.0.1",
+	"author": "Codability <codability@gmail.com>",
+	"description": "",
+	"contributors": [
+		{
+			"name": "Wouter Willaert",
+			"email": "wouter.willaert@gmail.com"
+		},
+		{
+			"name": "Nielsen Ramon",
+			"email": "nielsenramon1@gmail.com"
+		}
+	],
+	"repository": {
+		"type": "git",
+		"url": "https://wouterw@github.com/wouterw/yunify.git"
+	},
 	"engines": {
 		"node": ">=0.6.16",
 		"npm": ">=1.1"
@@ -9,5 +25,9 @@
 		"jade": "latest",
 		"express": "",
 		"connect": ""
+	},
+	"license": "MIT",
+	"engine": {
+		"node": ">=0.6.18"
 	}
 }

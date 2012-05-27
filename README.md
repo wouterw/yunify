@@ -2,7 +2,7 @@
 
 This project consist of:
 
-1. A Node.js + Express + Socket.io back-end, using MongoDb + Mongoose on it's data layer.
+1. A Node.js + Express/Jade + Socket.io back-end, using MongoDb & Mongoose on it's data layer.
 
 2. A desktop client application using Twitter Bootstrap, Knockout.js (MVVM).
 
@@ -10,38 +10,13 @@ This project consist of:
 Require.js for dependency management, the Require.js Text plugin for template
 externalisation and Underscore for templating.
 
-
-
-## Structure
-
-	/app
-
-		/api 					-- api
-
-		/controllers	-- controllers
-
-		/helpers
-
-		/lib
-
-		/middleware
-
-		/models			-- models
-
-		/public			-- static files
-
-		/shared			-- isomorphic (client/server) files
-
-		/views			-- views
-
-		index.js		-- starts the application
-
-	config			-- configuration files
-
-	doc					-- documentation
-
 ## Authors
-[Wouter Willaert](http://wouterwillaert.be/) & [Nielsen Ramon](http://nielsenramon.be/)
+
+* [Wouter Willaert](http://wouterwillaert.be/)
+  - wouter.willaert@gmail.com
+
+* [Nielsen Ramon](http://nielsenramon.be/)
+  - nielsenramon1@gmail.com
 
 ## License
 

@@ -24,7 +24,7 @@ define(['jquery', 'backbone', 'underscore'],
 
 			"roomies": "myRoomies",
 
-			"tasks": "taskBrowser",
+			"tasks": "tasks",
 			"tasks/:id": "taskDetails"
 
 		},
@@ -79,7 +79,7 @@ define(['jquery', 'backbone', 'underscore'],
 		},
 
 		groups: function () {
-			require(['collections/groups', 'views/groupSearch'], function( Groups, GroupSearchView ) {
+			require(['collections/groups', 'views/groupSearch'], function ( Groups, GroupSearchView ) {
 				var groups = new Groups();
 				groups.fetch({
 					success: function ( data ) {
@@ -113,7 +113,15 @@ define(['jquery', 'backbone', 'underscore'],
 		},
 
 		myRoomies: function () {
-			alert('myRoomies');
+
+		},
+
+		tasks: function () {
+			require(['views/tasks'], function ( TasksView ) {
+				var tasksView = new TasksView();
+				taskView.render();
+			});
+			yunify.utils.changePage("#tasks-page", "slide", false, false);
 		}
 
 	});

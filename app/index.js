@@ -28,8 +28,6 @@ require('./models/user');
 require('./models/invite');
 require('./models/group');
 require('./models/chat');
-require('./models/leaderboardEntry');
-require('./models/leaderboard');
 require('./models/task');
 
 

@@ -5,7 +5,8 @@
 var mongoose = require('mongoose'),
 		Schema = mongoose.Schema,
 		ObjectId = Schema.ObjectId,
-		lb = require('./leaderboard');
+		stats = require('./statistics'),
+		awarder = require('./awarder');
 
 /**
 * Schema
@@ -33,7 +34,15 @@ Task.methods.complete = function(usrId, cb) {
 	var points = this.important ? 10 : 5;
 	this.save(function (err) {
 		if(!err) {
-			lb.addPoints(usrId, points);
+
+			// statistics
+			stats.incrementScoreCount(usrId, points);
+			stats.incrementTaskCount(usrId);
+
+			// awards
+			awarder.tryUnlockingAchievement("EARN_50_POINTS", usrId, function(achievement) {});
+			awarder.tryUnlockingAchievement("COMPLETE_5_TASKS", usrId, function(achievement) {});
+
 		}
 	});
 	cb(this);

@@ -4,7 +4,8 @@
  */
 
 var mongoose = require('mongoose');
-var User = mongoose.model('User');
+		User = mongoose.model('User'),
+		awarder = require('../models/awarder');
 
 module.exports = function(app) {
 
@@ -88,6 +89,10 @@ module.exports = function(app) {
 			user.twitter = req.body.twitter;
 			return user.save(function(err) {
 				if(!err) {
+
+					// awards
+					awarder.tryUnlockingAchievement("SOCIAL_MEDIA_JUNKIE", user, function(achievement) {});
+
 					res.statusCode = 200;
 					res.send(user);
 				} else {

@@ -13,8 +13,8 @@ var mongoose = require('mongoose'),
 module.exports = function (app) {
 
 	/**
-	 * Route Param Pre-conditions for 'invId'
-	 */
+	* Route Param Pre-conditions for 'invId'
+	*/
 
 	app.param('invId', function (req, res, next, id) {
 		Invite.findOne({ _id : id }, function (err, invite) {
@@ -38,9 +38,9 @@ module.exports = function (app) {
 	});
 
 	/**
-	 * POST /api/me/group/invites
-	 * invites a given user to the current user's group
-	 */
+	* POST /api/me/group/invites
+	* invites a given user to the current user's group
+	*/
 
 	app.post('/api/me/group/invites', function(req, res) {
 		var me = req.user;
@@ -64,9 +64,9 @@ module.exports = function (app) {
 	});
 
 	/**
-	 * GET /api/me/invites
-	 * @return all invites for the current user
-	 */
+	* GET /api/me/invites
+	* @return all invites for the current user
+	*/
 
 	app.get('/api/me/invites', function(req, res) {
 		req.user.invites(function(err, invites) {
@@ -75,8 +75,8 @@ module.exports = function (app) {
 	});
 
 	/**
-	 * POST /api/me/invites/1/accept
-	 */
+	* POST /api/me/invites/1/accept
+	*/
 
 	app.get('/api/me/invites/:invId/accept', function(req, res) {
 		var invite = req.found_invite;
@@ -95,8 +95,8 @@ module.exports = function (app) {
 	});
 
 	/**
-	 * POST /api/me/invites/:invId/reject
-	 */
+	* POST /api/me/invites/5/reject
+	*/
 
 	app.get('/api/me/invites/:invId/reject', function(req, res) {
 		var invite = req.found_invite;
@@ -108,8 +108,7 @@ module.exports = function (app) {
 	});
 
 	var isValid = function(invite, user) {
-		return (invite.status === 'Pending'
-			&& invite.invitee.toString() === user._id.toString());
+		return (invite.status === 'Pending' && invite.invitee.toString() === user._id.toString());
 	};
 
 };
