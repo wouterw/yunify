@@ -6,11 +6,10 @@ html(lang='en')
 			include ../includes/styles-desktop
 
 	body
+		#header_image
+			img(src='/Desktop/img/header_home.png', alt='Header home')
 		header#header
 			#header_container
-				.logo
-					h1
-						a(href='/') Yunify
 				nav
 					ul
 						- if (everyauth.loggedIn)
@@ -26,19 +25,12 @@ html(lang='en')
 								a(href='/groups') Groups
 							li.nav_item
 								a(href='/profiles') Profiles
-							li.codertag
-								a#codertag(href='/me')
-									img(alt='#{user.fullName}', src='https://graph.facebook.com/' + everyauth.user.fb.id + '/picture?type=square')
-									.account_info
-										h2 #{user.fullName}
-										.stats
-											span.score #{user.achievements.score_count} points
-											span.exercises #{user.achievements.task_count}
-							li
+							li.nav_item
 								a.sign_out(href='/logout') Sign Out
 						- else
-							li
+							li.nav_item
 								a.sign_in(href='/auth/facebook') Sign in
+		
 		.container
 			block content
 		footer.footer

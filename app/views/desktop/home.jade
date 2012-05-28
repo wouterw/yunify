@@ -1,10 +1,21 @@
 extends ../layouts/layout-desktop
 
 block content
-	.row
-		.span12
-	.row
-		.span2
-		.span5
-		.span5
+	- if (everyauth.loggedIn)
+		.row
+			.span12
+				p#home_roomies_title What are my roomies doing?
+		.row
+			.span12
+				#home_roomies(data-bind='foreach: members')
+					.roomies_picture
+						img(data-bind='attr: { src: picture }', alt='alt')
+						.roomies_inset
+						.roomies_name(data-bind='text:name')
+						.roomies_status(data-bind='text:status')
+		.row
 			a(href='/wall') Launch
+
+append scripts
+	script(src='/socket.io/socket.io.js')
+	script(src='/desktop/js/home.knockout.js')
