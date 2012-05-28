@@ -34,7 +34,6 @@ html(lang='en')
 										.stats
 											span.score #{user.achievements.score_count} points
 											span.exercises #{user.achievements.task_count}
-											span.achievements #{user.achievements.unlocked.length}
 							li
 								a.sign_out(href='/logout') Sign Out
 						- else
