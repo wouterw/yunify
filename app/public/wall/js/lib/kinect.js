@@ -260,7 +260,7 @@
 				if( path && path.length > 1 )
 					_depthWS = new Worker( path );
 				else
-					_depthWS = new Worker('workerSocket.js');
+					_depthWS = new Worker('webworker.js');
 
 				_depthWS.postMessage({ addr : 'ws://' + addr + '/__depth/', socket : ChromeOrMoz });
 			}
@@ -322,7 +322,7 @@
 				if( path && path.length > 1 )
 					_rgbWS = new Worker( path );
 				else
-					_rgbWS = new Worker('workerSocket.js');
+					_rgbWS = new Worker('js/lib/webworker.js');
 
 				_rgbWS.postMessage({ addr : 'ws://' + addr + '/__rgb/', socket : ChromeOrMoz });
 			}
@@ -334,7 +334,7 @@
 		* close(), chainable  - Added on vI
 		* ----------------------------
 		* - Manually closes the connection
-		*	(Chrome 17 has a bug with closing websocket connections, 
+		*	(Chrome 17 has a bug with closing websocket connections,
 		*	 this is a possible solution)
 		*****************************/
 		close : function() {
@@ -584,7 +584,7 @@
 
 				if( index !== 0 )
 					return false;
-						
+
 				clearTimeout( _escapeInterval );
 				if( bool )
 				{
@@ -598,7 +598,7 @@
 				}
 				else
 					_escapeInterval = null;
-					
+
 				return false;
 			},
 			/*****************************
@@ -646,10 +646,10 @@
 
 				return false;
 			},
-			
+
 			FIRE	: function( args ) {
 				kinect.fireEvent( 'externalButtonPress', args );
-				
+
 				return false;
 			},
 			/*****************************
@@ -657,13 +657,13 @@
 			* ----------------------------
 			* Is fired after the user requests
 			* the angle data from the kinect
-			* is not actually a gestures, but it is called 
+			* is not actually a gestures, but it is called
 			* through the _ object
 			*****************************/
 			MOTOR	: function( deg ) {
 				if( kinect.motor )
 					kinect.motor.currentAngle = deg;
-				
+
 				kinect.fireEvent( 'motorAngleUpdated', [ deg ] );
 				return false;
 			}
@@ -671,7 +671,7 @@
 		/*****************************
 		* scanForHead(), chainable  - Added on vI
 		* ----------------------------
-		* - Forces the Kinect to adjust its angle, so that the 
+		* - Forces the Kinect to adjust its angle, so that the
 		*	first user's head is within proper range
 		*****************************/
 		scanForHead : function() {
@@ -919,7 +919,7 @@
 		},
 
 		_sink : {}
-		
+
 		//END
 	},
 	/**********************************
@@ -963,11 +963,11 @@
 	kinect.motor = {
 		currentAngle	: null,
 		scanForHead 	: kinect.scanForHead,
-		
+
 		/*********************************
 		* getCurrentAngle(), chainable added on vI
 		*---------------------------------
-		* Contacts the socket Server, to retrieve 
+		* Contacts the socket Server, to retrieve
 		* the current kinect angle, it doesnot return the value
 		* since it is an async function, the motor.currentAngle
 		* will be updated instead, and an event fired (motorAngleUpdated)
@@ -991,7 +991,7 @@
 		*---------------------------------
 		* Sets the current Kinect angle,
 		* the value is filtered for out of range values
-		* 
+		*
 		* returns kinect object
 		**********************************/
 		setCurrentAngle	: function( deg ) {
@@ -1220,10 +1220,10 @@
 			!duration && ( duration = 3820 );
 
 			notif.innerHTML = txt;
-			
+
 			if( notif.innerHTML == '' )
 				notif.textContent = txt;
-				
+
 			cont.appendChild( notif );
 			notifStyle.opacity = 0.9;	//making it active
 
@@ -1579,7 +1579,7 @@
 
 			if( bottom1 == 0 && top1 === 0 )
 				return false;
-				
+
 			if( ( getSign( top1 - bottom2 ) !== getSign( bottom1 - top2 ) ) &&
 				( getSign( left1 - right2 ) !== getSign( right1 - left2 ) ) )
 				{
@@ -1606,7 +1606,7 @@
 		_cursor		: null,		//cursor div element
 		overlapEl	: null,		//hovered element
 		prvOverlapEl: null,		//previous element
-		
+
 		status		: false,	//is the cursor active? By default false
 
 		x			: 0,		//coordinates
@@ -1779,7 +1779,7 @@
 			//restores relative val
 			kinect.setRelative( this.deactivateRelativeVal );
 			this.status = false;
-			
+
 			return this;
 		},
 		/*****************************
@@ -1831,7 +1831,7 @@
 		var img = kinect.imageCommands.currentImageData;
 
 		_callback && _callback( img );
-		
+
 		_headContainer.removeChild( _xmlhttp );
 
 		_saveImage && localStorage.setItem( 'img_' + new Date().getTime(), img );
@@ -1895,7 +1895,7 @@
 		/*********************************
 		* purgeGallery( INT ) - returns imageArray added on vI
 		* --------------------------------
-		* Deletes images from the gallery (the oldest ones first) 
+		* Deletes images from the gallery (the oldest ones first)
 		* and keeps only as many as specified in its sole argument
 		*
 		* count (int) - how many pictures to keep
@@ -1907,14 +1907,14 @@
 				tmp,
 				i,
 				ret = [];
-		
+
 			if( count !== 0 )
 				!count && ( count = 7 );
-			
+
 			for (i = 0; i < storage_len; ++i )	//grab the pictures from the localStorage
 				if( localStorage.key( i ).indexOf('img_') !== -1 )
 					picture_holder.push( localStorage.key( i ) );
-			
+
 			var slen = picture_holder.length;
 			i = -1;
 			if( slen > count )	//delete them if there are more than 7
@@ -1926,11 +1926,11 @@
 					picture_holder[ i ] = null;
 				}
 			}
-			
+
 			for( i = 0, tmp = picture_holder.length; i < tmp; ++i )
 				if( picture_holder[ i ] )
 					ret.push( picture_holder[ i ] );
-			
+
 			storage_len = tmp = picture_holder = i = null;
 			return ret;
 		}
@@ -1940,7 +1940,7 @@
 /*********************************
 * KINECT SESSION, 7/02/2012
 *---------------------------------
-* Maintains websockets active between 
+* Maintains websockets active between
 * page loads (of the same domain only)
 **********************************/
 (function( kinect ) {

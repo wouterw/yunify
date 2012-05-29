@@ -1,6 +1,7 @@
-/* --------------------------------------------------------------------------
-   Wall Stylesheet
-   -------------------------------------------------------------------------- */
+/* -------------------------------------
+    Author: Codability
+    Website: http://codability.be/
+   ------------------------------------- */
 
 /* -------------------------------------
     Reset
@@ -50,6 +51,7 @@ body {
   width: 100%;
   position: absolute;
   height: 100%;
+  overflow: hidden;
 
     /* Fix Background */
   background: url("../img/background.png") no-repeat center center fixed;
@@ -65,33 +67,43 @@ body {
    ------------------------------------- */
 
 @font-face {
-    font-family: 'ProximaNovaLight';
-    src: url('../fonts/proximanova-light-webfont.eot');
-    src: url('../fonts/proximanova-light-webfont.eot?#iefix') format('embedded-opentype'),
-         url('../fonts/proximanova-light-webfont.woff') format('woff'),
-         url('../fonts/proximanova-light-webfont.ttf') format('truetype');
-    font-weight: normal;
-    font-style: normal;
+  font-family: 'ProximaNovaLight';
+  src: url('../fonts/proximanova-light-webfont.eot');
+  src: url('../fonts/proximanova-light-webfont.eot?#iefix') format('embedded-opentype'),
+       url('../fonts/proximanova-light-webfont.woff') format('woff'),
+       url('../fonts/proximanova-light-webfont.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
 }
 
 @font-face {
-    font-family: 'ProximaNovaRegular';
-    src: url('../fonts/proximanova-regular-webfont.eot');
-    src: url('../../fonts/proximanova-regular-webfont.eot?#iefix') format('embedded-opentype'),
-         url('../fonts/proximanova-regular-webfont.woff') format('woff'),
-         url('../fonts/proximanova-regular-webfont.ttf') format('truetype');
-    font-weight: normal;
-    font-style: normal;
+  font-family: 'ProximaNovaRegular';
+  src: url('../fonts/proximanova-regular-webfont.eot');
+  src: url('../../fonts/proximanova-regular-webfont.eot?#iefix') format('embedded-opentype'),
+       url('../fonts/proximanova-regular-webfont.woff') format('woff'),
+       url('../fonts/proximanova-regular-webfont.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
 }
 
 @font-face {
-    font-family: 'ProximaNovaBold';
-    src: url('../fonts/proximanova-bold-webfont.eot');
-    src: url('../fonts/proximanova-bold-webfont.eot?#iefix') format('embedded-opentype'),
-         url('../fonts/proximanova-bold-webfont.woff') format('woff'),
-         url('../fonts/proximanova-bold-webfont.ttf') format('truetype');
-    font-weight: normal;
-    font-style: normal;
+  font-family: 'ProximaNovaBold';
+  src: url('../fonts/proximanova-bold-webfont.eot');
+  src: url('../fonts/proximanova-bold-webfont.eot?#iefix') format('embedded-opentype'),
+       url('../fonts/proximanova-bold-webfont.woff') format('woff'),
+       url('../fonts/proximanova-bold-webfont.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'DKCrayonCrumble';
+  src: url('../fonts/dkcrayoncrumble.eot');
+  src: url('../fonts/dkcrayoncrumble.eot?#iefix') format('embedded-opentype'),
+       url('../fonts/dkcrayoncrumble.woff') format('woff'),
+       url('../fonts/dkcrayoncrumble.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
 }
 
 /* -------------------------------------
@@ -101,6 +113,7 @@ body {
 /* Returning stylings */
 .bold_text {
   font-family: 'ProximaNovaBold';
+  font-weight: normal;
 }
 
 .yellow_text {
@@ -109,14 +122,14 @@ body {
 
 hr {
   float: left;
-  width: 1608px;
-  height: 2px;
-  color: #3c3c3c;
+  width: 100%;
+  height: 2.5px;
+  color: #232323;
   background: #000000;
   border: 0;
   border-bottom: solid 1px #f3f3f3;
   opacity: 0.3;
-
+  margin: 0px 0 20px 0px;
 }
 
 /* Main content */
@@ -131,13 +144,11 @@ hr {
   -ms-transition: left 600ms ease-in;
 }
 
-.top_title {
-  width: 1620px;
-  font-size: 7em;
-  height: 150px;
-  padding: 0;
-  margin: 0;
-  float: left;
+.over {
+  -webkit-animation-name: shaker;
+  -webkit-animation-duration: 0.5s;
+  -webkit-animation-iteration-count: infinite;
+  -webkit-animation-timing-function: linear;
 }
 
 /* Cursor */
@@ -153,9 +164,9 @@ hr {
 }
 
 #_cursor.count {
-  color: #f7f8f8;
+  color: #232323;
   padding-top: 49px;
-  padding-left: 28px;
+  padding-left: 50px;
   overflow: hidden;
   font-size: 20px;
   font-weight: bold;
@@ -165,8 +176,14 @@ hr {
     Homescreen
    ------------------------------------- */
 
-#section_home hr {
-  margin: 20px 0 20px 6px;
+#home_top_title {
+  width: 1620px;
+  font-size: 7em;
+  height: 150px;
+  padding: 0;
+  margin: 0;
+  float: left;
+  margin-bottom: 20px;
 }
 
 #home_tumb_text {
@@ -179,9 +196,10 @@ hr {
 
 #wrapper_thumbs {
   float: left;
-  width: 1620px;
+  width: 1520px;
+  padding-left: 50px;
   height: 310px;
-  margin-bottom: 20px;
+  margin-bottom: 40px;
 }
 
 #wrapper_thumbs a {
@@ -189,8 +207,8 @@ hr {
   width: 310px;
   height: 310px;
   display: inline-block;
-  padding-right: 7px;
-  padding-left: 7px;
+  padding-right: 35px;
+  padding-left: 35px;
 }
 
 #home_bottom_text {
@@ -207,4 +225,429 @@ hr {
 
 #big_text {
   font-size: 2em;
+}
+
+/* -------------------------------------
+    Taskscreen
+   ------------------------------------- */
+
+/* Chalkboard */
+#task_chalkboard {
+  background: url("../img/chalk_board.png") no-repeat;
+  -moz-box-shadow: 0px 1px 5px #000;
+  -webkit-box-shadow: 0px 1px 5px #000;
+  box-shadow: 0px 0px 4px #000;
+  height: 700px;
+  width: 626px;
+  float: left;
+  padding: 40px;
+  font-family: 'DKCrayonCrumble';
+}
+
+#task_title {
+  line-height: 1;
+  font-size: 4em;
+  margin: 0;
+}
+
+#todo-list {
+  font-size: 2em;
+  width: 540px;
+  height: 500px;
+  display: block;
+  float: left;
+}
+
+#todo_list_completed {
+  width: 540px;
+  text-decoration: line-through;
+  font-size: 2em;
+  display: block;
+  float: left;
+}
+
+/* Sidepanel */
+#task_sidepanel {
+  width: 855px;
+  height: 780px;
+  float: left;
+  padding-left: 60px;
+}
+
+#task_sidepanel_herounit {
+  font-size: 12em;
+  text-shadow: -3px -3px 3px rgba(0,0,0,0.36);
+  padding-left: 150px;
+  width: 705px;
+  float: left;
+  height: 268px;
+}
+
+#task_sidepanel_herounit p {
+  float: left;
+}
+
+#task_sidepanel_info {
+  font-size: 2em;
+  padding-top: 30px;
+  float: left;
+  width: 855px;
+  height: 130px;
+}
+
+#task_sidepanel_owner {
+  font-size: 4em;
+  padding: ;
+  float: left;
+  width: 555px;
+  height: 180px;
+  text-align: center;
+  font-family: 'DKCrayonCrumble';
+  padding: 62px 150px;
+}
+
+#task_sidepanel_owner span {
+  font-family: 'DKCrayonCrumble';
+}
+
+#task_sidepanel_footnote {
+  text-align: center;
+  float: left;
+  width: 855px;
+}
+
+/* -------------------------------------
+    Facebookscreen
+   ------------------------------------- */
+
+/* Top title */
+#facebook_top_title {
+  width: 1620px;
+  font-size: 7em;
+  height: 150px;
+  padding: 0;
+  margin: 0;
+  float: left;
+  margin-bottom: 20px;
+}
+
+#facebook_top_title img  {
+  display: inline;
+  width: 85px;
+  height: 85px;
+  float: left;
+  margin-top: 35px;
+  margin-right: 20px;
+}
+
+/* Facebook slider */
+.jcarousel-skin-default {
+  position: relative;
+  overflow: hidden;
+  width: 1420px;
+  height: 510px;
+  margin: 280px 100px 0 100px;
+}
+
+#facebook_block_wrapper{
+  height: 40000px;
+  width: 1420px;
+  position: absolute;
+  list-style: none;
+  padding: 0px;
+  overflow: hidden;
+}
+
+/* Facebook content */
+.facebook_block {
+  margin: 0;
+  padding: 10px;
+  width: 690px;
+  max-height: 510px;
+  list-style: none;
+  float: left;
+  overflow: hidden;
+}
+
+.facebook_content_top p {
+  display: inline-block;
+  float:left;
+  font-size: 2em;
+  width: 690px;
+}
+
+.facebook_content_left {
+  float: left;
+  width: 200px;
+  padding-top: 20px;
+  height: 390px;
+}
+
+.facebook_content_right {
+  float: left;
+  width: 470px;
+  font-size: 1.5em;
+  padding-left: 20px;
+  padding-top: 20px;
+  max-height: 390px;
+  text-shadow: -2px -2px 3px rgba(0,0,0,0.36);
+  overflow: hidden;
+}
+
+.facebook_text {
+  float: left;
+  width: 430px;
+}
+
+.facebook_underscript{
+  border-top: 1px solid #fff;
+  width: 690px;
+  float: left;
+  opacity: 0.5;
+  padding-bottom: 10px;
+}
+
+/* Facebook photo */
+.facebook_photo span {
+  color: #f2f2f2;
+  font-style: none;
+}
+
+.facebook_photo img {
+  padding-top: 15px;
+  width: 130px;
+}
+
+/* Facebook Link */
+.link_title {
+  width: 450px;
+  float: left;
+}
+.link_block img {
+  padding-top: 15px;
+  float: left;
+  width: 130px;
+}
+
+.link_block a {
+  float: left;
+  width: 305px;
+  padding-top: 15px;
+  padding-left: 15px;
+  color: #ddf153;
+}
+
+.link_block span {
+  float: left;
+  width: 450px;
+  padding-top: 15px;
+  font-style: italic;
+}
+
+/* -------------------------------------
+    Twitterscreen
+   ------------------------------------- */
+
+/* Title */
+#twitter_left_title {
+  width: 790px;
+  margin-right: 20px;
+  float: left;
+  height: 120px;
+  padding-top: 50px;
+  padding-bottom: 50px;
+}
+
+#twitter_left_title p {
+  float: left;
+  font-size: 5.5em;
+}
+
+#twitter_left_title img {
+  float: left;
+  padding-right: 30px;
+}
+
+.twitter_block:not(:last-child) {
+  margin-top: 30px;
+}
+
+/* Highlighted tweet */
+.twitter_block:first-child {
+  width: 790px;
+  height: 220px;
+  float: left;
+  margin-left: 20px;
+  display: block;
+  background: url("../img/twitter_highlighted.png") no-repeat;
+  -moz-box-shadow: 0px 1px 5px #000;
+  -webkit-box-shadow: 1px 3px 5px #232323;
+}
+
+.twitter_block:first-child img {
+  max-height: 200px;
+  max-width: 200px;
+  float: left;
+  padding: 10px;
+}
+
+.twitter_block:first-child p {
+  float: left;
+  padding: 10px;
+  padding-top: 20px;
+  width: 450px;
+}
+
+.twitter_block:first-child p span {
+  width: 450px;
+  float: left;
+}
+
+.twitter_block:first-child p span.title_twitter {
+  font-size: 2em;
+  padding-bottom: 5px;
+}
+
+.twitter_block:first-child p span.text_twitter, .twitter_block p span.text_twitter {
+  padding-bottom: 5px;
+}
+
+/* Normal tweets */
+.twitter_block {
+  width: 540px;
+  height: 185px;
+  float: left;
+  display: block;
+}
+
+.twitter_block p span {
+  width: 335px;
+  float: left;
+}
+
+.twitter_block p span.title_twitter {
+  font-size: 1.5em;
+  padding-bottom: 5px;
+}
+
+.twitter_block img {
+  max-height: 165px;
+  max-width: 165px;
+  float: left;
+  padding: 10px;
+}
+
+.twitter_block p {
+  float: left;
+  padding: 10px;
+  width: 335px;
+}
+
+.twitter_text a{
+  color: #ddf153;
+  text-decoration: none;
+}
+
+.created_twitter {
+  opacity: 0.5;
+}
+
+/* -------------------------------------
+    Photoboothscreen
+   ------------------------------------- */
+
+/* Camera */
+#camera_wrapper {
+  width: 1108px;
+  height: 780px;
+  float: left;
+  background: url("../img/camera_background.png") no-repeat;
+}
+
+#camera_focus {
+  padding: 170px 0 0 40px;
+  width: 740px;
+  height: 580px;
+  float: left;
+}
+
+#RGBstream {
+  border: solid 5px #000;
+}
+
+#camera_side {
+  float: left;
+  margin-top: 320px;
+  margin-left: 40px;
+  width: 250px;
+  height: 500px;
+}
+
+#camera_side p {
+  text-align: center;
+  font-size: 2em;
+}
+
+#hover_effect a {
+  width: 250px;
+  height: 250px;
+  float: left;
+}
+
+/* Sidepanel Camera */
+#photobooth_side {
+  float: left;
+  width: 472px;
+  height: 645px;
+  padding: 135px 0 0 40px;
+}
+
+#photobooth_herounit {
+  font-size: 8em;
+  line-height: 1em;
+  text-align: center;
+}
+
+#photobooth_title_subscript {
+  font-size: 2em;
+  line-height: 0.4em;
+  padding-left: 25px;
+}
+
+#photobooth_title_block {
+  width: 472px;
+  float: left;
+  padding-top: 50px;
+  padding-bottom: 50px;
+  height: 266px;
+}
+
+#photobooth_info {
+  text-align: center;
+  font-size: 1.7em;
+  height: 224px;
+  width: 472px;
+  float: left;
+  padding-top: 10px;
+}
+
+#photobooth_info span {
+  display: block;
+}
+
+/* -------------------------------------
+    Keyframe for tile shakings
+   ------------------------------------- */
+@-webkit-keyframes shaker {
+  0% { -webkit-transform: translate(2px, 1px) rotate(0deg); }
+  10% { -webkit-transform: translate(-1px, -2px) rotate(-1deg); }
+  20% { -webkit-transform: translate(-3px, 0px) rotate(1deg); }
+  30% { -webkit-transform: translate(0px, 2px) rotate(0deg); }
+  40% { -webkit-transform: translate(1px, -1px) rotate(2deg); }
+  50% { -webkit-transform: translate(-1px, 2px) rotate(-2deg); }
+  60% { -webkit-transform: translate(-3px, 1px) rotate(0deg); }
+  70% { -webkit-transform: translate(2px, 1px) rotate(-3deg); }
+  80% { -webkit-transform: translate(-1px, -1px) rotate(3deg); }
+  90% { -webkit-transform: translate(2px, 2px) rotate(0deg); }
+  100% { -webkit-transform: translate(1px, -2px) rotate(-4deg); }
 }

@@ -1,25 +1,35 @@
-(function() {
+$(document).ready(function () {
 	'use strict';
 
+	/*-------------------------------------
+	Task ViewModel
+	---------------------------------------*/
 	var Task = function(data, owner) {
-		var self = this;
 		this.id = data._id;
 		this.title = ko.observable(data.title);
 		this.completed = ko.observable(data.completed);
+		this.important = ko.observable(data.important);
+		this.created_at = ko.observable(data.created_at);
 		this.editing = ko.observable(false);
-
-		this.title.subscribe(function() {
-			owner.update(ko.toJS(self));
-		});
-
-		this.completed.subscribe(function() {
-			owner.update(ko.toJS(self));
-		});
-
 	};
 
+	/*-------------------------------------
+	Twitter ViewModel
+	---------------------------------------*/
+	var Tweet = function(data) {
+		this.from_user = data.from_user;
+		this.profile_image_url = "https://api.twitter.com/1/users/profile_image?screen_name=" + data.from_user + "&size=original";
+		this.text = data.text.parseURL().parseUsername().parseHashtag();
+		console.log(this.text);
+		this.created_at = relativeTime(data.created_at);
+	};
+
+	/*-------------------------------------
+		Facebook ViewModel
+		------------------------------------- */
 	var Post = function(data) {
 		var profileImageUrl = "http://graph.facebook.com/" + data.from.id + "/picture?type=large";
+		var self = this;
 
 		this.Type = ko.observable(data.type);
 		this.From = ko.observable(data.from.name);
@@ -36,34 +46,53 @@
 		this.Photo = "";
 		this.PhotoDescription = "";
 
-		var self = this;
-
+		// Bindings for a status update
 		if (data.type === 'status') {
+			// Check if there is a normal message or a like message
+			if(data.message === undefined) {
+				this.Message = ko.observable(data.story);
+			} else {
 				this.Message = ko.observable(data.message);
-				if (data.likes == undefined) {
-						this.Likes = ko.observable(0);
-				} else {
-						this.Likes = ko.observable(data.likes.count);
-				}
+			}
+			// Check if likes excist for status
+			if (data.likes === undefined) {
+					this.Likes = ko.observable(0);
+			} else {
+					this.Likes = ko.observable(data.likes.count);
+			}
 		}
-		if (data.type === 'link') {
-				this.Message = ko.observable(data.message);
+
+		// Bindings for a link update
+		else if (data.type === 'link') {
+			// Filter out the profile picture changes
+			if (data.name === undefined) {
+				this.Message = ko.observable(data.story);
+				this.LinkImage = ko.observable(data.picture);
+			} else {
+				this.Message = ko.observable(data.story);
 				this.LinkImage = ko.observable(data.picture);
 				this.LinkName = ko.observable(data.name);
 				this.LinkTitle = ko.observable(data.caption);
 				this.LinkDescription = ko.observable(data.description);
-				if (data.likes == undefined) {
+				if (data.likes === undefined) {
 						this.Likes = ko.observable(0);
 				} else {
 						this.Likes = ko.observable(data.likes.count);
 				}
-		}
-		if (data.type === 'photo') {
-				this.Story = ko.observable(data.story);
-				this.Photo = ko.observable(data.picture);
-				this.PhotoDescription = ko.observable(data.description);
+			}
 		}
 
+		// Bindings for a photo post
+		else if (data.type === 'photo') {
+			if (data.message === undefined) {
+					this.Story = ko.observable(data.story);
+				} else {
+					this.Story = ko.observable(data.message);
+				}
+				this.Photo = ko.observable(data.picture);
+		}
+
+		// Helpers for the if-statements in wall/index.js
 		this.isLink = ko.computed(function() {
 				return (self.Type() === 'link');
 		});
@@ -78,29 +107,48 @@
 
 	};
 
+	/*-------------------------------------
+	Main ViewModel
+	---------------------------------------*/
 	var ViewModel = function(tasks) {
 		var self = this;
 
-		// facebook
+		// Facebook
 		this.posts = ko.observableArray([]);
 		this.fetchPosts = function() {
-			console.log('fetchposts');
 			$.getJSON('https://graph.facebook.com/me/home?access_token=' + fb_access_token, function(response) {
 				self.posts.removeAll();
 				_.each(response.data, function(d) {
-					console.log('data recieved');
 					var post = new Post(d);
-					if (self.posts.indexOf(post) === -1) {
-						self.posts.push(post);
-					}
+					self.posts.push(post);
 				});
 			});
 		};
 
-		// twitter
-		this.tweets = ko.observableArray([]);
+		// Twitter
+		this.twitter_names = '';
+		this.addTweetNames = function(member) {
+			if (self.twitter_names.length === 0) {
+				self.twitter_names += 'from:' + member.twitter;
+			} else {
+				self.twitter_names += '%20OR%20from:' + member.twitter;
+			}
+		};
 
-		// tasks
+		// Tweets
+		this.tweets = ko.observableArray([]);
+		this.fetchTweets = function() {
+			console.log("test");
+			$.getJSON('http://search.twitter.com/search.json?callback=?&rpp=10&include_organizations=true&q=' + self.twitter_names, function(response) {
+				self.tweets.removeAll();
+				_.each(response.results, function(d) {
+					self.tweets.push(new Tweet(d));
+				});
+
+			});
+		};
+
+		// Tasks
 		this.notify = true;
 		this.tasks = ko.observableArray([]);
 		this.current = ko.observable();
@@ -131,14 +179,89 @@
 			self.notify = false;
 			oldTask.title(updatedTask.title);
 			oldTask.completed(updatedTask.completed);
+			oldTask.important(updatedTask.important);
 			self.notify = true;
 		};
 
+		this.sortTasks = function(data) {
+			data.sort(function(left,right) {
+				var result;
+				if (left.important() && right.important()) {
+					result = 0;
+				}
+				else if (!left.important() && right.important()) {
+					result = 1;
+				}
+				else {
+					result = -1;
+				}
+				return result;
+			});
+		};
+
+		this.sortTasksWithDate = function(data) {
+			data.sort(function(left, right){
+				var result;
+				if(left.created_at() > right.created_at()){
+					result = -1;
+				} else if (left.created_at() === right.created_at()) {
+					result = 0;
+				} else {
+					result = 1;
+				}
+				return result;
+			});
+		};
+
+		this.completedTasks = ko.computed(function() {
+			var d = ko.utils.arrayFilter(self.tasks(), function(task) {
+				return task.completed();
+			});
+			self.sortTasks(d);
+			self.sortTasksWithDate(d);
+			return d.splice(0,3);
+		});
+
+		this.uncompletedTasks = ko.computed(function() {
+			var d = ko.utils.arrayFilter(self.tasks(), function(task) {
+				return !task.completed();
+			});
+			self.sortTasks(d);
+			return d;
+		});
 	};
 
-	var tasksvm = new ViewModel();
-	ko.applyBindings(tasksvm);
-	tasksvm.fetchPosts();
+	var vm = new ViewModel();
+
+	// facebook
+	vm.fetchPosts();
+	setInterval(vm.fetchPosts, 60000);
+
+	// Tweets
+	$.getJSON('/api/me/group/members', function(members) {
+		_.each(members, function(member) {
+			vm.addTweetNames(member);
+		});
+		vm.fetchTweets();
+
+		setInterval(vm.fetchTweets, 60000);
+
+	});
+
+	// Apply binding
+	ko.applyBindings(vm);
+
+	// Facebook stream
+	// Need timeout to wait for bindings to load
+	setTimeout(function() {triggerslider();}, 5000);
+	var triggerslider = function() {
+		$('#jcarousel').jcarousel({
+        wrap: 'circular',
+        vertical:true
+    }).jcarouselAutoscroll({
+        target: '+=2'
+    });
+	}
 
 	var socket = io.connect('/tasks');
 
@@ -150,20 +273,19 @@
 
 	socket.on('load', function(data) {
 		_.each(data, function(d) {
-			tasksvm.added(d);
+			vm.added(d);
 		});
 	});
 
 	socket.on('added', function(data) {
-		tasksvm.added(data);
+		vm.added(data);
 	});
 
 	socket.on('updated', function(data) {
-		tasksvm.updated(data);
+		vm.updated(data);
 	});
 
 	socket.on('removed', function(id) {
-		tasksvm.removed(id);
+		vm.removed(id);
 	});
-
-})();
+});
