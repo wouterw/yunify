@@ -19,9 +19,8 @@ block content
 						span POINTS
 						- if (user.achievements.score_count && user.achievements.score_count > 0)
 							p#profile_point_total #{user.achievements.score_count}
-							| p.
 						- else
-							p#profile_point_total 0 p.
+							p#profile_point_total 0
 					p
 						span BADGES
 						#profile_badges

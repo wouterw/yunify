@@ -8,9 +8,9 @@ html(lang='en')
 	body
 		#header_image
 			img(src='/Desktop/img/header_home.png', alt='Header home')
-		header#header
-			.band.navigation
-				nav.primary
+		#header
+			#header_container
+				nav
 					ul
 						- if (everyauth.loggedIn)
 							li.nav_item
@@ -28,14 +28,23 @@ html(lang='en')
 						- else
 							li.nav_item
 								a.sign_in(href='/auth/facebook') Sign in
-				select
-					option(selected='selected', value='') Go to...
-					option(href='/') Home
-					option(href='/me') Me
-					option(href='/tasks') Tasks
-					option(href='/roomies') Roomies
-					option(href='/groups') Groups
-					option(href='/logout') Sign Out
+				.btn-group#dropdown_nav
+					button.btn.btn-small#dropdown_button Go to...
+					button.btn.btn-small.dropdown-toggle#dropdown_button_arrow(data-toggle="dropdown")
+						span.caret
+					ul.dropdown-menu
+						li
+							a(href='/') Home
+						li
+							a(href='/me') Me
+						li
+							a(href='/tasks') Tasks
+						li
+							a(href='/roomies') Roomies
+						li
+							a(href='/groups') Groups
+						li
+							a(href='/logout') Sign Out
 
 		.container
 			block content
@@ -49,7 +58,7 @@ html(lang='en')
 						a(href='/team') Team
 					li |
 					li
-						a(href='/team') Contact
+						a(href='mailto:codability@gmail.com') Contact
 					li.copyright_txt
 						| Codability &copy; 2012
 
