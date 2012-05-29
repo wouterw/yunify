@@ -43,6 +43,7 @@ Task.methods.complete = function(usrId, cb) {
 			awarder.tryUnlockingAchievement("EARN_50_POINTS", usrId, function(achievement) {});
 			awarder.tryUnlockingAchievement("COMPLETE_5_TASKS", usrId, function(achievement) {});
 			awarder.tryUnlockingAchievement("COMPLETE_25_TASKS", usrId, function(achievement) {});
+			awarder.tryUnlockingAchievement("COMPLETE_50_TASKS", usrId, function(achievement) {});
 
 		}
 	});

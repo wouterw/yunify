@@ -33,8 +33,8 @@ awarder.achievements = {
 	},
 	COMPLETE_5_TASKS: {
 		id: 3,
-		name: "5 Tasks",
-		desc: "Complete 5 Tasks",
+		name: "Worker",
+		desc: "5 Tasks",
 		worth: 5,
 		isCompleted: function( user ) {
 			return (stats.getTaskCount( user ) >= 5);
@@ -42,18 +42,21 @@ awarder.achievements = {
 	},
 	COMPLETE_25_TASKS: {
 		id: 4,
-		name: "25 Tasks",
-		desc: "Complete 25 Tasks",
+		name: "Taskalisious!",
+		desc: "25 Tasks",
 		worth: 5,
 		isCompleted: function( user ) {
-			return (stats.getTaskCount( user ) >= 5);
+			return (stats.getTaskCount( user ) >= 25);
 		}
 	},
-	MAJOR: {
+	COMPLETE_50_TASKS: {
 		id: 5,
-		name: "Major",
-		desc: "Become a major",
-		worth: 5
+		name: "Taskmonster!",
+		desc: "50 Tasks",
+		worth: 5,
+		isCompleted: function( user ) {
+			return (stats.getTaskCount( user ) >= 50);
+		}
 	}
 };
 

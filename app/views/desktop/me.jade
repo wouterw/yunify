@@ -27,7 +27,7 @@ block content
 							- if (user.achievements.unlocked && user.achievements.unlocked.length > 0)
 									each b in user.achievements.unlocked
 										span#badge_unlocked
-											img(src='/desktop/img/' + b.id + '.png', alt='alt')
+											img(src='/desktop/img/' + b.id + '.png', title=b.name)
 							- else
 								p No badges earned yet!
 
@@ -97,9 +97,9 @@ block content
 							.modal-footer
 								button.btn.btn-primary(type='submit', form='new_group_form') Create
 				- else
-						span name
+						span Name
 						p.profile_group_name #{me.group.name}
-						span description
+						span Description
 						p.profile_group_name #{me.group.description}
 						p.profile_block
 							a.btn.btn-primary(href='/roomies', style='display: block;')
