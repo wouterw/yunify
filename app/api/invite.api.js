@@ -86,6 +86,8 @@ module.exports = function (app) {
 				group.addMember(me, function() {
 					invite.status = 'Accepted';
 					invite.save();
+					res.statusCode = 200;
+					res.send({"success":"successfull accepted invite"});
 				});
 			});
 		} else {
@@ -104,6 +106,11 @@ module.exports = function (app) {
 		if(isValid(invite, me)) {
 			invite.status = 'Rejected';
 			invite.save();
+			res.statusCode = 200;
+			res.send({"success":"successfull rejected invite"});
+		} else {
+			res.statusCode = 400;
+			res.send({"err":"invalid invite"});
 		}
 	});
 

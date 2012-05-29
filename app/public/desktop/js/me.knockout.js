@@ -66,17 +66,26 @@
 		}();
 
 		this.accept = function() {
-			$.get('/api/me/invites/' + self.id + '/accept', function(data) {
-				// handle success;
+			$.ajax({
+				async: false,
+				url: '/api/me/invites/' + self.id + '/accept',
+				success: function (data) {
+					$('#invited').hide();
+					window.location.reload();
+
+				}
 			});
 		};
 
 		this.reject = function() {
-			$.get('/api/me/invites/' + self.id + '/reject', function(data) {
-				// handle success;
+			$.ajax({
+				async: false,
+				url: '/api/me/invites/' + self.id + '/reject',
+				success: function (data) {
+					$('#invited').hide();
+				}
 			});
 		};
-
 	};
 
 	var ViewModel = function() {
@@ -106,6 +115,5 @@
 		vm.init(data);
 		ko.applyBindings(vm);
 	});
-
 
 })();

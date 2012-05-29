@@ -26,7 +26,7 @@ $(document).ready(function () {
 
 	/*-------------------------------------
 		Facebook ViewModel
-		------------------------------------- */
+		-------------------------------------*/
 	var Post = function(data) {
 		var profileImageUrl = "http://graph.facebook.com/" + data.from.id + "/picture?type=large";
 		var self = this;

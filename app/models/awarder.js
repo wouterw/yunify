@@ -14,7 +14,7 @@ var awarder = exports = module.exports = {};
  */
 awarder.achievements = {
 	SOCIAL_MEDIA_JUNKIE: {
-		id: 2,
+		id: 1,
 		name: "Social Media Junkie!",
 		desc: "Fill in your twitter account.",
 		worth: 5,
@@ -23,7 +23,7 @@ awarder.achievements = {
 		}
 	},
 	EARN_50_POINTS: {
-		id: 3,
+		id: 2,
 		name: "Points Collector",
 		desc: "Earn 50 points",
 		worth: 5,
@@ -32,7 +32,7 @@ awarder.achievements = {
 		}
 	},
 	COMPLETE_5_TASKS: {
-		id: 5,
+		id: 3,
 		name: "5 Tasks",
 		desc: "Complete 5 Tasks",
 		worth: 5,
@@ -40,8 +40,17 @@ awarder.achievements = {
 			return (stats.getTaskCount( user ) >= 5);
 		}
 	},
+	COMPLETE_25_TASKS: {
+		id: 4,
+		name: "25 Tasks",
+		desc: "Complete 25 Tasks",
+		worth: 5,
+		isCompleted: function( user ) {
+			return (stats.getTaskCount( user ) >= 5);
+		}
+	},
 	MAJOR: {
-		id: 6,
+		id: 5,
 		name: "Major",
 		desc: "Become a major",
 		worth: 5
