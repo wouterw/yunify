@@ -1,5 +1,4 @@
 (function() {
-	'use strict';
 
 	var Task = function(data, owner) {
 		var self = this;

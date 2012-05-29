@@ -37,14 +37,6 @@ module.exports = function (io) {
 				}
 			});
 
-			// show welcome message
-			socket.emit('updatechat', mapper.createChatMessage('SERVER', 'Welcome ' + username));
-
-			// notify everyone
-			var msg = mapper.createChatMessage('SERVER', username + ' connected');
-			socket.broadcast.emit('updatechat', msg);
-			logMessage(room, msg);
-
 			// refresh user list
 			socket.emit('loadusers', mapper.mapArray(usernames, mapper.createUser));
 			socket.broadcast.emit('adduser', mapper.createUser(username));
@@ -53,9 +45,6 @@ module.exports = function (io) {
 		socket.on('disconnect', function(data) {
 			delete usernames[socket.username];
 			socket.broadcast.emit('removeuser', mapper.createUser(socket.username));
-			var msg = mapper.createChatMessage('SERVER', socket.username + ' disconnected');
-			socket.broadcast.emit('updatechat', msg);
-			logMessage(room, msg);
 		});
 
 	});

@@ -127,6 +127,21 @@ block content
 						td(data-bind='text: task_count')
 						td(data-bind='text: award_count')
 
+			.page-header
+				h3 Chat
+
+			section.messages(data-bind='foreach: chatViewModel.messages')
+				.message-wrapper
+					span.muted.pull-right(data-bind='text: timestamp')
+					.screen-name
+						span(data-bind='text: author')
+					.message
+						span(data-bind='text: text')
+
+			form.well.form-inline
+				input(data-bind='value: chatViewModel.current, valueUpdate: \'afterkeydown\', enterKey: chatViewModel.addMessage', type='text', placeholder='Type your message', autofocus='autofocus')
+				button.btn.btn-primary.pull-right(data-bind='click: chatViewModel.addMessage') Send
+
 		.span3
 			.page-header
 				h3 Major
@@ -135,4 +150,9 @@ block content
 
 append scripts
 	script(src='/socket.io/socket.io.js')
+	script
+		var username = !{JSON.stringify(user.fullName)};
 	script(src='/desktop/js/roomies.knockout.js')
+	script(src='/common/js/lib/xdate.min.js')
+	script(src='/common/js/enterKey.handler.knockout.js')
+	script(src='/common/js/trim.js')

@@ -167,16 +167,79 @@
 	});
 
 /* --------------------------------------------------------------------------
+   ChatViewModel
+   -------------------------------------------------------------------------- */
+
+	var Message = function(author, text, timestamp) {
+		this.author = ko.observable(author);
+		this.text = ko.observable(text);
+		this.timestamp = ko.observable(new XDate(timestamp).toString('MMM d, yyyy h(:mm)TT'));
+	};
+
+	var ChatViewModel = function() {
+		var self = this;
+
+		this.users = ko.observableArray([]);
+		this.messages = ko.observableArray([]);
+
+		// store the message value being entered
+		this.current = ko.observable();
+
+		this.addMessage = function() {
+			var current = self.current().trim();
+			if (current) {
+				emitMessage(current);
+				self.messages.push(new Message(username, current, new Date()));
+				self.current('');
+			}
+		};
+
+		this.newMessage = function(data) {
+			self.messages.push(new Message(data.author, data.text, data.timestamp));
+		};
+
+		this.loadMessages = function(messages) {
+			_.each(messages, function(msg) {
+				self.newMessage(msg);
+			});
+		};
+
+	};
+
+/* --------------------------------------------------------------------------
    MasterViewModel
    -------------------------------------------------------------------------- */
 
 	var MasterViewModel = {
 		groupViewModel : new GroupViewModel(),
-		inviteViewModel : new InviteViewModel()
+		inviteViewModel : new InviteViewModel(),
+		chatViewModel : new ChatViewModel()
 	};
 
 	MasterViewModel.groupViewModel.init();
 
 	ko.applyBindings(MasterViewModel);
+
+/* --------------------------------------------------------------------------
+   Chat Socket Communication
+   -------------------------------------------------------------------------- */
+
+	var socket = io.connect('/chat');
+
+	socket.on('connect', function() {
+		socket.emit('newuser', username);
+	});
+
+	socket.on('loadmessages', function(data) {
+		MasterViewModel.chatViewModel.loadMessages(data);
+	});
+
+	socket.on('updatechat', function(msg) {
+		MasterViewModel.chatViewModel.newMessage(msg);
+	});
+
+	var emitMessage = function (msg) {
+		socket.emit('message', msg);
+	};
 
 })();

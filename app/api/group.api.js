@@ -27,29 +27,39 @@ module.exports = function (app) {
 	// GET /api/me/group
 
 	app.get('/api/me/group', function (req, res) {
-		return Group.findById(req.user.group, function (err, group) {
-			if (!err) {
-				return res.send(group);
-			}
-		});
+		if ( req.user.group === undefined ) {
+			res.statusCode = 404;
+			return res.send("You haven't joined a group yet!");
+		} else {
+			return Group.findById(req.user.group, function (err, group) {
+				if (!err) {
+					return res.send(group);
+				}
+			});
+		}
 	});
 
 	// GET /api/me/group/members
 
-	app.get('/api/me/group/members', function(req, res) {
-		return Group.findById(req.user.group, function(err, group) {
-			if(!err) {
-				return group.members(function(err, members) {
-					if(!err) {
-						return res.send(members);
-					} else {
-						console.log(err.message);
-					}
-				});
-			} else {
-				console.log(err.message);
-			}
-		});
+	app.get('/api/me/group/members', function( req, res ) {
+		if ( req.user.group === undefined ) {
+			res.statusCode = 404;
+			return res.send("You haven't joined a group yet!");
+		} else {
+			return Group.findById(req.user.group, function(err, group) {
+				if(!err) {
+					return group.members(function(err, members) {
+						if(!err) {
+							return res.send(members);
+						} else {
+							console.log(err.message);
+						}
+					});
+				} else {
+					console.log(err.message);
+				}
+			});
+		}
 	});
 
 	// GET /api/me/group/leave
