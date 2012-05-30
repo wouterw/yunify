@@ -25,11 +25,12 @@
 		this.name = data.fullName;
 		this.status = data.status;
 		this.picture = function () {
-			return 'https://graph.facebook.com/' + self.fbId + '/picture?type=normal';
+			return 'https://graph.facebook.com/' + self.fbId + '/picture?type=square';
 		}();
 		this.award_count = data.achievements.unlocked.length;
 		this.task_count = data.achievements.task_count || 0;
 		this.score_count = data.achievements.score_count || 0;
+
 	};
 
 	var GroupViewModel = function () {
@@ -173,7 +174,7 @@
 	var Message = function(author, text, timestamp) {
 		this.author = ko.observable(author);
 		this.text = ko.observable(text);
-		this.timestamp = ko.observable(new XDate(timestamp).toString('MMM d, yyyy h(:mm)TT'));
+		this.timestamp = ko.observable(new XDate(timestamp).toString('MMM d, h(:mm)TT'));
 	};
 
 	var ChatViewModel = function() {

@@ -3,18 +3,19 @@ extends ../layouts/layout-desktop
 block content
 	.row-fluid
 		.span12
-			#profile_header(data-bind='text: profile.fullName')
+			.title_page(data-bind='text: profile.fullName')
+			.title_header_under(data-bind='text: profile.status')
 			.hr
-	.row-fluid.profile_block
+	.row-fluid.top_block
 		.span3
 			.row-fluid
 				#profile_picture
 					img(src='https://graph.facebook.com/' + everyauth.user.fb.id + '/picture?type=large', alt='#{user.fullName}')
-			.row-fluid.profile_block
-				.profile_header Hall of fame
+			.row-fluid.top_block
+				.triangle_header Hall of fame
 				.hr.top
 					.triangle
-				#profile_points
+				.text_block
 					p
 						span POINTS
 						- if (user.achievements.score_count && user.achievements.score_count > 0)
@@ -37,7 +38,7 @@ block content
 				strong Success.&nbsp;
 				| Changes saved!
 			.row-fluid
-				.profile_header status
+				.triangle_header status
 				.hr.top
 					.triangle
 				form.form-horizontal.left
@@ -46,7 +47,7 @@ block content
 						.controls
 							select(name='status', data-bind='options: profile.statusValues, value: profile.status')
 			.row-fluid
-				.profile_header info
+				.triangle_header info
 				.hr.top
 					.triangle
 				form.form-horizontal.left
@@ -73,7 +74,7 @@ block content
 							btn#update_profile.btn.btn-success(data-bind='click: profile.update') Save Changes
 		.span3
 			.row-fluid#profile_group
-				.profile_header group
+				.triangle_header group
 				.hr.top
 					.triangle
 
@@ -101,7 +102,7 @@ block content
 						p.profile_group_name #{me.group.name}
 						span Description
 						p.profile_group_name #{me.group.description}
-						p.profile_block
+						p.top_block
 							a.btn.btn-primary(href='/roomies', style='display: block;')
 								| Visit
 						p
