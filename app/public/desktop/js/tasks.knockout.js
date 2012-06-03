@@ -115,6 +115,20 @@
 			return self.tasks().length - self.completedCount();
 		});
 
+		this.completedTasks = ko.computed(function() {
+			var d = ko.utils.arrayFilter(self.tasks(), function(task) {
+				return task.completed();
+			});
+			return d.splice(0,3);
+		});
+
+		this.uncompletedTasks = ko.computed(function() {
+			var d = ko.utils.arrayFilter(self.tasks(), function(task) {
+				return !task.completed();
+			});
+			return d;
+		});
+
 	};
 
 	var tasksvm = new TasksViewModel();

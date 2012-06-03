@@ -1,21 +1,60 @@
 extends ../layouts/layout-desktop
 
 block content
-	.row
+	.row-fluid
 		.span12
-			.page-header
-				h1 Tasks
-					.label.pull-right(data-bind='text: remainingCount') 1
-			input.well(type='text', style='width: 90%;', data-bind='value: current, valueUpdate: \'afterkeydown\', enterKey: add', placeholder='What needs to be done?', autofocus='autofocus')
+			.title_page Tasks
+			.title_header_under Help your roomies!
+			.hr
+	.row-fluid.top_block
+		.span9#task_wrap
+			.input-append
+				input#task_add_bar(type='text', data-bind='value: current, valueUpdate: \'afterkeydown\', enterKey: add', autofocus='autofocus')
+				button.btn.btn-success Important
+				button.btn Normal
 			section#main(data-bind='visible: tasks().length')
-				#todo-list(data-bind='foreach: tasks', style='overflow: hidden; width: 100%;')
-					.task(data-bind='css: { completed: completed, editing: editing }')
-						.view(data-bind='event: { dblclick: $root.editItem }')
-							input.toggle(type='checkbox', data-bind='checked: completed')
-							input.toggle-important(type='checkbox', data-bind='checked: important')
+				#todo-list(data-bind='foreach: uncompletedTasks()', style='overflow: hidden; width: 100%;')
+					.task(data-bind='css: { completed: completed }')
+						//ko if:important
+						button.btn.btn-success.view(data-bind='event: { dblclick: $root.editItem }')
+							input.task_completed.toggle(type='checkbox', data-bind='checked: completed')
 							label(data-bind='text: title')
-							button.destroy(data-bind='click: $root.remove')
-						input.edit(data-bind='value: title, valueUpdate: \'afterkeydown\', enterKey: $root.stopEditing, selectAndFocus: editing, event: { blur: $root.stopEditing }')
+							.destroy(data-bind='click: $root.remove')
+						//
+							/ko
+						//ko ifnot:important
+						button.btn.view(data-bind='event: { dblclick: $root.editItem }')
+							input.task_completed.toggle(type='checkbox', data-bind='checked: completed')
+							label(data-bind='text: title')
+							.destroy(data-bind='click: $root.remove')
+						//
+							/ko
+				#todo-list(data-bind='foreach: completedTasks()', style='overflow: hidden; width: 100%;')
+					.task(data-bind='css: { completed: completed }')
+						//ko if:important
+						button.btn.btn-success.view(data-bind='event: { dblclick: $root.editItem }')
+							label(data-bind='text: title')
+						//
+							/ko
+						//ko ifnot:important
+						button.btn.view(data-bind='event: { dblclick: $root.editItem }')
+							label(data-bind='text: title')
+						//
+							/ko
+		.span3
+			.triangle_header My stats
+			.hr.top
+				.triangle
+			.text_block
+				p
+					span POINTS EARNED
+						- if (user.achievements.score_count && user.achievements.score_count > 0)
+							p#profile_point_total #{user.achievements.score_count}
+						- else
+							p#profile_point_total 0
+				p
+					span TASKS COMPLETED
+						p#profile_point_total(data-bind='text: completedCount')
 
 append scripts
 	script(src='/socket.io/socket.io.js')
@@ -25,3 +64,27 @@ append scripts
 	script(src='/common/js/enterKey.handler.knockout.js')
 	script(src='/common/js/hasFocus.handler.knockout.js')
 	script(src='/desktop/js/tasks.knockout.js')
+
+
+#todo-list(data-bind='foreach: uncompletedTasks()')
+				p(data-bind='css: {yellow_text:important}')
+					//ko if:important
+					| *&nbsp;
+					//
+						/ko
+					//ko ifnot:important
+					| -&nbsp;
+					//
+						/ko
+					span(data-bind='text:title')
+			#todo_list_completed(data-bind='foreach: completedTasks()')
+				p(data-bind='css: {yellow_text:important}')
+					//ko if:important
+					| *&nbsp;
+					//
+						/ko
+					//ko ifnot:important
+					| -&nbsp;
+					//
+						/ko
+					span(data-bind='text:title')

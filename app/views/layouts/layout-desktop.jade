@@ -10,9 +10,9 @@ html(lang='en')
 			img(src='/Desktop/img/header_home.png', alt='Header home')
 		#header
 			#header_container
-				nav
-					ul
-						- if (everyauth.loggedIn)
+				- if (everyauth.loggedIn)
+					nav
+						ul
 							li.nav_item
 								a(href='/') Home
 							li.nav_item
@@ -25,27 +25,31 @@ html(lang='en')
 								a(href='/groups') Groups
 							li.nav_item
 								a.sign_out(href='/logout') Sign Out
-						- else
+					.btn-group#dropdown_nav
+						button.btn.btn-small#dropdown_button(data-toggle="dropdown") Go to...
+						button.btn.btn-small.dropdown-toggle#dropdown_button_arrow(data-toggle="dropdown")
+							span.caret
+						ul.dropdown-menu
+							li
+								a(href='/') Home
+							li
+								a(href='/me') Me
+							li
+								a(href='/tasks') Tasks
+							li
+								a(href='/roomies') Roomies
+							li
+								a(href='/groups') Groups
+							li
+								a(href='/logout') Sign Out
+				- else
+					nav
+						ul
 							li.nav_item
 								a.sign_in(href='/auth/facebook') Sign in
-				.btn-group#dropdown_nav
-					button.btn.btn-small#dropdown_button(data-toggle="dropdown") Go to...
-					button.btn.btn-small.dropdown-toggle#dropdown_button_arrow(data-toggle="dropdown")
-						span.caret
-					ul.dropdown-menu
-						li
-							a(href='/') Home
-						li
-							a(href='/me') Me
-						li
-							a(href='/tasks') Tasks
-						li
-							a(href='/roomies') Roomies
-						li
-							a(href='/groups') Groups
-						li
-							a(href='/logout') Sign Out
-
+					.btn-group#dropdown_nav
+						a.btn.btn-small#signout_button(href='/auth/facebook') Sign in
+						
 		.container
 			block content
 		footer.footer
