@@ -52,4 +52,20 @@ module.exports = function(app) {
 		});
 	});
 
+	// GET /about
+
+	app.get('/about', function (req, res) {
+		res.render('desktop/about', {
+			title: 'About / Yunify'
+		});
+	});
+
+	// GET /team
+
+	app.get('/team', function (req, res) {
+		res.render('desktop/team', {
+			title: 'Team / Yunify'
+		});
+	});
+
 };

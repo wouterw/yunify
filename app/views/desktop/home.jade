@@ -2,10 +2,12 @@ extends ../layouts/layout-desktop
 
 block content
 	- if (everyauth.loggedIn)
-		.row
+		.row-fluid
 			.span12
-				p#home_roomies_title What are my roomies doing?
-		.row
+				.title_page What are my roomies doing
+				.title_header_under 
+				.hr
+		.row-fluid
 			.span12
 				#home_roomies(data-bind='foreach: members')
 					.roomies_picture
@@ -13,8 +15,21 @@ block content
 						.roomies_inset
 						.roomies_name(data-bind='text:name')
 						.roomies_status(data-bind='text:status')
-		.row
-			a(href='/wall') Launch
-
+		.row-fluid
+			.title_page Wall
+			.title_header_under 
+			.hr
+			.span7.home_top_wall
+				img(src='/Desktop/img/wall_pic.png', alt='Header home')
+			.span4.home_top_wall
+				p
+					| Browse trough the website with your Kinect for Windows controller! Make sure that you have installed, the 
+					a(href="http://www.microsoft.com/en-us/kinectforwindows/develop/overview.aspx") Kinect SDK
+					| . Download the&nbsp;
+					a(href="http://kinect.childnodes.com/more/kinectjs_vI.zip") KinectJS package
+					| , unzip and run the KinectSocketServer.exe. After this you can launch the wall and put in the textbox the provided ip that you get from the installed program.
+					br
+					br
+					a.btn.btn-primary.btn-large(href='/wall') Launch wall
 append scripts
 	script(src='/desktop/js/home.knockout.js')

@@ -165,20 +165,8 @@ body {
 /* --------------------------------------------------------------------------
    Home
    -------------------------------------------------------------------------- */
-
-#home_roomies_title {
-  text-align: center;
-  font-size: 2em;
-  height:60px;
-  padding-top: 30px;
-  line-height: 2em;
-  text-transform: uppercase;
-  color: #666;
-  margin-bottom: 20px;
-}
-
-#home_roomies {
-  text-align: center;
+.home_top_wall {
+  padding: 20px;
 }
 
 .roomies_picture {
@@ -245,6 +233,22 @@ body {
   text-transform: uppercase;
   float: left;
   color: green;
+}
+
+#about_text {
+  text-align: left;
+  margin: 20px;
+}
+
+#about_text .small {
+  font-size: 0.8em;
+  color: #a1a1a1;
+  line-height: 1.2em;
+}
+
+.team_blocks {
+  padding: 0 20px 20px 20px;
+  text-align: left;
 }
 
 /* --------------------------------------------------------------------------

@@ -9,8 +9,9 @@ block content
 	.row-fluid.top_block
 		.span3
 			.row-fluid
-				#profile_picture#profile_picture_groups
-					img(src='https://graph.facebook.com/#{usr.fb.id}/picture?type=large', alt='#{usr.fullName}', style='margin: 0px;')
+				#profile_picture
+					#profile_picture_groups 
+						img(src='https://graph.facebook.com/#{usr.fb.id}/picture?type=large', alt='#{usr.fullName}', style='margin: 0px;')
 		.span9
 			form.form-horizontal.left#profile_form
 				.control-group
@@ -37,4 +38,3 @@ block content
 					label.control-label 
 					.controls.profile_info
 						a.btn(href='/groups') Back to groups
-				
