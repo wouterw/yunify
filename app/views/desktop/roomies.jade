@@ -88,10 +88,10 @@ block content
 								span(data-bind='text: name')
 						label(for='motivation')
 							strong Motivation
-							textarea(name='motivation', placeholder='Type a motivation here', data-bind='value: inviteViewModel.motivation')
+						textarea(name='motivation', placeholder='Type a motivation here', data-bind='value: inviteViewModel.motivation')
 					.modal-footer
-						a.btn(href='#', data-dismiss='modal') Close
 						a.btn.btn-primary(href='#', data-bind='click: inviteViewModel.invite') Invite
+						a.btn(href='#', data-dismiss='modal') Close
 
 		.span9
 			.row-fluid

@@ -1,26 +1,27 @@
 extends ../layouts/layout-desktop
 
 block content
-	.row
+	.row-fluid
 		.span12
-			ul.breadcrumb
-				li
-					a(href='/groups') Groups
-					span.divider /
-				li.active
-					| #{group.name}
-	.row
-		.span12
-			.rounded-box.grey-box(style='padding: 15px;')
-				h1 #{group.name}
-				div.pull-left(style='margin-right: 30px;')
-					h6 Members:
-					p
-						each u in members
-								a(href='/profiles/#{u._id}', title='#{u.fullName}')
-									img(src='https://graph.facebook.com/' + u.fb.id + '/picture?type=square', alt='#{u.fullName}')
-				div.pull-left
+			.title_page #{group.name}
+			.title_header_under
+			.hr
+		
+	.row-fluid.top_block
+		.span3
+			.triangle_header Members
+			.hr.top
+				.triangle
+			.text_block
+				p
+					each u in members
+							a(href='/profiles/#{u._id}', title='#{u.fullName}')
+								img(src='https://graph.facebook.com/' + u.fb.id + '/picture?type=square', alt='#{u.fullName}')
+		.span9
+			.text_block
+				p.group_info
 					h6 Description:
 					p #{group.description}
 					h6 Since
 					p #{group.created_at}
+					a.btn(href='/groups') Back to groups

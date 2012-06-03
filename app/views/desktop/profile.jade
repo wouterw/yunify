@@ -1,29 +1,40 @@
 extends ../layouts/layout-desktop
 
 block content
-	.row
+	.row-fluid
 		.span12
-			ul.breadcrumb
-				li
-					a(href='/profiles') Profiles
-					span.divider /
-				li.active
-					| #{usr.fullName}
-	.row
-		.span12
-			.rounded-box.grey-box(style='padding: 15px; margin-bottom: 30px;')
-				section.pull-left
+			.title_page #{usr.fullName}
+			.title_header_under 
+			.hr
+	.row-fluid.top_block
+		.span3
+			.row-fluid
+				#profile_picture#profile_picture_groups
 					img(src='https://graph.facebook.com/#{usr.fb.id}/picture?type=large', alt='#{usr.fullName}', style='margin: 0px;')
-				section.pull-left(style='margin-left: 25px;')
-					h1 #{usr.fullName}
-					section.pull-left
-						h6 Email:
-						p
-							a(href='mailto:#{usr.email}') #{usr.email}
-						h6 Gender:
-						p #{usr.fb.gender}
-					section.pull-left(style='margin-left: 25px;')
-						h6 Bio:
-						p #{usr.bio}
-						h6 Member Since:
-						p #{usr.created_at}
+		.span9
+			form.form-horizontal.left#profile_form
+				.control-group
+					label.control-label Full name:
+					.controls.profile_info
+						| #{usr.fullName}
+				.control-group
+					label.control-label Bio:
+					.controls.profile_info
+						| #{usr.bio}
+				.control-group
+					label.control-label Email:
+					.controls.profile_info
+						a(href='mailto:#{usr.email}') #{usr.email}
+				.control-group
+					label.control-label Gender:
+					.controls.profile_info
+						| #{usr.fb.gender}
+				.control-group
+					label.control-label Member Since:
+					.controls.profile_info
+						| #{usr.created_at}
+				.control-group
+					label.control-label 
+					.controls.profile_info
+						a.btn(href='/groups') Back to groups
+				

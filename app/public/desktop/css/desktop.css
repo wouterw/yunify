@@ -405,6 +405,7 @@ body {
 #todo-list {
   margin-top: 20px;
 }
+
 .task {
   float: left;
 }
@@ -485,11 +486,51 @@ body {
   line-height: 43px;
 }
 
-
 .task .destroy:after {
   content: '✖';
 }
 
+/* --------------------------------------------------------------------------
+   Group browser
+   -------------------------------------------------------------------------- */
+
+.search_button {
+  padding: 13px 0 13px 0;
+}
+
+#group_search {
+  margin: 0 2% 2% 2%!important;
+  width: 96%!important;
+}
+
+#group_search button {
+  width: 25%!important;
+}
+
+#group_search input{
+  width: 70%!important;
+}
+
+.groups, #group_alert {
+  margin: 2%;
+}
+
+.group_info {
+  text-align: left;
+  float: left;
+}
+
+.profile_info {
+  padding-top: 5px;
+}
+
+#profile_form {
+  margin-top: 0!important;
+}
+
+#profile_picture_groups {
+  margin-bottom: 20px;
+}
 
 /* --------------------------------------------------------------------------
    Invite Search Dropdown
