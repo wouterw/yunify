@@ -31,5 +31,54 @@ block content
 					br
 					br
 					a.btn.btn-primary.btn-large(href='/wall') Launch wall
+	- else
+		.row-fluid
+			.span12#home_hu
+				span collaborative, social and innovative...
+		.row-fluid#home_stats
+			.span3
+				.text_block
+					p
+						span USERS
+							p.home_stats_total 511
+			.span3
+				.text_block
+					p
+						span GROUPS
+							p.home_stats_total 45
+			.span3
+				.text_block
+					p
+						span Tasks completed
+							p.home_stats_total 236
+			.span3
+				.text_block
+					p
+						span Badges earned
+							p.home_stats_total 84
+		.row-fluid
+			.span12
+				span 
+					a(href='/auth/facebook') Sign in
+					| &nbsp;now with your Facebook account and start helping out your roomies! Do it, it's free!
+		.row-fluid
+			.span12#home_thumbs_disconnected
+				ul.thumbnails
+					li.span4
+						.thumbnail
+							img(src='/Desktop/img/home_slide1.png', alt='Header home')
+							.caption
+								p Take pictures and share them with you friends! the Kinect photobooth offers you a fun way to take a snapshot of how you look today.
+					li.span4
+						.thumbnail
+							img(src='/Desktop/img/home_slide2.png', alt='Header home')
+							.caption
+								p Enchance your experience by using your Kinect for Windows controller to browse trough the website. Simply swipe trough the website or wave above the tiles.
+					li.span4
+						.thumbnail
+							img(src='/Desktop/img/home_slide3.png', alt='Header home')
+							.caption
+								p We offer a nice task list for your roomies to organise your student life on a whole new level. Earn points and badges by helping out and become the major of your student house!
+
 append scripts
 	script(src='/desktop/js/home.knockout.js')
