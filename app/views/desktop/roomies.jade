@@ -38,12 +38,12 @@ block content
 					.hr.top
 						.triangle
 					.text_block
-						p
 						each u in members
-							a.pull-left(href='/profiles/#{u._id}', title='#{u.fullName}', style='margin-right: 10px;')
-								img(src='https://graph.facebook.com/' + u.fb.id + '/picture?type=square', alt='#{u.fullName}')
-							h6 #{u.fullName}
-							em.muted.title_header_under #{u.status}
+							p
+								a.pull-left(href='/profiles/#{u._id}', title='#{u.fullName}', style='margin-right: 10px;')
+									img(src='https://graph.facebook.com/' + u.fb.id + '/picture?type=square', alt='#{u.fullName}')
+								h6 #{u.fullName}
+								em.muted.title_header_under #{u.status}
 
 			.row-fluid.top_block
 				.span12
@@ -103,7 +103,7 @@ block content
 						thead
 							tr
 								th #
-								th 
+								th
 								th Roomie
 								th Tasks
 								th Points
