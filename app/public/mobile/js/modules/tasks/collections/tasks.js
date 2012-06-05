@@ -1,13 +1,17 @@
-/* --------------------------------------------------------------------------
-   Tasks Collection
-   -------------------------------------------------------------------------- */
+define( ['sandbox', 'models/task'], function(sandbox, Task) {
 
-define( ['jquery', 'backbone', 'models/task'], function( $, Backbone, Task ) {
-
-	var Tasks = Backbone.Collection.extend({
+	var Tasks = sandbox.mvc.Collection({
 
 		model: Task,
-
+		
+		completed: function() {
+			return this.filter(function(task){ return task.get('completed'); });
+		},
+		
+		remaining: function() {
+			return this.without.apply(this, this.completed());
+		},
+		
 		nextOrder: function() {
 			if (!this.length) return 1;
 			return this.last().get('order') + 1;
@@ -19,6 +23,6 @@ define( ['jquery', 'backbone', 'models/task'], function( $, Backbone, Task ) {
 
 	});
 
-	return Tasks;
+	return Object.create(Tasks);
 
 });

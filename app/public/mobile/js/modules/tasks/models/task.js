@@ -1,8 +1,4 @@
-/* --------------------------------------------------------------------------
-   Task Model
-   -------------------------------------------------------------------------- */
-
-define(['backbone'], function( Backbone ) {
+define(['sandbox'], function(sandbox) {
 
 	var Task = Backbone.Model.extend({
 
@@ -24,7 +20,7 @@ define(['backbone'], function( Backbone ) {
 		},
 
 		toggle: function () {
-			this.save( { done: !this.get('completed') } );
+			this.save({ completed: !this.get('completed') });
 		},
 
 		destroy: function () {

@@ -2,12 +2,17 @@
  * Authorization Controller
  */
 
+var _ = require('underscore')._;
+
 module.exports = function(app) {
 
 	// Authentication Check
 
 	app.all('/*', function(req, res, next) {
-		if(req.url !== '/auth/login' && req.url !== '/' && !req.loggedIn) {
+
+		var public_routes = ['/auth/login', '/', '/about', '/team'];
+
+		if(!_.include(public_routes, req.url) && !req.loggedIn) {
 			req.flash('notice', 'You are not authorized. Please login');
 			res.redirect('/');
 			return;

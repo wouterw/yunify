@@ -20,10 +20,19 @@ define(['backbone', 'routers/approuter', 'utils', 'vent'],
 				events: vent
 			};
 
+			
+			
+			if (typeof Object.create !== 'function') {
+				Object.create = function(o) {
+					function F() {}
+					F.prototype = o;
+					return new F();
+				};
+			}
+			
 			/*
 			* Start main router
 			*/
-
 			yunify.routers.main = new AppRouter();
 			yunify.routers.main.start();
 
