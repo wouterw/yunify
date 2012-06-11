@@ -5,8 +5,7 @@
 
 module.exports = {
 	server: {
-		url: "",
-		port: 4000
+		url: "http://deep-earth-8346.herokuapp.com/"
 	},
 	session: {
 		secret: '90nds9d219fds2c',
