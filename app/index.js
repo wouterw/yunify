@@ -95,11 +95,12 @@ require('./api/task.api.js')(app);
 require('./api/user.api.js')(app);
 
 // start http server
-app.listen(conf.server.port);
-var addr = app.address();
-
-console.log(color("success - ", "green+bold"),
-	'Yunify has taken the stage on http://' + addr.address + ':' + addr.port);
+var port = process.env.PORT || 5000;
+app.listen(port, function() {
+	var addr = app.address();
+	console.log(color("success - ", "green+bold"),
+		'Yunify has taken the stage on http://' + addr.address + ':' + addr.port);
+});
 
 // start socket server
 var sio = require('./middleware/sockets')(app, sessionStore);

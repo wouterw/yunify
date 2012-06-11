@@ -1,33 +1,37 @@
 {
-	"name": "Yunify",
-	"version": "0.0.1",
-	"author": "Codability <codability@gmail.com>",
-	"description": "",
-	"contributors": [
-		{
-			"name": "Wouter Willaert",
-			"email": "wouter.willaert@gmail.com"
-		},
-		{
-			"name": "Nielsen Ramon",
-			"email": "nielsenramon1@gmail.com"
-		}
-	],
-	"repository": {
-		"type": "git",
-		"url": "https://wouterw@github.com/wouterw/yunify.git"
-	},
-	"engines": {
-		"node": ">=0.6.16",
-		"npm": ">=1.1"
-	},
-	"dependencies": {
-		"jade": "latest",
-		"express": "",
-		"connect": ""
-	},
-	"license": "MIT",
-	"engine": {
-		"node": ">=0.6.18"
-	}
+  "name": "Yunify",
+  "version": "0.0.1",
+  "author": [
+    {
+      "name": "Wouter Willaert",
+      "email": "wouter.willaert@gmail.com"
+    },
+    {
+      "name": "Nielsen Ramon",
+      "email": "nielsenramon1@gmail.com"
+    }
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:wouterw/yunify.git"
+  },
+  "bugs": {
+    "url": "https://github.com/wouterw/yunify/issues"
+  },
+  "dependencies": {
+    "express": "2.5.x",
+    "jade": "0.25.x",
+    "everyauth": "0.2.x",
+    "gzippo": "0.1.x",
+    "mongoose": "2.6.x",
+    "mongoose-auth": "0.0.x",
+    "socket.io": "0.9.x",
+    "underscore": "1.3.x",
+    "mongodb": "1.0.x"
+  },
+  "engines": {
+    "node": "0.6.x"
+  },
+  "license": "MIT",
+
 }
