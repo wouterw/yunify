@@ -30,8 +30,8 @@
     "mongodb": "1.0.x"
   },
   "engines": {
-    "node": "0.6.x"
+    "node": "0.6.x",
+    "npm":  "1.0.x"
   },
-  "license": "MIT",
-
+  "license": "MIT"
 }
