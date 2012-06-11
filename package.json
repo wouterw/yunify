@@ -19,6 +19,7 @@
     "url": "https://github.com/wouterw/yunify/issues"
   },
   "dependencies": {
+    "connect": "2.2.x",
     "express": "2.5.x",
     "jade": "0.25.x",
     "gzippo": "0.1.x",
