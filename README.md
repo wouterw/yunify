@@ -10,6 +10,9 @@ This project consist of:
 Require.js for dependency management, the Require.js Text plugin for template
 externalisation and Underscore for templating.
 
+## Live version
+[http://deep-earth-8346.herokuapp.com/](http://deep-earth-8346.herokuapp.com/)
+
 ## Authors
 
 * [Wouter Willaert](http://wouterwillaert.be/)
