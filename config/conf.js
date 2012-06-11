@@ -5,23 +5,19 @@
 
 module.exports = {
 	server: {
+		url: "",
 		port: 4000
 	},
 	session: {
 		secret: '90nds9d219fds2c',
-		storeUri: 'mongodb://localhost/yunify',
-		username: '',
-		password: '',
+		storeUri: 'mongodb://staff.mongohq.com:10046/yunify',
+		username: 'codability',
+		password: 'adm123',
 		collection: 'sessions',
 		reapInterval: 3000
 	},
-	points: {
-		normal_task: 10,
-		starred_task: 25,
-		award: 50
-	},
 	db: {
-		uri: 'mongodb://localhost/yunify'
+		uri: 'mongodb://codability:adm123@staff.mongohq.com:10046/yunify'
 	},
 	fb: {
 		appId: '407986405880590',
