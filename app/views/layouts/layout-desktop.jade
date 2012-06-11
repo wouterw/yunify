@@ -7,7 +7,7 @@ html(lang='en')
 
 	body
 		#header_image
-			img(src='/Desktop/img/header_home.png', alt='Header home')
+			img(src='/desktop/img/header_home.png', alt='Header home')
 		#header
 			#header_container
 				- if (everyauth.loggedIn)
@@ -49,7 +49,7 @@ html(lang='en')
 								a.sign_in(href='/auth/facebook') Sign in
 					.btn-group#dropdown_nav
 						a.btn.btn-small#signout_button(href='/auth/facebook') Sign in
-						
+
 		.container
 			block content
 		footer.footer
