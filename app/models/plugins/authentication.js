@@ -25,7 +25,7 @@ module.exports = function(mongoose, UserSchema) {
 		},
 		facebook: {
 			everyauth: {
-				myHostname: 'http://localhost:' + conf.server.port,
+				myHostname: conf.server.url,
 				appId: conf.fb.appId,
 				appSecret: conf.fb.appSecret,
 				redirectPath: '/',
