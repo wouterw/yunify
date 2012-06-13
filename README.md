@@ -1,18 +1,22 @@
 # Yunify <sup>v0.1.0-beta</sup>
 
+Yunify is a project by two students.
+
 This project consist of:
 
-1. A Node.js + Express/Jade + Socket.io back-end, using MongoDb & Mongoose on it's data layer.
+1. A [Node.js](http://nodejs.org/) + [Express](http://expressjs.com/)/[Jade](http://jade-lang.com/) + [socket.io](http://socket.io/) back-end/API, using [MongoDB](http://www.mongodb.org/) & [Mongoose](http://mongoosejs.com/) on it's data layer.
 
-2. A desktop client application using Twitter Bootstrap, Knockout.js (MVVM).
+2. A desktop application using [Twitter Bootstrap](http://twitter.github.com/bootstrap/) and [Knockout.js](http://knockoutjs.com/) (MVVM) for client-side JavaScript.
 
-3. A mobile application using JQuery Mobile, Backbone.js (MVC*), AMD for separation of modules,
-Require.js for dependency management, the [Require.js]() Text plugin for template
+3. A mobile application using [jQuery Mobile](http://jquerymobile.com/), [Backbone.js](http://backbonejs.org/) (MV*), AMD for separation of modules,
+[Require.js](http://requirejs.org/) for dependency management, the Require.js Text plugin for template
 externalisation and [Underscore](http://underscorejs.org/) for templating.
+
+4. A extra 'WALL-mode', a big screen mode optimized for usage with [Kinect for Windows](http://www.microsoft.com/en-us/kinectforwindows/). Using [Kinect.js](http://kinect.childnodes.com/).
 
 ## Live version
 
-A live version of our application is availible @ [http://deep-earth-8346.herokuapp.com/](http://deep-earth-8346.herokuapp.com/). For demonstration purposes only.
+A live version of our application is available @ [http://deep-earth-8346.herokuapp.com/](http://deep-earth-8346.herokuapp.com/). For demonstration purposes only.
 
 Big thanks to [Heroku](http://www.heroku.com/) & [MongoHQ](http://mongohq.com/) for their (free) cloud hosting. We're grateful! :)
 
