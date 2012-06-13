@@ -1,4 +1,4 @@
-# Yunify <sup>v0.1.0</sup>
+# Yunify <sup>v0.1.0-beta</sup>
 
 This project consist of:
 
@@ -7,13 +7,14 @@ This project consist of:
 2. A desktop client application using Twitter Bootstrap, Knockout.js (MVVM).
 
 3. A mobile application using JQuery Mobile, Backbone.js (MVC*), AMD for separation of modules,
-Require.js for dependency management, the Require.js Text plugin for template
-externalisation and Underscore for templating.
+Require.js for dependency management, the [Require.js]() Text plugin for template
+externalisation and [Underscore](http://underscorejs.org/) for templating.
 
 ## Live version
-[http://deep-earth-8346.herokuapp.com/](http://deep-earth-8346.herokuapp.com/)
 
-using Heroku & MongoHQ for (free) cloud hosting.
+A live version of our application is availible @ [http://deep-earth-8346.herokuapp.com/](http://deep-earth-8346.herokuapp.com/). For demonstration purposes only.
+
+Big thanks to [Heroku](http://www.heroku.com/) & [MongoHQ](http://mongohq.com/) for their (free) cloud hosting. We're grateful! :)
 
 ## Installation and usage
 
@@ -32,7 +33,7 @@ Install dependecies using [npm](http://npmjs.org/):
 $ npm install
 ~~~
 
-Run your local MongoDb instance:
+Run your local [MongoDB](http://www.mongodb.org/) instance:
 
 ~~~ bash
 $ ./mongod
@@ -52,9 +53,9 @@ $ node app/index.js
 
 ## Authors
 
-[Wouter Willaert](http://wouterwillaert.be/) - wouter.willaert@gmail.com
+[Wouter Willaert](http://wouterwillaert.be/) - wouter.willaert@gmail.com - [@wouter_willaert](https://twitter.com/#!/wouter_willaert)
 
-[Nielsen Ramon](http://nielsenramon.be/) - nielsenramon1@gmail.com
+[Nielsen Ramon](http://nielsenramon.be/) - nielsenramon1@gmail.com - [@NielseRamon](https://twitter.com/#!/NielsenRamon)
 
 ## License
 
