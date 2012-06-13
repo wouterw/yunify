@@ -1,4 +1,4 @@
-# Yunify
+# Yunify <sup>v0.1.0</sup>
 
 This project consist of:
 
@@ -13,13 +13,48 @@ externalisation and Underscore for templating.
 ## Live version
 [http://deep-earth-8346.herokuapp.com/](http://deep-earth-8346.herokuapp.com/)
 
+using Heroku & MongoHQ for (free) cloud hosting.
+
+## Installation and usage
+
+Yunify needs [Node.js](http://nodejs.org/) to be installed on the system.
+
+Check out a working copy of the Yunify source code with [Git](http://git-scm.com/):
+
+~~~ bash
+$ git clone https://github.com/wouterw/yunify.git yunify
+$ cd yunify
+~~~
+
+Install dependecies using [npm](http://npmjs.org/):
+
+~~~ bash
+$ npm install
+~~~
+
+Run your local MongoDb instance:
+
+~~~ bash
+$ ./mongod
+~~~
+
+Finally run Yunify:
+
+~~~ bash
+$ node app/index.js
+~~~
+
+## Changelog
+
+### <sup>v0.1.0</sup>
+
+ * Initial release
+
 ## Authors
 
-* [Wouter Willaert](http://wouterwillaert.be/)
-  - wouter.willaert@gmail.com
+[Wouter Willaert](http://wouterwillaert.be/) - wouter.willaert@gmail.com
 
-* [Nielsen Ramon](http://nielsenramon.be/)
-  - nielsenramon1@gmail.com
+[Nielsen Ramon](http://nielsenramon.be/) - nielsenramon1@gmail.com
 
 ## License
 
