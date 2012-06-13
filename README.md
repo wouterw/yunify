@@ -1,10 +1,11 @@
 # Yunify <sup>v0.1.0-beta</sup>
 
-Yunify is a project by two students.
+Yunify is a project by two students passionated by the web platform.
 
 This project consist of:
 
-1. A [Node.js](http://nodejs.org/) + [Express](http://expressjs.com/)/[Jade](http://jade-lang.com/) + [socket.io](http://socket.io/) back-end/API, using [MongoDB](http://www.mongodb.org/) & [Mongoose](http://mongoosejs.com/) on it's data layer.
+1. A [Node.js](http://nodejs.org/) + [Express](http://expressjs.com/)/[Jade](http://jade-lang.com/) back-end/API.
+Using [socket.io](http://socket.io/) for realtime communication and [MongoDB](http://www.mongodb.org/) + [Mongoose](http://mongoosejs.com/) for persistence.
 
 2. A desktop application using [Twitter Bootstrap](http://twitter.github.com/bootstrap/) and [Knockout.js](http://knockoutjs.com/) (MVVM) for client-side JavaScript.
 
