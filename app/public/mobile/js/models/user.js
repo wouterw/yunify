@@ -1,13 +1,10 @@
-/* --------------------------------------------------------------------------
-   User Model
-   -------------------------------------------------------------------------- */
+define(['backbone'],
+  function( Backbone ) {
 
-define(['backbone'], function( Backbone ) {
+  var User = Backbone.Model.extend({
+    urlRoot: '/api/users'
+  });
 
-	var User = Backbone.Model.extend({
-		urlRoot: '/api/users'
-	});
-
-	return User;
+  return User;
 
 });

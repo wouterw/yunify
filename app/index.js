@@ -3,16 +3,16 @@ var	gzippo = require('gzippo'),
 		fs = require('fs');
 
 // load configuration file
-var conf = require('../config/conf');
+var cfg = require('../config/conf').configuration;
 
 // create sessionstore
 var mongoStore = require('connect-mongodb');
 var	sessionStore = new mongoStore({
-	url: conf.session.storeUri,
-	collection: conf.session.collection,
-	reapInterval: conf.session.reapInterval,
-	username: conf.session.username,
-	password: conf.session.password
+	url: cfg.session.storeUri,
+	collection: cfg.session.collection,
+	reapInterval: cfg.session.reapInterval,
+	username: cfg.session.username,
+	password: cfg.session.password
 });
 
 // create server
@@ -21,7 +21,7 @@ var express = require('express'),
 
 // configure mongoose
 var mongoose = module.exports = require('mongoose');
-mongoose.connect(conf.db.uri);
+mongoose.connect(cfg.db.uri);
 
 // bootstrap models
 require('./models/user');
@@ -45,7 +45,7 @@ app.configure(function () {
 	app.use(express.cookieParser());
 	app.use(express.session({
 		store: sessionStore,
-		secret: conf.session.secret,
+		secret: cfg.session.secret,
 		key: 'express.sid'
 	}));
 	app.use(express.logger(':method :url :status'));

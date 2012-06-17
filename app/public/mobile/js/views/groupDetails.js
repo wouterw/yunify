@@ -1,7 +1,3 @@
-/* --------------------------------------------------------------------------
-   GroupDetails View
-   -------------------------------------------------------------------------- */
-
 define(['jquery', 'backbone', 'underscore', 'text!tpl/groupDetails.html'],
 	function( $, Backbone, _, groupTemplate ) {
 

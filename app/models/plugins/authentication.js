@@ -5,7 +5,7 @@
 
 var everyauth = require('everyauth'),
 		Promise = everyauth.Promise,
-		conf = require('../../../config/conf'),
+		cfg = require('../../../config/conf').configuration,
 		mongooseauth = require('mongoose-auth');
 
 // configure everyauth's facebook module
@@ -25,9 +25,9 @@ module.exports = function(mongoose, UserSchema) {
 		},
 		facebook: {
 			everyauth: {
-				myHostname: conf.server.url,
-				appId: conf.fb.appId,
-				appSecret: conf.fb.appSecret,
+				myHostname: cfg.server.url,
+				appId: cfg.fb.appId,
+				appSecret: cfg.fb.appSecret,
 				redirectPath: '/',
 				findOrCreateUser: function (session, accessToken, accessTokenExtra, facebookUser) {
 					var promise = this.Promise();

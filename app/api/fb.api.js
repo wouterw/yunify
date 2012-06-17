@@ -1,76 +1,106 @@
-/*!
- * Fb api wrapper
- *
- * Docs:
- * https://onteria.wordpress.com/2011/05/30/multipartform-data-uploads-using-node-js-and-http-request/
- * http://www.hacksparrow.com/base64-encoding-decoding-in-node-js.html
- * http://stackoverflow.com/questions/7511321/uploading-base64-encoded-image-to-amazon-s3-via-node-js
- * http://stackoverflow.com/questions/8110294/nodejs-base64-image-encoding-decoding-not-quite-working
- */
-
 var fs = require('fs'),
-		https = require('https');
+    https = require('https');
 
 module.exports = function (app) {
 
-	/**
-	* POST /api/me/photobooth
-	*/
-	app.post('/api/me/photobooth', function(req, res) {
-		var boundary = Math.random();
-		var post_data = [];
+  /**
+    * POST /api/me/photobooth
+    */
+  app.post('/api/me/photobooth', function(req, res) {
+    // var boundary = Math.random();
+    // var post_data = [];
 
-		var message = 'Just took a picture from the Yunify photobooth!';
-		var base64Image = req.body.data.replace(/^data:image\/\w+;base64,/, '');
+    // var message = 'Just took a picture from the Yunify photobooth!';
+    var base64Image = req.body.data.replace(/^data:image\/\w+;base64,/, '');
 
-		post_data.push(new Buffer(EncodeFieldPart(boundary, 'message', message), 'ascii'));
-		post_data.push(new Buffer(EncodeFieldPart(boundary, 'image/jpeg', 'source', 'filename'), 'ascii'));
-		post_data.push(new Buffer(base64Image, 'base64').toString('binary'), 'binary');
-		post_data.push(new Buffer("\r\n--" + boundary + "--"), 'ascii');
+    // post_data.push(new Buffer(EncodeFieldPart(boundary, 'message', message), 'ascii'));
+    // post_data.push(new Buffer(EncodeFieldPart(boundary, 'image/jpeg', 'source', 'filename'), 'ascii'));
+    // post_data.push(new Buffer(base64Image, 'base64').toString('binary'), 'binary');
+    // post_data.push(new Buffer("\r\n--" + boundary + "--"), 'ascii');
 
-		var length = 0;
-		for(var i = 0; i < post_data.length; i++) {
-			length += post_data[i].length;
-		}
+    // var length = 0;
+    // for(var i = 0; i < post_data.length; i++) {
+    //   length += post_data[i].length;
+    // }
 
-		var opts = {
-			host: 'graph.facebook.com',
-			port: 443,
-			path: '/me/photos?access_token=' + req.session.auth.facebook.accessToken,
-			method: 'POST',
-			headers: {
-				'Content-Type' : 'multipart/form-data; boundary=' + boundary,
-				'Content-Length' : length
-			}
-		};
+    // base64 uploading refused to work, so binary it is
+    var enc = 'binary';
+    var filepath = result.file_path;
+    var filename = result.original_file_name;
 
-		var post_request = https.request(opts, function(response) {
-			response.setEncoding('utf8');
-			response.on('data', function(chunk) {
-				console.log(chunk);
-			});
-		});
+    var re = /(?:\.([^.]+))?$/;
+    var ext = re.exec(filename)[1];
+    var authKey = req.session.auth.facebook.accessToken;
 
-		for(var j = 0; j < post_data.length; j++) {
-			post_request.write(post_data[j]);
-		}
+    // set up body for the request
+    var outputBits = [];
+    outputBits.push('------------0xKhTmLbOuNdArY\r\n');
+    outputBits.push('Content-Disposition: form-data; name="access_token"\r\n\r\n');
+    outputBits.push(authKey + '\r\n');
+    outputBits.push('------------0xKhTmLbOuNdArY\r\n');
+    outputBits.push('Content-Disposition: form-data; name="message"\r\n\r\n');
+    outputBits.push(filename + '\r\n');
+    outputBits.push('------------0xKhTmLbOuNdArY\r\n');
+    outputBits.push('Content-Disposition: form-data; name="source"; filename="' + filepath + '"\r\n');
+    outputBits.push('Content-Type: image/' + ext + '\r\n');
+    outputBits.push('Content-Transfer-Encoding: ' + enc + '\r\n\r\n');
+    var output0 = outputBits.join("");
 
-		post_request.end();
+    // This terminates the output body
+    var outputBits2 = [];
+    outputBits2.push('\r\n------------0xKhTmLbOuNdArY--\r\n');
+    var output2 = outputBits2.join("");
 
-	});
+    // set up header for the request
+    var options = {
+      host: 'graph.facebook.com',
+      port: 443,
+      path: '/me/photos?access_token=' + authKey,
+      method: 'POST',
+      headers: {
+        'Content-Type' : 'multipart/form-data; boundary=' + boundary,
+        'Content-Length' : length
+      }
+    };
 
-	function EncodeFieldPart(boundary, name, value) {
-		var part = "--" + boundary + "\r\n";
-		part += "Content-Disposition: form-data; name=\"" + name + "\"\r\n\r\n";
-		part += value + "\r\n";
-		return part;
-	}
+    // listen to response form the Facebook servers.
+    var request = https.request(options, function(response) {
+      response.setEncoding('utf8');
+      response.on('data', function(chunk) {
+        console.log(chunk);
+      });
+      response.on('end', function() {
+        console.log('200 OK');
+      });
+      response.on('close', function() {
+        console.log('500 Premature closing of the Facebook upload response.');
+      });
+    });
 
-	function EncodeFilePart(boundary, type, name, filename) {
-		var part = "--" + boundary + "\r\n";
-		part += "Content-Disposition: form-data; name=\"" + name + "\"; filename=\"" + filename + "\"\r\n";
-		part += "Content-Type: " + type + "\r\n\r\n";
-		return part;
-	}
+    request.on('error', function(err) {
+      console.log('500 Problem with uploading the picture to Facebook: ' + err);
+    });
+
+    // write/send the request.
+    request.write(output0);
+    request.write(imageData);
+    request.write(output2);
+    request.end();
+
+  });
+
+  // function EncodeFieldPart(boundary, name, value) {
+  //   var part = "--" + boundary + "\r\n";
+  //   part += "Content-Disposition: form-data; name=\"" + name + "\"\r\n\r\n";
+  //   part += value + "\r\n";
+  //   return part;
+  // }
+
+  // function EncodeFilePart(boundary, type, name, filename) {
+  //   var part = "--" + boundary + "\r\n";
+  //   part += "Content-Disposition: form-data; name=\"" + name + "\"; filename=\"" + filename + "\"\r\n";
+  //   part += "Content-Type: " + type + "\r\n\r\n";
+  //   return part;
+  // }
 
 };

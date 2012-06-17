@@ -1,4 +1,5 @@
-define(['jquery'], function($) {
+define(['jquery'],
+  function($) {
   'use strict';
 
   /**
@@ -18,8 +19,7 @@ define(['jquery'], function($) {
    * @param {Boolean} direction
    * @param {Boolean} updateHash
    */
-  Utils.prototype.changePage = function(viewID, effect, direction, updateHash) {
-    $(viewID).page();
+  Utils.changePage = function(viewID, effect, direction, updateHash) {
     $.mobile.changePage(viewID, { transition: effect, reverse: direction, changeHash: updateHash });
   };
 
@@ -29,7 +29,7 @@ define(['jquery'], function($) {
    * @method switchTitle
    * @param {String} title
    */
-  Utils.prototype.switchTitle = function(title) {
+  Utils.switchTitle = function(title) {
     $('.ui-title').text(title || '');
   };
 

@@ -1,72 +1,68 @@
-/* --------------------------------------------------------------------------
-   TaskView
-   -------------------------------------------------------------------------- */
-
 define(['jquery', 'backbone', 'underscore', 'text!tpl/task-template.html'],
-	function( $, Backbone, _, taskTemplate ) {
+  function( $, Backbone, _, taskTemplate ) {
 
-		var TaskView = Backbone.View.extend({
+    var TaskView = Backbone.View.extend({
 
-			// is a list tag.
-			tagName: 'li',
+      // is a list tag.
+      tagName: 'li',
 
-			// Cache the template function for a single item.
-			template: _.template( taskTemplate ),
+      // Cache the template function for a single item.
+      template: _.template( taskTemplate ),
 
-			// The DOM events specific to an item.
-			events: {
-				'click .check': 'toggleDone',
-				'dblclick label.todo-content': 'edit',
-				'click span.task-destroy': 'clear',
-				'keypress .task-input': 'updateOnEnter',
-				'blur .todo-input': 'close'
-			},
+      // The DOM events specific to an item.
+      events: {
+        'click .check': 'toggleDone',
+        'dblclick label.todo-content': 'edit',
+        'click span.task-destroy': 'clear',
+        'keypress .task-input': 'updateOnEnter',
+        'blur .todo-input': 'close'
+      },
 
-			// The TodoView listens for changes to its model, re-rendering. Since there's
-			// a one-to-one correspondence between a **Todo** and a **TodoView** in this
-			// app, we set a direct reference on the model for convenience.
-			initialize: function() {
-				_.bindAll(this, 'render', 'close', 'remove');
-				this.model.bind('change', this.render);
-				this.model.bind('destroy', this.remove);
-			},
+      // The TodoView listens for changes to its model, re-rendering. Since there's
+      // a one-to-one correspondence between a **Todo** and a **TodoView** in this
+      // app, we set a direct reference on the model for convenience.
+      initialize: function() {
+        _.bindAll(this, 'render', 'close', 'remove');
+        this.model.bind('change', this.render);
+        this.model.bind('destroy', this.remove);
+      },
 
-			// Re-render the contents of the todo item.
-			render: function() {
-				$(this.el).html(this.template(this.model.toJSON()));
-				this.input = this.$('.todo-input');
-				return this;
-			},
+      // Re-render the contents of the todo item.
+      render: function() {
+        $(this.el).html(this.template(this.model.toJSON()));
+        this.input = this.$('.todo-input');
+        return this;
+      },
 
-			// Toggle the `"done"` state of the model.
-			toggleDone: function() {
-				this.model.toggle();
-			},
+      // Toggle the `"done"` state of the model.
+      toggleDone: function() {
+        this.model.toggle();
+      },
 
-			// Switch this view into `"editing"` mode, displaying the input field.
-			edit: function() {
-				$(this.el).addClass("editing");
-				this.input.focus();
-			},
+      // Switch this view into `"editing"` mode, displaying the input field.
+      edit: function() {
+        $(this.el).addClass("editing");
+        this.input.focus();
+      },
 
-			// Close the `"editing"` mode, saving changes to the todo.
-			close: function() {
-				this.model.save({content: this.input.val()});
-				$(this.el).removeClass("editing");
-			},
+      // Close the `"editing"` mode, saving changes to the todo.
+      close: function() {
+        this.model.save({content: this.input.val()});
+        $(this.el).removeClass("editing");
+      },
 
-			// If you hit `enter`, we're through editing the item.
-			updateOnEnter: function(e) {
-				if (e.keyCode == 13) this.close();
-			},
+      // If you hit `enter`, we're through editing the item.
+      updateOnEnter: function(e) {
+        if (e.keyCode == 13) this.close();
+      },
 
-			// Remove the item, destroy the model.
-			clear: function() {
-				this.model.clear();
-			}
+      // Remove the item, destroy the model.
+      clear: function() {
+        this.model.clear();
+      }
 
-		});
+    });
 
-		return TaskView;
+    return TaskView;
 
-	});
+  });

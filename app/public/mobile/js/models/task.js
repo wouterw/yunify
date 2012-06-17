@@ -1,34 +1,35 @@
-define(['sandbox'], function(sandbox) {
+define(['backbone'],
+  function( Backbone ) {
 
-	var Task = Backbone.Model.extend({
+  var Task = Backbone.Model.extend({
 
-		idAttribute: '_id',
+    idAttribute: '_id',
 
-		defaults: function () {
-			return {
-				title: 'empty task...',
-				completed: false,
-				important: false,
-				order: Tasks.nextOrder()
-			};
-		},
+    defaults: function () {
+      return {
+        title: 'empty task...',
+        completed: false,
+        important: false,
+        order: Tasks.nextOrder()
+      };
+    },
 
-		initialize: function () {
-			if (!this.get('title')) {
-				this.set({ 'title': this.defaults.title });
-			}
-		},
+    initialize: function () {
+      if (!this.get('title')) {
+        this.set({ 'title': this.defaults.title });
+      }
+    },
 
-		toggle: function () {
-			this.save({ completed: !this.get('completed') });
-		},
+    toggle: function () {
+      this.save({ completed: !this.get('completed') });
+    },
 
-		destroy: function () {
-			this.destroy();
-		}
+    destroy: function () {
+      this.destroy();
+    }
 
-	});
+  });
 
-	return Task;
+  return Task;
 
 });

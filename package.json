@@ -1,5 +1,6 @@
 {
   "name": "Yunify",
+  "description": "A web app written entirely in JavaScript",
   "version": "0.0.1",
   "author": [
     {
@@ -11,6 +12,9 @@
       "email": "nielsenramon1@gmail.com"
     }
   ],
+  "scripts": {
+    "start": "node app/index.js"
+  },
   "repository": {
     "type": "git",
     "url": "git@github.com:wouterw/yunify.git"
