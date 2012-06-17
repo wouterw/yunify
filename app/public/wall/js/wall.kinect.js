@@ -63,6 +63,30 @@
 	});
 
 	// ---------------------------------------------------------
+	// Escape gesture, go back to homescreen
+	// ---------------------------------------------------------
+	
+	kinect.addEventListener( 'gestureEscape', function( count ) {
+		if( count[ 0 ] !== 0 )
+			return false;
+			
+		if( count[ 1 ] === true )
+		{
+			kinect.notif.push( "ESCAPE..." );
+			window.escape = setTimeout(function() {
+				history.back();
+			},1800);
+		}
+		else
+		{
+			clearTimeout( window.escape );
+			window.escape = false;
+		}
+		
+		return false;
+	});
+	
+	// ---------------------------------------------------------
 	// Home gesture to go to home screen
 	// ---------------------------------------------------------
 	kinect.addEventListener( 'gestureEscape', function( count ) {
