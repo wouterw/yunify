@@ -47,7 +47,7 @@ $ ./mongod
 Finally run Yunify:
 
 ~~~ bash
-$ node app/index.js
+$ NODE_ENV=development node app/index.js
 ~~~
 
 ## Changelog
