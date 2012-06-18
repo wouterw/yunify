@@ -1,0 +1,12 @@
+{
+  "name": "Yunify",
+  "description": "Living together made easy",
+  "version": "0.1.0b",
+  "url": "https://github.com/wouterw/yunify",
+  "options": {
+    "linkNatives": "true",
+    "ignorePaths": [ "app/lib" ],
+    "paths": "*",
+    "outdir": "./docs"
+  }
+}
