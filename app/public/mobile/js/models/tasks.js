@@ -1,9 +1,11 @@
 define( ['jquery', 'backbone', 'models/Task'],
   function( $, Backbone, Task ) {
 
-  var Tasks = sandbox.mvc.Collection({
+  var Tasks = Backbone.Collection.extend({
 
     model: Task,
+
+    initialize: function() {},
 
     completed: function() {
       return this.filter(function(task){ return task.get('completed'); });
@@ -11,19 +13,10 @@ define( ['jquery', 'backbone', 'models/Task'],
 
     remaining: function() {
       return this.without.apply(this, this.completed());
-    },
-
-    nextOrder: function() {
-      if (!this.length) return 1;
-      return this.last().get('order') + 1;
-    },
-
-    comparator: function(todo) {
-      return todo.get('order');
     }
 
   });
 
-  return Object.create(Tasks);
+  return Tasks;
 
 });

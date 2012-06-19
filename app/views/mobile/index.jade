@@ -28,28 +28,6 @@ block content
 			h2 Change your status
 			section#my-status
 
-		//
-			div(data-role='footer', data-theme='a')
-
-
-
-	div#my-profile-page(data-role='page')
-		div(data-role='header')
-			a(href='', data-icon='home', data-transition='fade') Home
-			h1 My Profile
-
-		div(data-role='content')
-
-
-
-	div#my-profile-edit-page(data-role='page')
-		div(data-role='header')
-			a(href='', data-icon='home', data-transition='fade') Home
-			h1 Edit Profile
-
-		div(data-role='content')
-
-
 
 	div#search-users-page(data-role='page')
 		div(data-role='header')
@@ -63,7 +41,6 @@ block content
 			ul(data-role='listview', data-autodividers='true', id='user-list')
 
 
-
 	div#user-details-page(data-role='page')
 		div(data-role='header')
 			a(href='', data-icon='home', data-transition='fade') Home
@@ -71,7 +48,6 @@ block content
 
 		div(data-role='content')
 			section#user-details
-
 
 
 	div#search-groups-page(data-role='page')
@@ -83,8 +59,7 @@ block content
 			input(type='search', class='search-query', placeholder='Search')
 
 		div(data-role='content')
-			ul(data-role="listview", data-autodividers='true', id='group-list')
-
+			ul(data-role='listview', data-autodividers='true', id='group-list')
 
 
 	div#group-details-page(data-role='page')
@@ -101,12 +76,14 @@ block content
 			a(href='', data-icon='home', data-transition='fade') Home
 			h1 Tasks
 
+		div(class='ui-bar ui-bar-c')
+			input#new-task(type='text', name='name', placeholder="What needs to be done...")
+			button#create-task(data-role="button", data-icon='plus', data-theme="b") Add
+
 		div(data-role='content')
-			section#tasks
-				input#new-task(placeholder='What needs to be done?', type='text')
-				ul#task-list
-				div#todo-stats
+			ul#task-list(data-role='listview', data-inset='true', data-autodividers='true', data-split-icon="delete")
 
 
 append scripts
 	script(data-main='/mobile/js/main', src='/common/js/lib/require/require-2.0.2.js')
+	script(src='/socket.io/socket.io.js')

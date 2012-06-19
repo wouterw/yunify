@@ -1,0 +1,14 @@
+<% _.each(tasks, function(task) { %>
+
+<% if ( task.get('important') ) { %>
+<li data-icon="alert">
+<% } else { %>
+<li>
+<% } %>
+  <a class="task" id="<%= task.get('_id') %>">
+    <h3 class="ui-li-heading"><%= task.get('title') %></h3>
+    <p class="ui-li-desc"><%= task.get('created_at') %></p>
+    <a data-role="button" data-inline="true" data-mini="true">Finish</a>
+  </a>
+</li>
+<% }); %>

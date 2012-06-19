@@ -9,8 +9,7 @@ define(['backbone'],
       return {
         title: 'empty task...',
         completed: false,
-        important: false,
-        order: Tasks.nextOrder()
+        important: false
       };
     },
 
@@ -21,7 +20,7 @@ define(['backbone'],
     },
 
     toggle: function () {
-      this.save({ completed: !this.get('completed') });
+      yunify.events.trigger("task:complete", this.attributes);
     },
 
     destroy: function () {

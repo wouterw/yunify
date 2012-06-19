@@ -18,7 +18,7 @@
 	<% if ( achievements.unlocked && achievements.unlocked.length > 0) { %>
 		<% _.each( achievements.unlocked , function( award, i ) { %>
 		<li>
-			<img class="badge" src="https://d1ffx7ull4987f.cloudfront.net/images/achievements/large_badge/102/completed-journey-into-mobile-b3e446afa712d0f6cea7aafdb3159df1.png" alt="<%= award.name %>" class="ui-li-thumb" />
+			<img class="badge" src="/desktop/img/<%= award.id %>.png" alt="<%= award.name %>" class="ui-li-thumb" />
 			<h3 class="ui-li-heading"><%= award.name %></h4>
 			<p class="ui-li-desc">
 				<%= award.desc %><br/>

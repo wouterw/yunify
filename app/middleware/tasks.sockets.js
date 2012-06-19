@@ -59,6 +59,7 @@ module.exports = function (io) {
 		});
 
 		socket.on('complete', function(data) {
+			console.log(data);
 			var userId = socket.handshake.session.auth.userId;
 			Task.findById(data.id, function(err, task) {
 				if(!err) {

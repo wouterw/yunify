@@ -6,6 +6,8 @@ require.config({
     'jquery': '/common/js/lib/jquery/jquery-1.7.2.min',
     'json2': '/common/js/lib/json2',
     'jquerymobile': '/mobile/js/libs/jquery.mobile-1.1.0',
+    'xdate': '/common/js/lib/xdate',
+
     'models': '/mobile/js/models',
     'views': '/mobile/js/views',
     'tpl': '/mobile/js/templates'
@@ -17,6 +19,9 @@ require.config({
     'backbone': {
       deps: ['underscore', 'jquery'],
       exports: 'Backbone'
+    },
+    'xdate': {
+      exports: 'XDate'
     }
   }
 });

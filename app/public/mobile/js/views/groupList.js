@@ -3,7 +3,7 @@ define(['jquery', 'backbone', 'underscore', 'text!tpl/groupList.html'],
 
     var GroupListView = Backbone.View.extend({
 
-      el: $( 'ul#group-list' ),
+      el: $('ul#group-list'),
 
       initialize: function () {
         this.template = _.template( listTemplate );

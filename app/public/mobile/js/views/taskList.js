@@ -1,62 +1,99 @@
-define(['jquery', 'backbone', 'underscore', 'text!tpl/tasks-stats-template.html'],
-  function( $, Backbone, _, statsTemplate ) {
+define(['jquery', 'backbone', 'underscore', 'xdate', 'text!tpl/taskList.html'],
+  function($, Backbone, _, XDate, listTemplate) {
 
     var TasksView = Backbone.View.extend({
 
-      el: $( 'div#tasks-page' ),
+      el: $('#tasks-page'),
 
-      statsTemplate: _.template( statsTemplate ),
+      $list: this.$('#task-list'),
+
+      $input: this.$('#new-task'),
+
+      template: _.template(listTemplate),
 
       events: {
-        'keypress input#new-task': 'createOnEnter'
+        "click #create-task": "create",
+        "click .task": "complete"
       },
 
-      initialize: function () {
-        _.bindAll(this, 'addOne', 'addAll', 'render');
+      initialize: function (options) {
+        _.bindAll(this, 'render', 'loaded', 'added', 'removed', 'updated');
 
-        this.input = this.$("input#new-task");
+        this.collection.bind('all', this.render);
 
-        Todos.bind('add', this.addOne);
-        Todos.bind('reset', this.addAll);
-        Todos.bind('all', this.render);
+        yunify.events.bind('task:loaded', this.loaded);
+        yunify.events.bind('task:added', this.added);
+        yunify.events.bind('task:removed', this.removed);
+        yunify.events.bind('task:updated', this.updated);
 
-        Todos.fetch();
+        this.me = options.me.attributes;
+        yunify.events.trigger('task:init', this.me.group);
       },
 
       render: function() {
-        var done = Todos.done().length;
-        var remaining = Todos.remaining().length;
-
-        this.$('#todo-stats').html(this.statsTemplate({
-          total:      Todos.length,
-          done:       done,
-          remaining:  remaining
-        }));
-
-        this.allCheckbox.checked = !remaining;
+        this.$list.empty();
+        this.$list.html(this.template({ tasks: this.collection.models }));
+        this.$list.listview('refresh');
       },
 
-      addOne: function(todo) {
-        var view = new TodoView({model: todo});
-        this.$("#todo-list").append(view.render().el);
+      loaded: function(tasks) {
+        console.log('tasksView:loaded', tasks);
+
+        tasks = _.filter(tasks, function(task) {
+          return !task.completed;
+        });
+
+        var self = this;
+        _.each(tasks, function(t) {
+          t.created_at = self.parseDate(t.created_at);
+        });
+
+        this.collection.reset(tasks);
       },
 
-      addAll: function() {
-        Todos.each(this.addOne);
+      parseDate: function(datestring) {
+        return new XDate(datestring).toString('MMM d, yyyy @ h(:mm)TT');
+      },
+
+      added: function(task) {
+        console.log('tasksView:added', task);
+        task.created_at = this.parseDate(task.created_at);
+        this.collection.create(task);
+      },
+
+      updated: function(task) {
+        console.log('tasksView:updated', task);
+        if (task.completed) {
+          this.collection.remove(this.collection.get(task._id));
+        } else {
+          var t = this.collection.get(task._id);
+          t.set(task);
+        }
+      },
+
+      removed: function(id) {
+        console.log('tasksView:removed', id);
+        this.collection.remove(this.collection.get(id));
       },
 
       newAttributes: function() {
         return {
-          content: this.input.val(),
-          order: Todos.nextOrder(),
-          done: false
+          title: this.$input.val(),
+          important: false,
+          completed: false
         };
       },
 
-      createOnEnter: function(e) {
-        if (e.keyCode != 13) return;
-        Todos.create(this.newAttributes());
-        this.input.val('');
+      create: function() {
+        var task = this.newAttributes();
+        task.group = this.me.group;
+        yunify.events.trigger('task:add', task);
+        this.$input.val('');
+      },
+
+      complete: function(e) {
+        var task = this.collection.get(e.currentTarget.id);
+        task.toggle();
       }
 
     });
