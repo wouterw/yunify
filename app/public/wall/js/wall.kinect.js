@@ -67,15 +67,15 @@
 	// ---------------------------------------------------------
 	
 	kinect.addEventListener( 'gestureEscape', function( count ) {
+		
 		if( count[ 0 ] !== 0 )
 			return false;
 			
 		if( count[ 1 ] === true )
 		{
-			kinect.notif.push( "ESCAPE..." );
-			window.escape = setTimeout(function() {
-				history.back();
-			},1800);
+			setTimeout(function() {
+				window.location="/home";
+			}, 2000);
 		}
 		else
 		{

@@ -243,9 +243,7 @@ $(document).ready(function () {
 			vm.addTweetNames(member);
 		});
 		vm.fetchTweets();
-
 		setInterval(vm.fetchTweets, 60000);
-
 	});
 
 	// Apply binding
