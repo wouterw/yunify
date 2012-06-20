@@ -24,7 +24,7 @@ module.exports = function (app) {
         authKey = req.session.auth.facebook.accessToken;
 
     var dataBuffer = new Buffer(base64Data, 'base64');
-    fs.writeFile('/public/data/out.jpeg', dataBuffer, function(err) {
+    fs.writeFile(filepath, dataBuffer, function(err) {
       console.log('fs:error', err);
     });
 
