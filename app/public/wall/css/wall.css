@@ -268,7 +268,7 @@ hr {
 
 /* Sidepanel */
 #task_sidepanel {
-  width: 855px;
+  width: 854px;
   height: 780px;
   float: left;
   padding-left: 60px;
@@ -314,6 +314,10 @@ hr {
   text-align: center;
   float: left;
   width: 855px;
+}
+
+.inline {
+  display: inline-block;
 }
 
 /* -------------------------------------

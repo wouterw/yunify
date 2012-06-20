@@ -213,6 +213,12 @@ $(document).ready(function () {
 			});
 		};
 
+		this.completedCount = ko.computed(function() {
+			return ko.utils.arrayFilter(self.tasks(), function(task) {
+				return task.completed();
+			}).length;
+		});
+
 		this.completedTasks = ko.computed(function() {
 			var d = ko.utils.arrayFilter(self.tasks(), function(task) {
 				return task.completed();

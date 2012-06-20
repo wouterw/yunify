@@ -71,7 +71,7 @@
 		if( count[ 0 ] !== 0 )
 			return false;
 			
-		if( count[ 1 ] === true )
+		if( count[ 2 ] === true )
 		{
 			setTimeout(function() {
 				window.location="/home";

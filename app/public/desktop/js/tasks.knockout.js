@@ -128,7 +128,6 @@
 			});
 			return d;
 		});
-
 	};
 
 	var tasksvm = new TasksViewModel();

@@ -75,10 +75,16 @@ body
 				span.yellow_text major&nbsp;
 				| of your student house! Your current stats are:
 			p#task_sidepanel_owner
-				span.yellow_text.bold_text(style='display: inline-block;') 250 points&nbsp;
+				span.yellow_text.bold_text
+					- if (user.achievements.score_count && user.achievements.score_count > 0)
+						| #{user.achievements.score_count} points&nbsp;
+					- else
+						| 0 points&nbsp;
 				span(style='display: inline-block;') and
-				span.yellow_text.bold_text(style='display: inline-block;') 15 tasks&nbsp;
-				span(style='display: inline-block;') completed!
+				span.yellow_text.bold_text
+					span(data-bind='text: completedCount')
+					span &nbsp;tasks&nbsp;
+				span completed!
 			hr
 			p#task_sidepanel_footnote Nothing to do?&nbsp;
 				span.yellow_text Swipe it!
