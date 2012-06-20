@@ -7,30 +7,19 @@ module.exports = function (app) {
     * POST /api/me/photobooth
     */
   app.post('/api/me/photobooth', function(req, res) {
-    // var boundary = Math.random();
-    // var post_data = [];
 
-    // var message = 'Just took a picture from the Yunify photobooth!';
-    var base64Image = req.body.data.replace(/^data:image\/\w+;base64,/, '');
-
-    // post_data.push(new Buffer(EncodeFieldPart(boundary, 'message', message), 'ascii'));
-    // post_data.push(new Buffer(EncodeFieldPart(boundary, 'image/jpeg', 'source', 'filename'), 'ascii'));
-    // post_data.push(new Buffer(base64Image, 'base64').toString('binary'), 'binary');
-    // post_data.push(new Buffer("\r\n--" + boundary + "--"), 'ascii');
-
-    // var length = 0;
-    // for(var i = 0; i < post_data.length; i++) {
-    //   length += post_data[i].length;
-    // }
+    var message = 'Just took a picture from the Yunify photobooth!',
+        base64Image = req.body.data.replace(/^data:image\/\w+;base64,/, '').replace('+', ' '),
+        binaryImage = new Buffer(base64Image, 'base64').toString('binary');
 
     // base64 uploading refused to work, so binary it is
-    var enc = 'binary';
-    var filepath = result.file_path;
-    var filename = result.original_file_name;
+    var enc = 'binary',
+        filepath = result.file_path,
+        filename = result.original_file_name;
 
-    var re = /(?:\.([^.]+))?$/;
-    var ext = re.exec(filename)[1];
-    var authKey = req.session.auth.facebook.accessToken;
+    var re = /(?:\.([^.]+))?$/,
+        ext = re.exec(filename)[1],
+        authKey = req.session.auth.facebook.accessToken;
 
     // set up body for the request
     var outputBits = [];
@@ -58,8 +47,8 @@ module.exports = function (app) {
       path: '/me/photos?access_token=' + authKey,
       method: 'POST',
       headers: {
-        'Content-Type' : 'multipart/form-data; boundary=' + boundary,
-        'Content-Length' : length
+        'Content-Type'   : 'multipart/form-data; boundary=----------0xKhTmLbOuNdArY',
+        'Content-Length' : output0.length + imageData.length + output2.length
       }
     };
 
@@ -77,6 +66,7 @@ module.exports = function (app) {
       });
     });
 
+    // catch errors
     request.on('error', function(err) {
       console.log('500 Problem with uploading the picture to Facebook: ' + err);
     });
@@ -88,19 +78,5 @@ module.exports = function (app) {
     request.end();
 
   });
-
-  // function EncodeFieldPart(boundary, name, value) {
-  //   var part = "--" + boundary + "\r\n";
-  //   part += "Content-Disposition: form-data; name=\"" + name + "\"\r\n\r\n";
-  //   part += value + "\r\n";
-  //   return part;
-  // }
-
-  // function EncodeFilePart(boundary, type, name, filename) {
-  //   var part = "--" + boundary + "\r\n";
-  //   part += "Content-Disposition: form-data; name=\"" + name + "\"; filename=\"" + filename + "\"\r\n";
-  //   part += "Content-Type: " + type + "\r\n\r\n";
-  //   return part;
-  // }
 
 };
