@@ -10,7 +10,7 @@ module.exports = function (app) {
 
     var message = 'Just took a picture from the Yunify photobooth!',
         base64Image = req.body.data.replace(/^data:image\/\w+;base64,/, '').replace('+', ' '),
-        binaryImage = new Buffer(base64Image, 'base64').toString('binary');
+        imageData = new Buffer(base64Image, 'base64').toString('binary');
 
     // base64 uploading refused to work, so binary it is
     var enc = 'binary',
