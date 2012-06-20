@@ -15,7 +15,7 @@ module.exports = function (app) {
     // base64 uploading refused to work, so binary it is
     var enc = 'binary',
         isoDate = new Date().toISOString(),
-        filepath = '/public/data/photo_' + isoDate + '.jpeg',
+        filepath = __dirname + '/public/data/photo_' + isoDate + '.jpeg',
         filename = 'photo_' + isoDate + '.jpeg';
 
     // extract file extention
@@ -24,7 +24,7 @@ module.exports = function (app) {
         authKey = req.session.auth.facebook.accessToken;
 
     var dataBuffer = new Buffer(base64Data, 'base64');
-    require('fs').writeFile('/public/data/out.jpeg', dataBuffer, function(err) {
+    fs.writeFile('/public/data/out.jpeg', dataBuffer, function(err) {
       console.log('fs:error', err);
     });
 
