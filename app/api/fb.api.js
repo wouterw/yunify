@@ -14,8 +14,8 @@ module.exports = function (app) {
 
     // base64 uploading refused to work, so binary it is
     var enc = 'binary',
-        filepath = result.file_path,
-        filename = result.original_file_name;
+        filepath = 'filepath',
+        filename = 'filename.png';
 
     var re = /(?:\.([^.]+))?$/,
         ext = re.exec(filename)[1],
