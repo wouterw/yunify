@@ -10,8 +10,8 @@ block content
 		.span9#task_wrap
 			.input-append
 				input#task_add_bar(type='text', data-bind='value: current, valueUpdate: \'afterkeydown\', enterKey: add', autofocus='autofocus')
-				button.btn.btn-success Important
-				button.btn Normal
+				button.btn.btn-success(type='text', data-bind='click: addImportant', autofocus='autofocus') Important
+				button.btn(type='text', data-bind='click: add', autofocus='autofocus') Normal
 			section#main(data-bind='visible: tasks().length')
 				#todo-list(data-bind='foreach: uncompletedTasks()', style='overflow: hidden; width: 100%;')
 					.task(data-bind='css: { completed: completed }')

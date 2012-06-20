@@ -52,6 +52,19 @@
 			}
 		};
 
+		this.addImportant = function() {
+			var current = self.current().trim();
+			if (current) {
+				var data = {
+					"title": current,
+					"completed": false,
+					"important": true
+				};
+				emitAdd(data);
+				self.current('');
+			}
+		};
+
 		// task has been removed server-side,
 		// do the same client-side
 		this.removed = function(id) {
